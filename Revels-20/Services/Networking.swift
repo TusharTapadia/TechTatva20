@@ -21,7 +21,7 @@ struct UserKeys{
 
 let resultsURL = "https://api.mitrevels.in/results" //"https://api.techtatva.in/results"
 let eventsURL = "https://api.mitrevels.in/events"
-let scheduleURL = "https://api.mitrevels.in/schedule" //"https://api.techtatva.in/schedule"
+let scheduleURL = "https://techtatvadata.herokuapp.com/schedule" //"https://api.techtatva.in/schedule"
 let categoriesURL = "https://api.mitrevels.in/categories"
 let delegateCardsURL = "https://api.mitrevels.in/delegate_cards"
 let boughtDelegateCardsURL = "https://register.mitrevels.in/boughtCards"

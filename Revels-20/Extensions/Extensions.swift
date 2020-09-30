@@ -74,6 +74,12 @@ extension UIView {
         }
     }
     
+    func setDimensions(width: CGFloat, height: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraint(equalToConstant: width).isActive = true
+        heightAnchor.constraint(equalToConstant: height).isActive = true
+    }
+    
 }
 
 extension UIViewController {
@@ -248,7 +254,7 @@ extension UIView {
 
 extension UIViewController {
     func isSmalliPhone() -> Bool {
-        if (self.view.frame.width == 320) {
+        if (self.view.frame.width == 375) {
             return true
         }else{
             return false

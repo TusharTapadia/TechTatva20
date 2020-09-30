@@ -90,6 +90,15 @@
 		B2EDA16B23436A23009D5613 /* LiveBlogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EDA16A23436A23009D5613 /* LiveBlogController.swift */; };
 		B2EDA16D234431D3009D5613 /* DeveloperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EDA16C234431D3009D5613 /* DeveloperViewController.swift */; };
 		B2F5F32523E4025E0011E937 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F5F32423E4025E0011E937 /* DescriptionTableViewCell.swift */; };
+		C62CC8DB2521085800066CB4 /* InstagramCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8DA2521085800066CB4 /* InstagramCollectionView.swift */; };
+		C62CC8DD2521086C00066CB4 /* InstagramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8DC2521086C00066CB4 /* InstagramCell.swift */; };
+		C62CC8DF252108B900066CB4 /* InstagramData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8DE252108B900066CB4 /* InstagramData.swift */; };
+		C62CC8E22521093E00066CB4 /* TwitterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8E12521093E00066CB4 /* TwitterCollectionView.swift */; };
+		C62CC8E42521096900066CB4 /* TwitterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8E32521096900066CB4 /* TwitterCell.swift */; };
+		C62CC8E725210B9F00066CB4 /* YoutubeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8E625210B9F00066CB4 /* YoutubeCollectionView.swift */; };
+		C62CC8E925210BE000066CB4 /* YoutubeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8E825210BE000066CB4 /* YoutubeCell.swift */; };
+		C62CC8EB25210C0700066CB4 /* YoutubeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */; };
+		C6C2D09E2520F78900FC8B31 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C2D09D2520F78900FC8B31 /* SocialController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -193,6 +202,15 @@
 		B2EDA16C234431D3009D5613 /* DeveloperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperViewController.swift; sourceTree = "<group>"; };
 		B2F5F32423E4025E0011E937 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		BBB46A4824630113008489D0 /* RevelsDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RevelsDebug.entitlements; sourceTree = "<group>"; };
+		C62CC8DA2521085800066CB4 /* InstagramCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramCollectionView.swift; sourceTree = "<group>"; };
+		C62CC8DC2521086C00066CB4 /* InstagramCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramCell.swift; sourceTree = "<group>"; };
+		C62CC8DE252108B900066CB4 /* InstagramData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramData.swift; sourceTree = "<group>"; };
+		C62CC8E12521093E00066CB4 /* TwitterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCollectionView.swift; sourceTree = "<group>"; };
+		C62CC8E32521096900066CB4 /* TwitterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TwitterCell.swift; path = "/Users/rohitkuber/Desktop/TechTatva20/Revels-20/Social/TwitterCell.swift"; sourceTree = "<absolute>"; };
+		C62CC8E625210B9F00066CB4 /* YoutubeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeCollectionView.swift; sourceTree = "<group>"; };
+		C62CC8E825210BE000066CB4 /* YoutubeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeCell.swift; sourceTree = "<group>"; };
+		C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeModel.swift; sourceTree = "<group>"; };
+		C6C2D09D2520F78900FC8B31 /* SocialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialController.swift; sourceTree = "<group>"; };
 		E6684DF29D7A8EB4EFF7588F /* Pods_Revels_20.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Revels_20.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -278,6 +296,7 @@
 				B21C5D68231242AB000DCF32 /* Info.plist */,
 				B25D43B923125C1900920FDA /* Master */,
 				B2D70B0B2341EB90003C9830 /* Home */,
+				C6C2D09F2520FAF300FC8B31 /* Social */,
 				B2377BF7233A0C160069413D /* User */,
 				B2422BB723ED0E5E009C2C20 /* Maps */,
 				B222745723144E920008D08B /* Schedule */,
@@ -574,6 +593,46 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C62CC8E02521092600066CB4 /* Instagram */ = {
+			isa = PBXGroup;
+			children = (
+				C62CC8DA2521085800066CB4 /* InstagramCollectionView.swift */,
+				C62CC8DC2521086C00066CB4 /* InstagramCell.swift */,
+				C62CC8DE252108B900066CB4 /* InstagramData.swift */,
+			);
+			path = Instagram;
+			sourceTree = "<group>";
+		};
+		C62CC8E525210B5A00066CB4 /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				C62CC8E32521096900066CB4 /* TwitterCell.swift */,
+				C62CC8E12521093E00066CB4 /* TwitterCollectionView.swift */,
+			);
+			path = Twitter;
+			sourceTree = "<group>";
+		};
+		C62CC8EC25210CA900066CB4 /* Youtube */ = {
+			isa = PBXGroup;
+			children = (
+				C62CC8E625210B9F00066CB4 /* YoutubeCollectionView.swift */,
+				C62CC8E825210BE000066CB4 /* YoutubeCell.swift */,
+				C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */,
+			);
+			path = Youtube;
+			sourceTree = "<group>";
+		};
+		C6C2D09F2520FAF300FC8B31 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				C6C2D09D2520F78900FC8B31 /* SocialController.swift */,
+				C62CC8EC25210CA900066CB4 /* Youtube */,
+				C62CC8E525210B5A00066CB4 /* Twitter */,
+				C62CC8E02521092600066CB4 /* Instagram */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
 		FB0C40D0F85BC32B17B4F7D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,6 +825,7 @@
 				B2D94506233DF85500DA14D1 /* DatePickerBulletinItem.swift in Sources */,
 				B2D944FB233DF77200DA14D1 /* ResetPassword.swift in Sources */,
 				B2D945262340E1C300DA14D1 /* QRCodeReaderViewContainer.swift in Sources */,
+				C62CC8DD2521086C00066CB4 /* InstagramCell.swift in Sources */,
 				B283D98B231BCD6900B48217 /* NoEventCell.swift in Sources */,
 				B24B152723E067B400C41692 /* PaymentsWebViewController.swift in Sources */,
 				B2D9450A233E377800DA14D1 /* UserModel.swift in Sources */,
@@ -777,6 +837,7 @@
 				B2DE581D2313EAD200082EC1 /* EventsModel.swift in Sources */,
 				B21C5D5D231242A9000DCF32 /* AppDelegate.swift in Sources */,
 				B2DE58192313EA7900082EC1 /* ResultsCell.swift in Sources */,
+				C62CC8DB2521085800066CB4 /* InstagramCollectionView.swift in Sources */,
 				B2DE58232313EBBF00082EC1 /* InternalResultsViewController.swift in Sources */,
 				B2D9452C2340E1C300DA14D1 /* ToggleTorchButton.swift in Sources */,
 				B2EDA16B23436A23009D5613 /* LiveBlogController.swift in Sources */,
@@ -786,12 +847,17 @@
 				B25F94F82407B2A60067F848 /* Ratings.swift in Sources */,
 				B207210023E1CD6700C21A4D /* TagsEventViewController.swift in Sources */,
 				B25D43C123125E1900920FDA /* Networking.swift in Sources */,
+				C6C2D09E2520F78900FC8B31 /* SocialController.swift in Sources */,
 				B2D94512233F56C600DA14D1 /* QRDelegateTableViewCell.swift in Sources */,
 				B2D94516234076BD00DA14D1 /* RegisteredEventModel.swift in Sources */,
+				C62CC8EB25210C0700066CB4 /* YoutubeModel.swift in Sources */,
 				6F0F7DE723144B7800631BF9 /* DetailsView.swift in Sources */,
+				C62CC8E725210B9F00066CB4 /* YoutubeCollectionView.swift in Sources */,
+				C62CC8E42521096900066CB4 /* TwitterCell.swift in Sources */,
 				B2D945272340E1C300DA14D1 /* QRCodeReaderViewControllerBuilder.swift in Sources */,
 				B2D9450E233F20CF00DA14D1 /* Secrets.swift in Sources */,
 				B268457823FEE06A0075CA16 /* collegeTableViewCell.swift in Sources */,
+				C62CC8E925210BE000066CB4 /* YoutubeCell.swift in Sources */,
 				B2D9452B2340E1C300DA14D1 /* QRCodeReaderViewController.swift in Sources */,
 				B2422BC123ED0ED5009C2C20 /* LocationSearchTableViewCell.swift in Sources */,
 				B25D43BD23125C5200920FDA /* MasterNavBarController.swift in Sources */,
@@ -799,6 +865,7 @@
 				B2F5F32523E4025E0011E937 /* DescriptionTableViewCell.swift in Sources */,
 				B2D945282340E1C300DA14D1 /* QRCodeReaderView.swift in Sources */,
 				B2D944F7233DEF3500DA14D1 /* SignUpViewController.swift in Sources */,
+				C62CC8E22521093E00066CB4 /* TwitterCollectionView.swift in Sources */,
 				B2DE58172313EA2400082EC1 /* ResultsModel.swift in Sources */,
 				B2D9450C233E398600DA14D1 /* InformationView.swift in Sources */,
 				B2D9451423406A0600DA14D1 /* RegisteredEventsViewController.swift in Sources */,
@@ -807,6 +874,7 @@
 				B2DE581F2313EB6900082EC1 /* PositionCell.swift in Sources */,
 				B242B719233A0E6D00D30292 /* UsersViewController.swift in Sources */,
 				B222745F23144EDC0008D08B /* ScheduleModel.swift in Sources */,
+				C62CC8DF252108B900066CB4 /* InstagramData.swift in Sources */,
 				B2DE58212313EB8B00082EC1 /* ResultsViewController.swift in Sources */,
 				B2DE581F2313EB6900082EC1 /* PositionCell.swift in Sources */,
 				B2C112C423D97A7C0014B36D /* DelegateCardTableViewCell.swift in Sources */,
