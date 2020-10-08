@@ -66,12 +66,13 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
         }
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return 10
+            return 2
         }
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //            print("frame height of youtube cell", frame.height)
-            return CGSize(width: frame.width-8, height: frame.height/3)
+     
+            return CGSize(width: frame.width, height: 272)
           
         }
         
@@ -111,7 +112,7 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
             
            
             addSubview(youtubeCollectionView)
-            youtubeCollectionView.anchorWithConstants(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
+            youtubeCollectionView.anchorWithConstants(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 10, bottomConstant: 0, rightConstant: 10)
            
             
             

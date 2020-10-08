@@ -47,7 +47,7 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

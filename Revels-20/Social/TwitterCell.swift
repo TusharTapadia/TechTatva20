@@ -119,7 +119,7 @@ class TwitterCell: UICollectionViewCell{
     
     fileprivate func setupLayout(){
         addSubview(tweetView)
-        print("frame width:",frame.width)
+        
         _ = tweetView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width-120 , heightConstant: 144)
         
         tweetView.addSubview(profileImageView)
