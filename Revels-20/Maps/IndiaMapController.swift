@@ -11,7 +11,7 @@ import Mapbox
 
 //mapbox://styles/tushartapadia/ckd8yxaa902xc1ikcdkoh028z
 
-class MapController: UIViewController{
+class MapViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
