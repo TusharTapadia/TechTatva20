@@ -4,7 +4,7 @@
 //
 //  Created by Naman Jain on 24/09/19.
 //  Copyright © 2019 Naman Jain. All rights reserved.
-//
+
 
 import UIKit
 import FirebaseMessaging
@@ -14,7 +14,7 @@ var fromLogin = true
 
 
 class UsersViewController: UITableViewController {
-    
+
     var user: User? {
         didSet{
             tableView.isScrollEnabled = true
@@ -24,18 +24,18 @@ class UsersViewController: UITableViewController {
             makeClearNavBar()
         }
     }
-    
+
     private var themedStatusBarStyle: UIStatusBarStyle?
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return themedStatusBarStyle ?? UIStatusBarStyle.lightContent
     }
-    
+
     func updateStatusBar(){
         themedStatusBarStyle = .lightContent
         setNeedsStatusBarAppearanceUpdate()
     }
-    
+
     func makeClearNavBar(){
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         updateStatusBar()
@@ -44,23 +44,23 @@ class UsersViewController: UITableViewController {
 //        self.navigationController?.navigationBar.isTranslucent = true
 //        self.navigationController?.view.backgroundColor = .clear
     }
-    
+
     var infoView: InformationView?
-    
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.CustomColors.Black.background
         tableView.register(QRDelegateIDTableViewCell.self, forCellReuseIdentifier: "cellId")
         if UserDefaults.standard.isLoggedIn(){
-            
+
         }else{
             setupViewForLoggedOutUser()
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         if UserDefaults.standard.isLoggedIn() {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -79,17 +79,23 @@ class UsersViewController: UITableViewController {
             print("not logged in")
         }
     }
-    
+
     func setupViewForLoggedOutUser(){
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
         tableView.reloadData()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         tableView.isScrollEnabled = false
-        infoView = InformationView(frame: self.view.frame)
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
+        infoView = InformationView(frame: .init(x: 0, y: 0, width: width, height: height))
         infoView?.usersViewController = self
-        view.addSubview(infoView!)
+        tableView.addSubview(infoView!)
+        infoView?.alpha = 1
+                updateStatusBar()
+        print("Checking infoview")
         updateStatusBar()
+        
     }
-    
+
     func presentLogin(){
         let login = LoginViewController()
         let loginNav = MasterNavigationBarController(rootViewController: login)
@@ -102,10 +108,10 @@ class UsersViewController: UITableViewController {
         fromLogin = true
         present(loginNav, animated: true)
     }
-    
+
     func logOutUser(){
         let actionSheet = UIAlertController(title: "Are you Sure?", message: nil, preferredStyle: .alert)
-        
+
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let sureAction = UIAlertAction(title: "Yes", style: .destructive) { (_) in
             if let subsDict = UserDefaults.standard.dictionary(forKey: "subsDictionary") as? [String: Bool]{
@@ -117,7 +123,7 @@ class UsersViewController: UITableViewController {
             UserDefaults.standard.set([:], forKey: "subsDictionary")
             UserDefaults.standard.set(false, forKey: "boughtProshow")
             UserDefaults.standard.synchronize()
-            
+
             UserDefaults.standard.setIsLoggedIn(value: false)
             Networking.sharedInstance.logoutUser()
             self.setupViewForLoggedOutUser()
@@ -126,35 +132,35 @@ class UsersViewController: UITableViewController {
         actionSheet.addAction(cancel)
         self.present(actionSheet, animated: true, completion: nil)
     }
-    
-    
+
+
     func showRegisteredEvents(RegisteredEvents: [RegisteredEvent]){
         let vc = RegisteredEventsViewController()
         vc.registeredEvents = RegisteredEvents
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func showDelegateCards(BoughtCards: [Int]){
         let vc = DelegateCardsController()
         vc.Cards = Caching.sharedInstance.getDelegateCardsFromCache()
         vc.boughtCards = BoughtCards
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
+
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if UserDefaults.standard.isLoggedIn(){
             return 1
         }
         return 0
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! QRDelegateIDTableViewCell
-        cell.user = self.user
+//        cell.user = self.user
         cell.usersViewController = self
         cell.selectionStyle = .none
         return cell
     }
-    
+
 }

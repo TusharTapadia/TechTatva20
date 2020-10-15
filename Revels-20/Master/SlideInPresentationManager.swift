@@ -31,7 +31,7 @@ final class SlideInPresentationManager: NSObject, UIViewControllerTransitioningD
     
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         let presentationController = SlideInPresentationController(presentedViewController: presented, presenting: presenting, direction: direction)
-        presentationController.catergoryLabel.text = categoryName
+        presentationController.categoryLabel.text = categoryName
         return presentationController
     }
     
@@ -58,7 +58,7 @@ final class SlideInPresentationController: UIPresentationController, UIGestureRe
         return imageView
     }()
     
-    var catergoryLabel : UITextView = {
+    var categoryLabel : UITextView = {
         let label = UITextView()
         label.textColor = .white
         label.backgroundColor = .clear
@@ -83,6 +83,7 @@ final class SlideInPresentationController: UIPresentationController, UIGestureRe
         switch direction {
         case .right:
             frame.origin.x = containerView!.frame.width*(1.0/3.0)
+            print(containerView!.frame.width*(1.0/3.0))
         case .bottom:
             frame.origin.y = containerView!.frame.height*(1.0/2.0)
         default:
@@ -106,13 +107,12 @@ final class SlideInPresentationController: UIPresentationController, UIGestureRe
         containerView?.insertSubview(dimmingView, at: 0)
         dimmingView.fillSuperview()
         
-//        catergoryLabel.anchorWithConstants(top: containerView!.safeAreaLayoutGuide.topAnchor, left: dimmingView.leftAnchor, bottom: nil, right: dimmingView.rightAnchor, topConstant: 64, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
-        
+
         dimmingView.addSubview(closeImageView)
         _ = closeImageView.anchor(top: containerView!.safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: containerView!.rightAnchor, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: 22, heightConstant: 22)
         
-        dimmingView.addSubview(catergoryLabel)
-        catergoryLabel.anchorWithConstants(top: closeImageView.bottomAnchor, left: dimmingView.leftAnchor, bottom: containerView!.bottomAnchor, right: dimmingView.rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: containerView!.frame.height*(1.0/2.0) + 22, rightConstant: 16)
+        dimmingView.addSubview(categoryLabel)
+        categoryLabel.anchorWithConstants(top: closeImageView.bottomAnchor, left: dimmingView.leftAnchor, bottom: containerView!.bottomAnchor, right: dimmingView.rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: containerView!.frame.height*(1.0/2.0) + 22, rightConstant: 16)
         
         guard let coordinator = presentedViewController.transitionCoordinator else {
             dimmingView.alpha = 1.0

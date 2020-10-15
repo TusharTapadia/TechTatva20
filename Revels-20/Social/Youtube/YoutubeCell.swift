@@ -14,7 +14,7 @@ class YoutubeCell: UICollectionViewCell {
         let iv = UIImageView()
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.layer.cornerRadius = 22
+        iv.layer.cornerRadius = 20
         iv.backgroundColor = .gray
         iv.layer.masksToBounds = true
         iv.clipsToBounds = true
@@ -78,8 +78,9 @@ class YoutubeCell: UICollectionViewCell {
     fileprivate func setupLayout(){
  
         addSubview(thumbnailImageView)
+       
         
-        _ = thumbnailImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 4, leftConstant: 8, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 224)
+        _ = thumbnailImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 4, leftConstant: 16, bottomConstant: 0, rightConstant:0,widthConstant: frame.width-32, heightConstant: 224)
 
         
         thumbnailImageView.addSubview(durationLabel)
@@ -89,7 +90,6 @@ class YoutubeCell: UICollectionViewCell {
         
         addSubview(descriptionlabel)
         
-       
         _ = durationLabel.anchor(top: thumbnailImageView.topAnchor, left: nil, bottom: nil, right: thumbnailImageView.rightAnchor, topConstant: 12, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: 42, heightConstant: 24)
         
         _ = viewslabel.anchor(top: nil, left: nil, bottom: thumbnailImageView.bottomAnchor, right: thumbnailImageView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 12, rightConstant: 16,widthConstant: 42, heightConstant: 24)

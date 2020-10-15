@@ -12,94 +12,94 @@ class DescriptionTableViewCell: UITableViewCell{
     
     var homeViewController: HomeViewController?
     
-    lazy var facebookButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "facebook"), for: .normal)
-        if UIViewController().isSmalliPhone(){
-            button.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
-        }else{
-            button.imageEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        }
-        button.backgroundColor = .white
-        button.startAnimatingPressActions()
-        button.tag = 0
-        button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    
-    lazy var instaButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "instagram"), for: .normal)
-        if UIViewController().isSmalliPhone(){
-            button.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
-        }else{
-            button.imageEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        }
-        button.backgroundColor = .white
-        button.startAnimatingPressActions()
-        button.tag = 1
-        button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    
-    lazy var snapchatButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "snapchat"), for: .normal)
-        if UIViewController().isSmalliPhone(){
-            button.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
-        }else{
-            button.imageEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        }
-        button.backgroundColor = .white
-        button.startAnimatingPressActions()
-        button.tag = 2
-        button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    
-    lazy var twitterButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "twitter"), for: .normal)
-        if UIViewController().isSmalliPhone(){
-            button.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
-        }else{
-            button.imageEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        }
-        button.backgroundColor = .white
-        button.startAnimatingPressActions()
-        button.tag = 3
-        button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    
-    lazy var youtubeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "youtube"), for: .normal)
-        if UIViewController().isSmalliPhone(){
-            button.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
-        }else{
-            button.imageEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        }
-        button.backgroundColor = .white
-        button.startAnimatingPressActions()
-        button.tag = 4
-        button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
-        button.layer.cornerRadius = 10
-        return button
-    }()
+//    lazy var facebookButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(UIImage(named: "facebook"), for: .normal)
+//        if UIViewController().isSmalliPhone(){
+//            button.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+//        }else{
+//            button.imageEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+//        }
+//        button.backgroundColor = .white
+//        button.startAnimatingPressActions()
+//        button.tag = 0
+//        button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
+//        button.layer.cornerRadius = 10
+//        return button
+//    }()
+//
+//    lazy var instaButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(UIImage(named: "instagram"), for: .normal)
+//        if UIViewController().isSmalliPhone(){
+//            button.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+//        }else{
+//            button.imageEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+//        }
+//        button.backgroundColor = .white
+//        button.startAnimatingPressActions()
+//        button.tag = 1
+//        button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
+//        button.layer.cornerRadius = 10
+//        return button
+//    }()
+//
+//    lazy var snapchatButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(UIImage(named: "snapchat"), for: .normal)
+//        if UIViewController().isSmalliPhone(){
+//            button.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+//        }else{
+//            button.imageEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+//        }
+//        button.backgroundColor = .white
+//        button.startAnimatingPressActions()
+//        button.tag = 2
+//        button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
+//        button.layer.cornerRadius = 10
+//        return button
+//    }()
+//
+//    lazy var twitterButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(UIImage(named: "twitter"), for: .normal)
+//        if UIViewController().isSmalliPhone(){
+//            button.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+//        }else{
+//            button.imageEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+//        }
+//        button.backgroundColor = .white
+//        button.startAnimatingPressActions()
+//        button.tag = 3
+//        button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
+//        button.layer.cornerRadius = 10
+//        return button
+//    }()
+//
+//    lazy var youtubeButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(UIImage(named: "youtube"), for: .normal)
+//        if UIViewController().isSmalliPhone(){
+//            button.imageEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+//        }else{
+//            button.imageEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+//        }
+//        button.backgroundColor = .white
+//        button.startAnimatingPressActions()
+//        button.tag = 4
+//        button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
+//        button.layer.cornerRadius = 10
+//        return button
+//    }()
     
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = """
                     \nThe world as we know today is not what it used to be and is no more than a shadow cast in the dim blue lights from screens, barely a semblance to the lush green of the forests and icy blue of the mountain tops that it should have been. With every new day comes a report of yet another catastrophe and we find ourselves wondering, have we run out of time?\n
 
-                    Have we gone too far to turn back? And yet it is amidst disaster that another feeling arises, of hope, of a chance at rebuilding the world, a chance at making it a world apart. With this hope in our hearts we present to you the theme for Revels '20, Qainaat : A World Apart.\n
+                    TechTatva'20 in the midst of our changing world during this pandemic is harnessing the power of 'Transforming Paradigms'.\n
 
-                    Revels is a national level cultural and sports fest from Manipal Institute of Technology that aims to unite a crowd that is diverse in more ways than one. An arena for holistic learning and a chance to express thoughts and ideas through art, music, dance, drama, sports and numerous other events.\n\n
+                    TechTatva'20 hopes to derive some lessons from the same. The end goal of development and evolution through as many uncharted paths as possible. We hope that in times ahead, irrespective of the changing eras our attempts to think differently will never end.\n\n
                     """
         label.textColor = .lightGray
         label.textAlignment = .center
@@ -134,7 +134,7 @@ class DescriptionTableViewCell: UITableViewCell{
     lazy var creditsLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        let attributedString = NSMutableAttributedString(string: "Designed and Developed by the\nApp Dev Team at Revels’20")
+        let attributedString = NSMutableAttributedString(string: "Designed and Developed by the\nApp Dev Team at Techtatva’20")
         
         // *** Create instance of `NSMutableParagraphStyle`
         let paragraphStyle = NSMutableParagraphStyle()
@@ -156,28 +156,28 @@ class DescriptionTableViewCell: UITableViewCell{
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo_dark-1")
+        imageView.image = UIImage(named: "logo_dark")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let curveImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "curve")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        imageView.alpha = 0.08
-        imageView.layer.masksToBounds = true
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+//    let curveImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "curve")
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.alpha = 0.08
+//        imageView.layer.masksToBounds = true
+//        imageView.clipsToBounds = true
+//        return imageView
+//    }()
     
-    lazy var qainaatImageView: UIImageView = {
+    lazy var transformingBgView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "logobg")
+        iv.image = UIImage(named: "logobg1")
         iv.contentMode = .scaleAspectFill
-        iv.alpha = 0.095
+        iv.alpha = 0.195
         return iv
     }()
     
@@ -188,27 +188,28 @@ class DescriptionTableViewCell: UITableViewCell{
         let wid = UIViewController().view.frame.width
         let dim = (wid-96)/5
         
-        addSubview(qainaatImageView)
-        addSubview(facebookButton)
-        _ = facebookButton.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
-        
-        addSubview(instaButton)
-        _ = instaButton.anchor(top: topAnchor, left: facebookButton.rightAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
-
-        addSubview(snapchatButton)
-        _ = snapchatButton.anchor(top: topAnchor, left: instaButton.rightAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
-
-        addSubview(twitterButton)
-        _ = twitterButton.anchor(top: topAnchor, left: snapchatButton.rightAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
-
-        addSubview(youtubeButton)
-        _ = youtubeButton.anchor(top: topAnchor, left: twitterButton.rightAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
-        
+        addSubview(transformingBgView)
+//        addSubview(facebookButton)
+//        _ = facebookButton.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
+//
+//        addSubview(instaButton)
+//        _ = instaButton.anchor(top: topAnchor, left: facebookButton.rightAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
+//
+//        addSubview(snapchatButton)
+//        _ = snapchatButton.anchor(top: topAnchor, left: instaButton.rightAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
+//
+//        addSubview(twitterButton)
+//        _ = twitterButton.anchor(top: topAnchor, left: snapchatButton.rightAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
+//
+//        addSubview(youtubeButton)
+//        _ = youtubeButton.anchor(top: topAnchor, left: twitterButton.rightAnchor, bottom: nil, right: nil, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
+//
 //        addSubview(curveImageView)
 //        _ = curveImageView.anchor(top: youtubeButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 48, leftConstant: 0, bottomConstant: -32, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         addSubview(descriptionLabel)
-        _ = descriptionLabel.anchor(top: facebookButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 18, widthConstant: 0, heightConstant: 0)
+        _ = descriptionLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 18, widthConstant: 0, heightConstant: 0)
+        
         addSubview(profileImageView)
         _ = profileImageView.anchor(top: descriptionLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: -16, leftConstant: 32, bottomConstant: 16, rightConstant: 32, widthConstant: 0, heightConstant: 150)
         addSubview(creditsLabel)
@@ -222,73 +223,73 @@ class DescriptionTableViewCell: UITableViewCell{
 //        addSubview(lightGrayView)
 //        _ = lightGrayView.anchor(top: curveImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 500)
         
-        _ = qainaatImageView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: -100, rightConstant: -120, widthConstant: 0, heightConstant: 450)
+        _ = transformingBgView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: -100, rightConstant: -120, widthConstant: 0, heightConstant: 450)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func handleSocial(button: UIButton){
-        switch button.tag {
-        case 0:
-            let username =  "mitrevels"
-            let appURL = URL(string: "fb://profile/103909866349788")!
-            let webURL = NSURL(string: "https://www.facebook.com/\(username)")!
-            let application = UIApplication.shared
-            if application.canOpenURL(appURL as URL) {
-                application.open(appURL as URL)
-            } else {
-                homeViewController?.openURL(url: "\(webURL)")
-            }
-            break
-        case 1:
-            let username = "revelsmit"
-            let appURL = NSURL(string: "instagram://user?username=\(username)")!
-            let webURL = NSURL(string: "https://instagram.com/\(username)")!
-            let application = UIApplication.shared
-            if application.canOpenURL(appURL as URL) {
-                application.open(appURL as URL)
-            } else {
-                homeViewController?.openURL(url: "\(webURL)")
-            }
-            break
-        case 2:
-            let username =  "revelsmit"
-            let appURL = NSURL(string: "snapchat://add/\(username)")!
-            let webURL = NSURL(string: "https://snapchat.com/add/\(username)")!
-            let application = UIApplication.shared
-            if application.canOpenURL(appURL as URL) {
-                application.open(appURL as URL)
-            } else {
-                homeViewController?.openURL(url: "\(webURL)")
-            }
-            break
-        case 3:
-            let username =  "revelsmit"
-            let appURL = NSURL(string: "twitter://user?screen_name=\(username)")!
-            let webURL = NSURL(string: "https://twitter.com/\(username)")!
-            let application = UIApplication.shared
-            if application.canOpenURL(appURL as URL) {
-                application.open(appURL as URL)
-            } else {
-                homeViewController?.openURL(url: "\(webURL)")
-            }
-            break
-        case 4:
-            let id = "UC9gwWd47a0q042qwEgutjWw"
-            let appURL = NSURL(string: "youtube://www.youtube.com/channel/\(id)")!
-            let webURL = NSURL(string: "https://www.youtube.com/channel/\(id)")!
-            let application = UIApplication.shared
-            if application.canOpenURL(appURL as URL) {
-                application.open(appURL as URL)
-            } else {
-                homeViewController?.openURL(url: "\(webURL)")
-            }
-            break
-        default:
-            break
-        }
-    }
+//    @objc func handleSocial(button: UIButton){
+//        switch button.tag {
+//        case 0:
+//            let username =  "mitrevels"
+//            let appURL = URL(string: "fb://profile/103909866349788")!
+//            let webURL = NSURL(string: "https://www.facebook.com/\(username)")!
+//            let application = UIApplication.shared
+//            if application.canOpenURL(appURL as URL) {
+//                application.open(appURL as URL)
+//            } else {
+//                homeViewController?.openURL(url: "\(webURL)")
+//            }
+//            break
+//        case 1:
+//            let username = "revelsmit"
+//            let appURL = NSURL(string: "instagram://user?username=\(username)")!
+//            let webURL = NSURL(string: "https://instagram.com/\(username)")!
+//            let application = UIApplication.shared
+//            if application.canOpenURL(appURL as URL) {
+//                application.open(appURL as URL)
+//            } else {
+//                homeViewController?.openURL(url: "\(webURL)")
+//            }
+//            break
+//        case 2:
+//            let username =  "revelsmit"
+//            let appURL = NSURL(string: "snapchat://add/\(username)")!
+//            let webURL = NSURL(string: "https://snapchat.com/add/\(username)")!
+//            let application = UIApplication.shared
+//            if application.canOpenURL(appURL as URL) {
+//                application.open(appURL as URL)
+//            } else {
+//                homeViewController?.openURL(url: "\(webURL)")
+//            }
+//            break
+//        case 3:
+//            let username =  "revelsmit"
+//            let appURL = NSURL(string: "twitter://user?screen_name=\(username)")!
+//            let webURL = NSURL(string: "https://twitter.com/\(username)")!
+//            let application = UIApplication.shared
+//            if application.canOpenURL(appURL as URL) {
+//                application.open(appURL as URL)
+//            } else {
+//                homeViewController?.openURL(url: "\(webURL)")
+//            }
+//            break
+//        case 4:
+//            let id = "UC9gwWd47a0q042qwEgutjWw"
+//            let appURL = NSURL(string: "youtube://www.youtube.com/channel/\(id)")!
+//            let webURL = NSURL(string: "https://www.youtube.com/channel/\(id)")!
+//            let application = UIApplication.shared
+//            if application.canOpenURL(appURL as URL) {
+//                application.open(appURL as URL)
+//            } else {
+//                homeViewController?.openURL(url: "\(webURL)")
+//            }
+//            break
+//        default:
+//            break
+//        }
+//    }
 }
 

@@ -15,7 +15,7 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
     lazy var titleBackgroundText: UILabel = {
            let label = UILabel()
            label.text = "VIDEOS"
-           label.font = UIFont.systemFont(ofSize: 110, weight: .bold)
+           label.font = UIFont.systemFont(ofSize: 90, weight: .bold)
            label.textColor = UIColor(white: 0.4, alpha: 0.3)
            label.textAlignment = .center
            return label
@@ -24,8 +24,7 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
         lazy var titleLabel: UILabel = {
             let label = UILabel()
             label.text = "VIDEOS"
-//            label.font = UIFont(name: "Avenir", size: 20)
-            label.font = UIFont.boldSystemFont(ofSize: 28)
+            label.font = UIFont.boldSystemFont(ofSize: 22)
             label.textColor = UIColor(white: 1, alpha: 0.7)
             label.textAlignment = .center
             label.textColor = .white
@@ -66,12 +65,13 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
         }
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return 10
+            return 2
         }
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //            print("frame height of youtube cell", frame.height)
-            return CGSize(width: frame.width-8, height: frame.height/3)
+     
+            return CGSize(width: frame.width, height: 272)
           
         }
         
@@ -103,15 +103,15 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
             
             
             addSubview(titleBackgroundText)
-            _ = titleBackgroundText.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 4, leftConstant: -32, bottomConstant: 0, rightConstant: -32, widthConstant: 0, heightConstant: 0)
+            _ = titleBackgroundText.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 2, leftConstant: -32, bottomConstant: 0, rightConstant: -32, widthConstant: 0, heightConstant: 0)
             
             
             addSubview(titleLabel)
-            _ = titleLabel.anchor(top: titleBackgroundText.topAnchor, left: leftAnchor, bottom: titleBackgroundText.bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 16, heightConstant: 128)
+            _ = titleLabel.anchor(top: titleBackgroundText.topAnchor, left: leftAnchor, bottom: titleBackgroundText.bottomAnchor, right: rightAnchor, topConstant: 6, leftConstant: 16, bottomConstant: 0, rightConstant: 16, heightConstant: 0)
             
            
             addSubview(youtubeCollectionView)
-            youtubeCollectionView.anchorWithConstants(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
+            youtubeCollectionView.anchorWithConstants(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 2, leftConstant: 10, bottomConstant: 0, rightConstant: 10)
            
             
             

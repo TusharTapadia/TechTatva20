@@ -18,7 +18,7 @@ class CategoryTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         self.backgroundCard.backgroundColor = selected ? UIColor.CustomColors.Black.card : UIColor.CustomColors.Black.card
-        self.separatorView.backgroundColor = selected ? UIColor.CustomColors.Blue.accent : UIColor.CustomColors.Blue.accent
+        self.separatorView.backgroundColor = selected ? UIColor(red: 207.0/255.0, green: 154.0/255.0, blue: 242.0/255.0, alpha: 1) : UIColor(red: 207.0/255.0, green: 154.0/255.0, blue: 242.0/255.0, alpha: 1)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,10 +55,11 @@ class CategoryTableViewCell: UITableViewCell {
         return label
     }()
     
+    
     let separatorView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.CustomColors.Blue.accent
+        view.backgroundColor = UIColor(red: 207.0/255.0, green: 154.0/255.0, blue: 242.0/255.0, alpha: 1)
         return view
     }()
     

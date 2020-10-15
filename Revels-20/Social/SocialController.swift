@@ -101,6 +101,7 @@ class SocialController: UICollectionViewController, UICollectionViewDelegateFlow
         super.viewDidLoad()
         setupNavigationBar()
         setupCollectionView()
+        print(view.frame.height)
     }
     
     func setupCollectionView(){
@@ -111,7 +112,7 @@ class SocialController: UICollectionViewController, UICollectionViewDelegateFlow
         self.collectionView.register(TwitterCollectionView.self, forCellWithReuseIdentifier: twitterCellID)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         collectionView.isScrollEnabled = false
-        collectionView!.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: -UIViewController().view.frame.height/7, right: 0)
+        collectionView!.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -171,14 +172,15 @@ class SocialController: UICollectionViewController, UICollectionViewDelegateFlow
 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width-32, height: view.frame.width*2)
+
+        return .init(width: view.frame.width-32, height: collectionView.frame.height-54)
     }
     //MARK: - ViewController Accessory views
     
     
     lazy var containerView : UIView = {
         let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width-32, height: UIViewController().view.frame.height/7)
+        view.frame = CGRect(x: 0, y: 0, width: UIViewController().view.frame.width-32, height: UIViewController().view.frame.height/7)
         
         let wid = UIViewController().view.frame.width
         let dim = (wid-96)/5
@@ -190,14 +192,13 @@ class SocialController: UICollectionViewController, UICollectionViewDelegateFlow
         
         view.addSubview(containerSubView)
         
-        _ = containerSubView.anchor(top: view.topAnchor , left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 12, leftConstant: UIViewController().view.frame.width/6, bottomConstant: 4, rightConstant: 0, widthConstant: UIViewController().view.frame.width*(2/3) ,heightConstant:UIViewController().view.frame.width/2 )
-       
-        
+        _ = containerSubView.anchor(top: view.topAnchor , left: view.leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: UIViewController().view.frame.width/6, bottomConstant: 0, rightConstant: 0, widthConstant: UIViewController().view.frame.width*(2/3), heightConstant: dim+20)
+
         containerSubView.addSubview(instaButton)
         containerSubView.addSubview(twitterButton)
         containerSubView.addSubview(youtubeButton)
 
-        _ = instaButton.anchor(top: containerSubView.topAnchor, left: containerSubView.leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
+        _ = instaButton.anchor(top: containerSubView.topAnchor, left: containerSubView.leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)
 
 
         _ = twitterButton.anchor(top: containerSubView.topAnchor, left:instaButton.rightAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 32, bottomConstant: 0, rightConstant: 0, widthConstant: dim, heightConstant: dim)

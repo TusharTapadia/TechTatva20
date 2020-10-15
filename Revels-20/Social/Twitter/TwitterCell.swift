@@ -1,6 +1,6 @@
 //
 //  TwitterCell.swift
-//  
+//
 //
 //  Created by Rohit Kuber on 27/09/20.
 //
@@ -81,7 +81,8 @@ class TwitterCell: UICollectionViewCell{
         iv.contentMode = .scaleAspectFit
         iv.layer.cornerRadius = 4
 //        iv.setDimensions(width: 8, height: 8)
-        iv.backgroundColor = .gray
+        iv.image = UIImage(named: "heart")
+//        iv.backgroundColor = .gray
         iv.layer.masksToBounds = true
         iv.clipsToBounds = true
         return iv
@@ -91,11 +92,9 @@ class TwitterCell: UICollectionViewCell{
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.layer.cornerRadius = 4
-//        iv.setDimensions(width: 16, height: 16)
-        iv.backgroundColor = .gray
         iv.layer.masksToBounds = true
         iv.clipsToBounds = true
-        iv.layer.borderWidth = 0.5
+        iv.image = UIImage(named: "retweet")
         return iv
     }()
     
@@ -104,10 +103,8 @@ class TwitterCell: UICollectionViewCell{
         iv.contentMode = .scaleAspectFit
         iv.layer.cornerRadius = 4
         iv.layer.masksToBounds = true
-//        iv.setDimensions(width: 16, height: 16)
-        iv.backgroundColor = .gray
         iv.clipsToBounds = true
-        iv.layer.borderWidth = 0.5
+        iv.image = UIImage(named: "comment")
         return iv
     }()
     
@@ -119,7 +116,7 @@ class TwitterCell: UICollectionViewCell{
     
     fileprivate func setupLayout(){
         addSubview(tweetView)
-        print("frame width:",frame.width)
+        
         _ = tweetView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width-120 , heightConstant: 144)
         
         tweetView.addSubview(profileImageView)
@@ -137,7 +134,7 @@ class TwitterCell: UICollectionViewCell{
         let stackView = UIStackView(arrangedSubviews: [likesLabel,retweetLabel,commentsLabel])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-//        stackView.backgroundColor = .bl
+        stackView.backgroundColor = .black
         addSubview(stackView)
         _ = stackView.anchor(top: topAnchor, left: nil, bottom: bottomAnchor, right: rightAnchor, topConstant: 16, leftConstant: 0, bottomConstant: 16, rightConstant: 8, widthConstant: 64, heightConstant: 0)
         
@@ -145,7 +142,7 @@ class TwitterCell: UICollectionViewCell{
         let logoStackView = UIStackView(arrangedSubviews: [likesImageView,retweetImageView,commentImageView])
         logoStackView.axis = .vertical
         logoStackView.distribution = .fillEqually
-        logoStackView.backgroundColor = .blue
+        logoStackView.backgroundColor = .black
         
         addSubview(logoStackView)
        _ = logoStackView.anchor(top: topAnchor, left: tweetView.rightAnchor, bottom: bottomAnchor, right: stackView.leftAnchor, topConstant: 16, leftConstant: 8, bottomConstant: 16, rightConstant: 2, widthConstant: 0, heightConstant: 0)
@@ -157,4 +154,5 @@ class TwitterCell: UICollectionViewCell{
 }
 
     
+
 

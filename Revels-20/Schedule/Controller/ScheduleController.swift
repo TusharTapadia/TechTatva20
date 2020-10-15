@@ -288,7 +288,7 @@ class ScheduleController: UICollectionViewController, UICollectionViewDelegateFl
             self.schedule = data
             self.parseScheduleIntoDays()
         }) { (error) in
-            print(error)
+            print("Schedule cache error:", error)
             self.getSchedule()
         }
     }
