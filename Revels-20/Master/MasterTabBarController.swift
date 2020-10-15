@@ -30,7 +30,7 @@ class MasterTabBarController: UITabBarController{
         let categoriesNavigationViewController = MasterNavigationBarController(rootViewController: categoriesPageController)
         categoriesNavigationViewController.tabBarItem = UITabBarItem(title: "Categories", image: UIImage(named: "category"), tag: 1)
         
-        let mapViewController = MapViewController()
+        let mapViewController = MapController()
         mapViewController.tabBarItem = UITabBarItem(title: "Maps", image: UIImage(named: "loc"), tag: 2)
         
         let usersViewController = UsersViewController()

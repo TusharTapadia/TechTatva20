@@ -4,6 +4,11 @@ ${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework
 ${BUILT_PRODUCTS_DIR}/Disk/Disk.framework
 ${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework
 ${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework
+${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework
+${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM
+${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/93C58D95-90B9-30C8-8F60-4BDE32FD7E8E.bcsymbolmap
+${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/BB87D8DD-493F-37AA-BD21-2BC609B8311B.bcsymbolmap
+${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework
 ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
 ${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework
 ${BUILT_PRODUCTS_DIR}/SAConfettiView/SAConfettiView.framework

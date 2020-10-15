@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = MasterTabBarController()
+        window?.rootViewController = LaunchViewController()
         
         FirebaseConfiguration.shared.setLoggerLevel(FirebaseLoggerLevel.min)
         FirebaseApp.configure()
