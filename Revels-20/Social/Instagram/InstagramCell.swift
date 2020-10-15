@@ -37,9 +37,9 @@ class InstagramCell: UICollectionViewCell {
     lazy var likeImageView : UIImageView = {
            let imageview = UIImageView()
            imageview.clipsToBounds = true
-//           imageview.image = UIImage(named: "groupLock")
+           imageview.image = UIImage(named: "heart")
            imageview.contentMode = .scaleAspectFill
-          imageview.backgroundColor = .gray
+        imageview.setDimensions(width: 22, height: 22)
            return imageview
        }()
     
@@ -57,9 +57,9 @@ class InstagramCell: UICollectionViewCell {
     lazy var commentsImageView : UIImageView = {
            let imageview = UIImageView()
            imageview.clipsToBounds = true
-//           imageview.image = UIImage(named: "groupLock")
+           imageview.image = UIImage(named: "comment")
            imageview.contentMode = .scaleAspectFill
-          imageview.backgroundColor = .gray
+            imageview.setDimensions(width: 20, height: 20)
            return imageview
        }()
     
@@ -69,9 +69,7 @@ class InstagramCell: UICollectionViewCell {
             iv.contentMode = .scaleToFill
             iv.layer.cornerRadius = 25
             iv.layer.masksToBounds = true
-//            iv.layer.borderColor = UIColor.white.cgColor
             iv.backgroundColor = .gray
-//            iv.layer.borderWidth = 2
             iv.clipsToBounds = true
             return iv
         }()
@@ -103,14 +101,14 @@ class InstagramCell: UICollectionViewCell {
         _ = usernameLabel.anchor(top: topAnchor, left: profilePhotoImageview.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 10, leftConstant: 8, bottomConstant: 0, rightConstant: 8, heightConstant: 14)
        
         addSubview(postImageView)
-        _ = postImageView.anchor(top: usernameLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 8, bottomConstant: 0, rightConstant: 8, heightConstant: 380)
+        _ = postImageView.anchor(top: usernameLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 8, bottomConstant: 0, rightConstant: 8, heightConstant: 370)
         
         postImageView.addSubview(postCaption)
         
         _ = postCaption.anchor(top: postImageView.topAnchor, left: postImageView.leftAnchor, bottom: postImageView.bottomAnchor, right: postImageView.rightAnchor, topConstant: 290, leftConstant: 8, bottomConstant: 8, rightConstant: 8)
         
         addSubview(likeImageView)
-    _ = likeImageView.anchor(top: postImageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, topConstant: 8, leftConstant: 8, bottomConstant: 4, rightConstant: 0, widthConstant: 24, heightConstant: 0)
+    _ = likeImageView.anchor(top: postImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 4, leftConstant: 10, bottomConstant: 0, rightConstant: 0)
         
         addSubview(likeLabel)
         _ = likeLabel.anchor(top: postImageView.bottomAnchor, left: likeImageView.rightAnchor, bottom: bottomAnchor, right: nil, topConstant: 6, leftConstant: 4, bottomConstant: 4, rightConstant: 0, heightConstant: 16)
@@ -120,7 +118,7 @@ class InstagramCell: UICollectionViewCell {
         
         
         addSubview(commentsImageView)
-        _ = commentsImageView.anchor(top: postImageView.bottomAnchor, left: nil, bottom: bottomAnchor, right: commentsLabel.leftAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 4, rightConstant: 6, widthConstant: 24, heightConstant: 0)
+        _ = commentsImageView.anchor(top: postImageView.bottomAnchor, left: nil, bottom: nil, right: commentsLabel.leftAnchor, topConstant: 4, leftConstant: 0, bottomConstant: 0, rightConstant: 6)
         
         
         

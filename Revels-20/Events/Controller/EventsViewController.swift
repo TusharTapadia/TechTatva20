@@ -51,7 +51,7 @@ class EventsViewController: UITableViewController {
             self.categoriesDictionary = retrievedCategoriesDictionary
         }
         catch let error{
-            print(error)
+            print("Category cache error in EventsController: ", error)
         }
     }
     
@@ -61,7 +61,7 @@ class EventsViewController: UITableViewController {
             self.delegateDictionary = retDict
         }
         catch let error{
-            print(error)
+            print("Delegate card cache error:", error)
         }
     }
     

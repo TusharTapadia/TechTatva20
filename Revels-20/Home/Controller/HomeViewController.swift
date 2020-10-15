@@ -549,13 +549,13 @@ class HomeHeader: UIView, UIGestureRecognizerDelegate{
         super.init(frame: frame)
         
         let titleLabel = UILabel()
-        titleLabel.text = "Revels'20"
+        titleLabel.text = "TechTatva'20"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 25)
         titleLabel.textColor = .white
         titleLabel.sizeToFit()
         
         let subTitleLabel = UILabel()
-        subTitleLabel.text = "Qainaat - A World Apart"
+        subTitleLabel.text = "Transforming Paradigms"
         subTitleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         subTitleLabel.textColor = .white
         subTitleLabel.sizeToFit()

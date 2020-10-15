@@ -129,7 +129,7 @@ class CategoriesTableViewController: UITableViewController, DayTableViewCellProt
         }
         catch let error{
             getCategories()
-            print(error)
+            print("Category Cache error:", error)
         }
     }
     

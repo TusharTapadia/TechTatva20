@@ -192,15 +192,7 @@ class SocialController: UICollectionViewController, UICollectionViewDelegateFlow
         
         view.addSubview(containerSubView)
         
-        if(UIViewController().isSmalliPhone() && UIViewController().view.frame.height != 812){
-            _ = containerSubView.anchor(top: view.topAnchor , left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 8, leftConstant: UIViewController().view.frame.width/6, bottomConstant: 12, rightConstant: 0, widthConstant: UIViewController().view.frame.width*(2/3))
-        }
-        else if(UIViewController().isSmalliPhone() && UIViewController().view.frame.height == 812){
-            _ = containerSubView.anchor(top: view.topAnchor , left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 8, leftConstant: UIViewController().view.frame.width/6, bottomConstant: 2, rightConstant: 0, widthConstant: UIViewController().view.frame.width*(2/3))
-        }
-        else{
-        _ = containerSubView.anchor(top: view.topAnchor , left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 8, leftConstant: UIViewController().view.frame.width/6, bottomConstant: 2, rightConstant: 0, widthConstant: UIViewController().view.frame.width*(2/3))
-        }
+        _ = containerSubView.anchor(top: view.topAnchor , left: view.leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: UIViewController().view.frame.width/6, bottomConstant: 0, rightConstant: 0, widthConstant: UIViewController().view.frame.width*(2/3), heightConstant: dim+20)
 
         containerSubView.addSubview(instaButton)
         containerSubView.addSubview(twitterButton)

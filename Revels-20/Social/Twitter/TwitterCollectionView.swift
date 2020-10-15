@@ -17,7 +17,7 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
         let label = UILabel()
         label.text = "Feed"
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 28)
+        label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textColor = UIColor(white: 1, alpha: 0.7)
         label.textColor = .white
         return label
@@ -26,7 +26,7 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
     lazy var titleBackgroundText: UILabel = {
         let label = UILabel()
         label.text = "FEED"
-        label.font = UIFont.systemFont(ofSize: 110, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 90, weight: .bold)
         label.textColor = UIColor(white: 0.4, alpha: 0.3)
         label.textAlignment = .center
         return label
@@ -96,19 +96,15 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
     }
 
   func setupLayout(){
-//        addSubview(titleLabel)
-//
-//    _ = titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 32, bottomConstant: 0, rightConstant: 32,widthConstant: 128, heightConstant: 128)
-    
     addSubview(titleBackgroundText)
-    _ = titleBackgroundText.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 4, leftConstant: -32, bottomConstant: 0, rightConstant: -32, widthConstant: 0, heightConstant: 0)
+    _ = titleBackgroundText.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 2, leftConstant: -32, bottomConstant: 0, rightConstant: -32, widthConstant: 0, heightConstant: 0)
     
     
     addSubview(titleLabel)
-    _ = titleLabel.anchor(top: titleBackgroundText.topAnchor, left: leftAnchor, bottom: titleBackgroundText.bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 16, heightConstant: 128)
+    _ = titleLabel.anchor(top: titleBackgroundText.topAnchor, left: leftAnchor, bottom: titleBackgroundText.bottomAnchor, right: rightAnchor, topConstant: 6, leftConstant: 16, bottomConstant: 0, rightConstant: 16, heightConstant: 0)
     
         addSubview(tweetsCollectionView)
-    _ = tweetsCollectionView.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 8)
+    _ = tweetsCollectionView.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 2, leftConstant: 16, bottomConstant: 0, rightConstant: 8)
      
     }
     

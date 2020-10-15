@@ -563,7 +563,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         observeKeyboardNotifications()
         setupViews()
-        setupColleges()
+//        setupColleges()
     }
     
     func setupViews(){
@@ -869,6 +869,6 @@ extension SignUpViewController: collegeSelected
             self.regField.becomeFirstResponder()
         }
         
-//        searchController.dismiss(animated: false, completion: nil)
+        searchController.dismiss(animated: false, completion: nil)
     }
 }

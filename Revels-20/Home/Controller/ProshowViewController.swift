@@ -79,7 +79,7 @@ class ProshowViewController: UICollectionViewController, UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
-        menuController.menuItems = ["Day 1", "Day 2", "Day 3", "Day 4"] 
+        menuController.menuItems = ["Day 1", "Day 2", "Day 3", "Day 4","Day 5"] 
         menuController.delegate = self
         menuController.markerBar.backgroundColor = UIColor.CustomColors.Blue.accent
         menuController.specialColor = UIColor.CustomColors.Blue.accent

@@ -96,7 +96,7 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
         tagsController.delegate = self
         tagsController.tags = self.tags
         tagsController.markerBar.backgroundColor = UIColor.CustomColors.Blue.accent
-        tagsController.specialColor = UIColor.CustomColors.Blue.accent
+        tagsController.specialColor = UIColor.CustomColors.Blue.accent// Setting special colour here
         tagsController.menuBar.backgroundColor = UIColor.CustomColors.Black.background
         tagsController.collectionView.backgroundColor = UIColor.CustomColors.Black.background
         tagsController.shadowBar.backgroundColor = UIColor.CustomColors.Black.background

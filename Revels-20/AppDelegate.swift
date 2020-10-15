@@ -125,14 +125,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     fileprivate func getCategories() {
         var categoriesDictionary = [Int: Category]()
         Networking.sharedInstance.getCategories(dataCompletion: { (data) in
+            print("Category data:", data)
             for category in data {
-                if category.type == "CULTURAL"{
+                if category.type == "Online"{
                     categoriesDictionary[category.id] = category
                 }
             }
             self.saveCategoriesDictionaryToCache(categoriesDictionary: categoriesDictionary)
         }) { (errorMessage) in
-            print(errorMessage)
+            print("Category cache problem",errorMessage)
         }
     }
     
