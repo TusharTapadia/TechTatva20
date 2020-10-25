@@ -94,7 +94,12 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
                 youtubeCollectionView.backgroundColor = .black
     
             }
-           // getYoutubeJSON()
+            Networking.sharedInstance.getYoutubeData { (data) in
+                print("YT data recieved----------------------------\n")
+                print(data)
+                print("\n\n")
+
+            }
            
             setupLayout()
         }

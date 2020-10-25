@@ -52,6 +52,12 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        Networking.sharedInstance.getInstaPosts { (res) in
+            print("insta data recieved: ------------------------")
+            print(res)
+            print("\n\n")
+        }
+        
         setupLayout()
     }
     

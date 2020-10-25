@@ -32,6 +32,12 @@ let collegeDataURL = "http://api.mitrevels.in/colleges"
 let proshowURL = "https://appdev.mitrevels.in/proshow" //"http://aws.namanjain.me:3000/proshow/"
 let sponsorsURL = "https://appdev.mitrevels.in/sponsors"
 
+// SOCIALS URL
+let instaPostsURL = "https://3a8f4c428a03.ngrok.io/posts/mittechtatva"
+let youtubeDataURL = "https://3a8f4c428a03.ngrok.io/youtube/TechTatva"
+
+
+
 struct NetworkResponse <T: Decodable>: Decodable{
     let success: Bool
     let data: [T]?
@@ -426,4 +432,37 @@ struct Networking {
         }
     }
     
+    // MARK: - SOCIALS
+
+    func getYoutubeData(dataCompetion: @escaping (_ Data: Youtube) -> Void) {
+        Alamofire.request(youtubeDataURL, method: .get, parameters: nil).response { (response) in
+            if let data = response.data {
+                let decoder = JSONDecoder()
+                do {
+                    let parsedData = try decoder.decode(Youtube.self, from: data)
+                    dataCompetion(parsedData)
+                } catch {
+                    print(error.localizedDescription)
+                    return
+                }
+            }
+        }
+    }
+    
+    func getInstaPosts(dataCompletion: @escaping (_ Data: Edges)-> Void) {
+        Alamofire.request(instaPostsURL, method: .get, parameters: nil).response { (response) in
+            if let data = response.data {
+                let decoder = JSONDecoder()
+                do {
+                    let parsedData = try decoder.decode(Edges.self, from: data)
+                    dataCompletion(parsedData)
+                } catch {
+                    print(error.localizedDescription)
+                    return
+                }
+            }
+        }
+        
+    }
 }
+

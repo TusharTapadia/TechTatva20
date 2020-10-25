@@ -8,26 +8,6 @@
 
 import Foundation
 
-struct Instagram: Decodable {
-    let entry_data: ProfilePage
-}
-
-struct ProfilePage: Decodable {
-    let ProfilePage: [Graphql]
-}
-
-struct Graphql: Decodable {
-    let graphql: User
-}
-
-//struct User: Decodable {
-//    let user: Edge_owner_to_timeline_media
-//}
-
-struct Edge_owner_to_timeline_media: Decodable {
-    let edge_owner_to_timeline_media: Edges
-}
-
 struct Edges: Decodable {
     let edges: [Node]
 }
@@ -38,7 +18,21 @@ struct Node: Decodable {
 
 struct Media: Decodable {
     let display_url: String
-    let video_url: String?
-    let thumbnail_src: String
+//    let video_url: String?
+//    let thumbnail_src: String
+    let edge_sidecar_to_children: Child?
+//    let edge_media_to_caption: Jij
+}
+
+
+// for accessing child posts
+struct Child: Decodable {
+    let edges: [Children]
+}
+struct Children: Decodable {
+    let node: Kik
+}
+struct Kik: Decodable {
+    let display_url: String
 }
 
