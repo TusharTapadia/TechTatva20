@@ -11,7 +11,7 @@ import UIKit
 class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
         
         private let cellId = "cellID"
-//    var YoutubeData = [
+        var youData = [DataYT]()
         
     lazy var titleBackgroundText: UILabel = {
            let label = UILabel()
@@ -51,15 +51,17 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
         
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     //      return youtubeCache.count
-            return youtubeData.count
+            return youData.count
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! YoutubeCell
 //            cell.layer.cornerRadius = 10
-            let data = youtubeData[indexPath.item]
+            let data = youData[indexPath.item]
             cell.backgroundColor = .black
             cell.thumbnailImageView.sd_setImage(with: URL(string: data.thumbnail), placeholderImage: UIImage(named: "logo.png"))
+            cell.descriptionlabel.text = data.title
+            cell.durationLabel.text = data.time
             return cell
         }
         
@@ -96,14 +98,15 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
             if #available(iOS 13.0, *) {
                 youtubeCollectionView.backgroundColor = .black
     
+//            }
+//            Networking.sharedInstance.getYoutubeData { (data) in
+//                print("YT data recieved----------------------------\n")
+//                print(data)
+//                print("\n\n")
+//
             }
-            Networking.sharedInstance.getYoutubeData { (data) in
-                print("YT data recieved----------------------------\n")
-                print(data)
-                print("\n\n")
-
-            }
-           
+            
+            getYouData()
             setupLayout()
         }
         
@@ -128,6 +131,38 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
             fatalError("init(coder:) has not been implemented")
         }
     
+    func getYouData(){
+        print("Getting Youtube links")
+        let urlString = "https://3a8f4c428a03.ngrok.io/youtube/TechTatva"
+        let url = URL(string: urlString)
+        guard url != nil else {
+            print("wrong url")
+            return
+        }
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: url!) { (data, response, error) in
+            
+            if error == nil && data != nil {
+                
+                let decoder = JSONDecoder()
+                
+                do{
+                    let youtubefeed = try decoder.decode(Youtube.self, from: data!)
+                    self.youData = youtubefeed.data
+                    print(self.youData)
+                } catch{
+                    print(error)
+                    print("error in json parsing")
+                }
+                DispatchQueue.main.async {
+                    self.youtubeCollectionView.reloadData()
+                }
+                
+            }
+        }
+        dataTask.resume()
+    }
    
     }
 

@@ -45,9 +45,6 @@ struct NetworkResponse <T: Decodable>: Decodable{
 
 var youtubeData = [DataYT]()
 var instaData = [Node]()
-
-weak var instaview = InstagramCollectionView()
-
 let newsLetterURL = "http://newsletter-revels.herokuapp.com/pdf"
 
 struct NewsLetterApiRespone: Decodable{
@@ -439,40 +436,40 @@ struct Networking {
     
     // MARK: - SOCIALS
 
-    func getYoutubeData(dataCompetion: @escaping (_ Data: Youtube) -> Void) {
-        Alamofire.request(youtubeDataURL, method: .get, parameters: nil).response { (response) in
-            if let data = response.data {
-                let decoder = JSONDecoder()
-                do {
-                    let parsedData = try decoder.decode(Youtube.self, from: data)
-                    youtubeData.self=parsedData.data
-                    dataCompetion(parsedData)
-                } catch {
-                    print(error.localizedDescription)
-                    return
-                }
-            }
-        }
-    }
-    
-    func getInstaPosts(dataCompletion: @escaping (_ Data: Edges)-> Void) {
-        Alamofire.request(instaPostsURL, method: .get, parameters: nil).response { (response) in
-            if let data = response.data {
-                let decoder = JSONDecoder()
-                do {
-                    let parsedData = try decoder.decode(Edges.self, from: data)
-                    dataCompletion(parsedData)
-                    instaData=parsedData.edges
-                    print((parsedData))
-                } catch let error{
-                    print(error.localizedDescription)
-                }
-                DispatchQueue.main.async {
-                    instaview?.instagramCollectionView.reloadData()
-                }
-            }
-        }
-        
-    }
+//    func getYoutubeData(dataCompetion: @escaping (_ Data: Youtube) -> Void) {
+//        Alamofire.request(youtubeDataURL, method: .get, parameters: nil).response { (response) in
+//            if let data = response.data {
+//                let decoder = JSONDecoder()
+//                do {
+//                    let parsedData = try decoder.decode(Youtube.self, from: data)
+//                    youtubeData.self=parsedData.data
+//                    dataCompetion(parsedData)
+//                } catch {
+//                    print(error.localizedDescription)
+//                    return
+//                }
+//            }
+//        }
+//    }
+//    
+//    func getInstaPosts(dataCompletion: @escaping (_ Data: Edges)-> Void) {
+//        Alamofire.request(instaPostsURL, method: .get, parameters: nil).response { (response) in
+//            if let data = response.data {
+//                let decoder = JSONDecoder()
+//                do {
+//                    let parsedData = try decoder.decode(Edges.self, from: data)
+//                    dataCompletion(parsedData)
+//                    instaData=parsedData.edges
+//                    print((parsedData))
+//                } catch let error{
+//                    print(error.localizedDescription)
+//                }
+//                DispatchQueue.main.async {
+//                    instaview?.instagramCollectionView.reloadData()
+//                }
+//            }
+//        }
+//        
+//    }
 }
 

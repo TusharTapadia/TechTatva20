@@ -73,7 +73,6 @@ class YoutubeCell: UICollectionViewCell {
         super.init(frame: frame)
         setupLayout()
     }
-     let containerview = UIView()
     
     fileprivate func setupLayout(){
  

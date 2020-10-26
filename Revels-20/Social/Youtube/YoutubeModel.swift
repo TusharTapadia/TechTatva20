@@ -14,8 +14,9 @@ struct Youtube: Decodable {
 }
 
 struct DataYT: Decodable {
-    var title: String
-    var time: String
-    var link: String
-    var thumbnail: String
+    var title: String //description label
+    var time: String //durationlabel
+    var view:String//views
+    var link: String // yeet
+    var thumbnail: String // thumbnailImageView
 }

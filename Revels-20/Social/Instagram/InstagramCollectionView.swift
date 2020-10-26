@@ -77,6 +77,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
         let data = instData[indexPath.item]
         print(data.node.display_url)
         cell.postImageView.sd_setImage(with: URL(string: data.node.display_url), placeholderImage: UIImage(named: "logo.png"))
+        cell.profilePhotoImageview = UIImageView(image: UIImage(named: "logo_dark.png"))
         cell.backgroundColor = .black
         return cell
     }
