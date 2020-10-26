@@ -20,7 +20,7 @@ struct UserKeys{
 }
 
 let resultsURL = "https://api.mitrevels.in/results" //"https://api.techtatva.in/results"
-let eventsURL = "https://api.mitrevels.in/events"
+let eventsURL = "https://categories.techtatva.in/app/events"
 let scheduleURL = "https://techtatvadata.herokuapp.com/schedule" //"https://api.techtatva.in/schedule"
 //let categoriesURL = "https://api.mitrevels.in/categories"
 let categoriesURL = "https://techtatvadata.herokuapp.com/category"
@@ -29,7 +29,6 @@ let boughtDelegateCardsURL = "https://register.mitrevels.in/boughtCards"
 let paymentsURL = "https://register.mitrevels.in/buy?card="
 let mapsDataURL = "https://appdev.mitrevels.in/maps"
 let collegeDataURL = "http://api.mitrevels.in/colleges"
-let proshowURL = "https://appdev.mitrevels.in/proshow" //"http://aws.namanjain.me:3000/proshow/"
 let sponsorsURL = "https://appdev.mitrevels.in/sponsors"
 
 struct NetworkResponse <T: Decodable>: Decodable{
@@ -211,6 +210,7 @@ struct Networking {
         let parameters = [
             "email": Email,
             "password": Password,
+            //Make changes here 
             "type": "invisible",
             "g-recaptcha-response": serverToken,
             ] as [String : Any]
@@ -407,23 +407,5 @@ struct Networking {
         }
     }
     
-    func getProshowData(dataCompletion: @escaping (_ Data: ProResponse) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
-        
-        Alamofire.request(proshowURL, method: .get, parameters: nil, encoding: URLEncoding()).response { response in
-            if let data = response.data{
-                do{
-                    let resultsResponse = try JSONDecoder().decode(ProResponse.self, from: data)
-                    if resultsResponse.success{
-                        dataCompletion(resultsResponse)
-                    }else{
-                        errorCompletion("Coudn't Fetch Registered Events")
-                    }
-                }catch let error{
-                    print(error)
-                    errorCompletion("Decoding Error")
-                }
-            }
-        }
-    }
     
 }

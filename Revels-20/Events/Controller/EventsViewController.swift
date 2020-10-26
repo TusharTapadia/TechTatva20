@@ -61,7 +61,7 @@ class EventsViewController: UITableViewController {
             self.delegateDictionary = retDict
         }
         catch let error{
-            print("Delegate card cache error:", error)
+            print("Delegate card cache error in EventsController:", error)
         }
     }
     
@@ -74,6 +74,7 @@ class EventsViewController: UITableViewController {
         return 9
     }
     
+    // This is shown when you tap on a schedule cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! EventCell
         
@@ -155,10 +156,12 @@ class EventsViewController: UITableViewController {
         case 4:
             if let schedule = self.schedule{
                 textLabel = "Venue"
+                //Make changes here
                 detailedTextLabel = schedule.location
                 imageName = "location"
             }else{
                 textLabel = "Contact 2"
+                //Make changes here
                 detailedTextLabel = category?.cc2Name ?? "N/A"
                 if detailedTextLabel != "N/A" {
                     cell.selectionStyle = .gray
@@ -169,10 +172,12 @@ class EventsViewController: UITableViewController {
         case 5:
             if let _ = self.schedule{
                 textLabel = "Team Size"
+                //Make changes here
                 detailedTextLabel = event.minTeamSize == event.maxTeamSize ? "\(event.minTeamSize)" : "\(event.minTeamSize) - \(event.maxTeamSize)"
                 imageName = "group"
             }else{
                 textLabel = "Contact 2"
+                //Make changes here
                 detailedTextLabel = category?.cc2Name ?? "N/A"
                 if detailedTextLabel != "N/A" {
                     cell.selectionStyle = .gray
@@ -182,6 +187,7 @@ class EventsViewController: UITableViewController {
             break
         case 6:
             textLabel = "Delegate Card"
+            //Make changes here
             if let card = self.delegateDictionary[event.delCardType]{
                 detailedTextLabel = "\(card.name)"
             }else{
@@ -190,12 +196,14 @@ class EventsViewController: UITableViewController {
             
             imageName = "card"
             if detailedTextLabel != "" {
+                //Make changes here
                 cell.selectionStyle = .gray
                 cell.accessoryType = .disclosureIndicator
             }
             break
         case 7:
             textLabel = "Contact 1"
+            //Make changes here
             detailedTextLabel = category?.cc1Name ?? "N/A"
             if detailedTextLabel != "N/A" {
                 cell.selectionStyle = .gray
@@ -204,6 +212,7 @@ class EventsViewController: UITableViewController {
             break
         case 8:
             textLabel = "Contact 2"
+            //Make changes here
             detailedTextLabel = category?.cc2Name ?? "N/A"
             if detailedTextLabel != "N/A" {
                 cell.selectionStyle = .gray
@@ -240,7 +249,7 @@ class EventsViewController: UITableViewController {
         closedReg.numberOfLines = 2
         closedReg.text = "Registrations are closed for this event"
         
-        button.backgroundColor = UIColor.CustomColors.Blue.register
+        button.backgroundColor = UIColor.CustomColors.Purple.accent
         button.setTitle("Register Now", for: UIControl.State())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.startAnimatingPressActions()
@@ -302,7 +311,7 @@ class EventsViewController: UITableViewController {
                         UserDefaults.standard.synchronize()
                         print("Subscribe Succesful")
                     }
-                }) {}
+                }){}
             }) { (message) in
                 self.button.hideLoading()
                 print(message)
@@ -371,6 +380,7 @@ class EventsViewController: UITableViewController {
         return UITableView.automaticDimension //60
     }
     
+    //Make changes to the below function as per the new event model
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row{
@@ -390,11 +400,13 @@ class EventsViewController: UITableViewController {
                 return
             }
         case 7:
+            //Make changes here
             let category = categoriesDictionary[event.category]
             if let number = category?.cc1Contact{
                 self.callNumber(number: number)
             }
         case 8:
+            //Make changes here
             let category = categoriesDictionary[event.category]
             if let number = category?.cc2Contact{
                 self.callNumber(number: number)

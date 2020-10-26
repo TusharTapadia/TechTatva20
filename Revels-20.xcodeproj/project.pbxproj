@@ -465,8 +465,8 @@
 				B2EDA16A23436A23009D5613 /* LiveBlogController.swift */,
 				B2D972A823E49EFE001270E2 /* ProshowViewController.swift */,
 				B29DB0592401BB78006D9811 /* FeaturedEventsConroller.swift */,
-				B2CFF484234718220092AB8B /* SponsorsViewController.swift */,
 				B2EDA16C234431D3009D5613 /* DeveloperViewController.swift */,
+				B2CFF484234718220092AB8B /* SponsorsViewController.swift */,
 				B20720FF23E1CD6700C21A4D /* TagsEventViewController.swift */,
 				B262A13B23FBFD04003CE814 /* PDFViewController.swift */,
 			);
@@ -1028,7 +1028,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Revels-20/RevelsDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YQEC2ZY373;
+				DEVELOPMENT_TEAM = 6CPSMM6Y56;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Revels-20/Schedule/Controller",
@@ -1042,7 +1042,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = me.tushart.Revels20;
+				PRODUCT_BUNDLE_IDENTIFIER = me.rohitt.Revels20;
 				PRODUCT_NAME = Revels;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

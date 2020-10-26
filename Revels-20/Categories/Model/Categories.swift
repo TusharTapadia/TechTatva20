@@ -20,5 +20,13 @@ struct Category: Codable {
     let cc1Contact: String?
     let cc2Name: String?
     let cc2Contact: String?
+    
+//    tags:[String]?
+//   let name :[CCinfo]
+   
 }
 
+struct CCInfo{
+    let name: String
+    let phoneNo: Int
+}

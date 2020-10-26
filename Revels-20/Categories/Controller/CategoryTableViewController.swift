@@ -35,7 +35,7 @@ class CategoriesTableViewController: UITableViewController, DayTableViewCellProt
         }
     }
     
-    var detailsLauncher = DetailsLauncher()
+//    var detailsLauncher = DetailsLauncher()
     
     override func viewDidLoad() {
         super.viewDidLoad()

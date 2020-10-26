@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         getCategories()
         getDelegateCards()
         getNewsletterURL()
-        getProshowData()
+        
         
         window = UIWindow()
         window?.makeKeyAndVisible()
@@ -78,13 +78,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         }
     }
     
-    func getProshowData(){
-        Networking.sharedInstance.getProshowData(dataCompletion: { (data) in
-            Caching.sharedInstance.saveProshowToCache(proshow: data)
-        }) { (errorMessage) in
-            print(errorMessage)
-        }
-    }
+//    func getProshowData(){
+//        Networking.sharedInstance.getProshowData(dataCompletion: { (data) in
+//            Caching.sharedInstance.saveProshowToCache(proshow: data)
+//        }) { (errorMessage) in
+//            print(errorMessage)
+//        }
+//    }
     
     fileprivate func getEvents(){
         var tags = [String]()

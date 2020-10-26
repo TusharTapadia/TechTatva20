@@ -278,7 +278,7 @@ class ScheduleController: UICollectionViewController, UICollectionViewDelegateFl
             self.eventsDictionary = data
             self.getCachedSchedule()
         }) { (error) in
-            print(error)
+            print("Events cache error in Schedule Controller:",error)
             //fetch events here and cache them
         }
     }
@@ -297,7 +297,7 @@ class ScheduleController: UICollectionViewController, UICollectionViewDelegateFl
         Networking.sharedInstance.getData(url: scheduleURL, decode: Schedule(), dataCompletion: { (data) in
             self.schedule = data
         }) { (errorMessage) in
-            print(errorMessage)
+            print("Error in getting Schedule:", errorMessage)
         }
     }
     

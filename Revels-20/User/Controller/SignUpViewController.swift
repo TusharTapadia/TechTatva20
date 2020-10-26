@@ -435,7 +435,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
     
     lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo_dark-1")
+        imageView.image = UIImage(named: "logo_dark")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -470,6 +470,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         return textField
     }()
     
+    lazy var stateField: LeftPaddedTextField = {
+        let textField = LeftPaddedTextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     lazy var passwordField: LeftPaddedTextField = {
         let textField = LeftPaddedTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -479,7 +485,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
     lazy var registerButton: LoadingButton = {
         let button = LoadingButton(type: .system)
         button.setTitle("Register", for: UIControl.State())
-        button.backgroundColor = UIColor.CustomColors.Blue.logoDarkGreen
+        button.backgroundColor = UIColor(red: 183.0/255.0, green: 130.0/255.0, blue: 239.0/255.0, alpha: 1)
+//            UIColor.CustomColors.Purple.accent
+//            UIColor.CustomColors.Blue.logoDarkGreen
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: UIControl.State())
         if isSmalliPhone(){
@@ -567,7 +575,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
     }
     
     func setupViews(){
-        
+        //Make the bordercolor changes here for the registration page
+        //The logo looks blurry , get a high quality image to replace it 
         nameField.configure(color: .white,
                              font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
                              cornerRadius: isSmalliPhone() ? 20 : 25,
@@ -634,6 +643,22 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
             ])
         
+        stateField.configure(color: .white,
+                            font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
+                            cornerRadius: isSmalliPhone() ? 20 : 25,
+                            borderColor: UIColor.CustomColors.Blue.logoDarkGreen,
+                            backgroundColor: UIColor.CustomColors.Black.background,
+                            borderWidth: 1.0)
+        stateField.keyboardType = .default
+        stateField.autocorrectionType = .no
+        stateField.clipsToBounds = true
+        stateField.delegate = self
+        stateField.tag = 4
+        stateField.attributedPlaceholder = NSAttributedString(string: "State Name", attributes: [
+            .foregroundColor: UIColor.lightGray,
+            .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
+            ])
+        
         regField.configure(color: .white,
                             font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
                             cornerRadius: isSmalliPhone() ? 20 : 25,
@@ -644,11 +669,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         regField.autocorrectionType = .no
         regField.clipsToBounds = true
         regField.delegate = self
-        regField.tag = 4
+        regField.tag = 5
         regField.attributedPlaceholder = NSAttributedString(string: "Reg No./Faculty ID", attributes: [
             .foregroundColor: UIColor.lightGray,
             .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
             ])
+        
         
         
         if isSmalliPhone(){
@@ -662,8 +688,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             _ = phoneField.anchor(top: emailField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
             view.addSubview(collegeField)
             _ = collegeField.anchor(top: phoneField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+            
+            view.addSubview(stateField)
+            _ = stateField.anchor(top: collegeField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+            
             view.addSubview(regField)
-            _ = regField.anchor(top: collegeField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+            _ = regField.anchor(top: stateField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
             
             view.addSubview(guestButton)
             _ = guestButton.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 32, bottomConstant: 16, rightConstant: 32, widthConstant: 0, heightConstant: 30)
@@ -682,8 +712,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             _ = phoneField.anchor(top: emailField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
             view.addSubview(collegeField)
             _ = collegeField.anchor(top: phoneField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
+            
+            view.addSubview(stateField)
+            _ = stateField.anchor(top: collegeField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
+            
             view.addSubview(regField)
-            _ = regField.anchor(top: collegeField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
+            _ = regField.anchor(top: stateField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
             
             view.addSubview(guestButton)
             _ = guestButton.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 32, bottomConstant: 16, rightConstant: 32, widthConstant: 0, heightConstant: 30)
@@ -745,9 +779,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             collegeField.becomeFirstResponder()
             break
         case 3:
-            regField.becomeFirstResponder()
+            stateField.becomeFirstResponder()
             break
         case 4:
+            //Made changes here
+            regField.becomeFirstResponder()
+            break
+        case 5:
             hideKeyboard()
             break
         default: break
@@ -769,6 +807,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         guard let phone = phoneField.text else { return }
         guard let college = collegeField.text else { return }
         guard let regNo = regField.text else { return }
+        guard let state = stateField.text else {return}
         
         if name == ""{
             FloatingMessage().floatingMessage(Message: "Please enter your Details", Color: .red, onPresentation: {
@@ -815,6 +854,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         if regNo == ""{
             FloatingMessage().floatingMessage(Message: "Please enter your Reg No./Faculty ID", Color: .red, onPresentation: {
                 self.regField.becomeFirstResponder()
+            }) {}
+            return
+        }
+        
+        if state == ""{
+            FloatingMessage().floatingMessage(Message: "Please enter your State", Color: .red, onPresentation: {
+                self.stateField.becomeFirstResponder()
             }) {}
             return
         }

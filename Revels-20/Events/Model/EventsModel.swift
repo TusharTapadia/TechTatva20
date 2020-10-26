@@ -39,3 +39,25 @@ struct Event: Codable{
     }
 }
 
+//struct Event: Codable{
+//    let name: String
+//    let category: String
+//    let tags: [String]?
+//    let mode: String
+//    let description: String
+//    let teamsize: String
+//    let eventID : Int
+////    let can_register: Int
+////    let visible: Int
+//    
+//    init() {
+//        category = ""
+//        name = ""
+//        tags = []
+//        mode = ""
+//        description = ""
+//        teamsize = ""
+//          eventID = 0
+//    }
+//}
+

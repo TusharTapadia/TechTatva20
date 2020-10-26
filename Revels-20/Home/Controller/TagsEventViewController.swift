@@ -95,8 +95,8 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
     fileprivate func setupTagsController() {
         tagsController.delegate = self
         tagsController.tags = self.tags
-        tagsController.markerBar.backgroundColor = UIColor.CustomColors.Blue.accent
-        tagsController.specialColor = UIColor.CustomColors.Blue.accent// Setting special colour here
+        tagsController.markerBar.backgroundColor = UIColor.CustomColors.Purple.accent
+        tagsController.specialColor = UIColor.CustomColors.Purple.accent// Setting special colour here
         tagsController.menuBar.backgroundColor = UIColor.CustomColors.Black.background
         tagsController.collectionView.backgroundColor = UIColor.CustomColors.Black.background
         tagsController.shadowBar.backgroundColor = UIColor.CustomColors.Black.background
@@ -119,6 +119,7 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredEvents?.count ?? 0
+//        return
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
