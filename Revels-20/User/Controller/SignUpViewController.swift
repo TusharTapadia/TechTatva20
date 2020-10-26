@@ -868,7 +868,6 @@ extension SignUpViewController: collegeSelected
             self.collegeField.text = name
             self.regField.becomeFirstResponder()
         }
-        
         searchController.dismiss(animated: false, completion: nil)
     }
 }

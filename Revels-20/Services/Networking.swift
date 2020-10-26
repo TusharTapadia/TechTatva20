@@ -43,6 +43,11 @@ struct NetworkResponse <T: Decodable>: Decodable{
     let data: [T]?
 }
 
+var youtubeData = [DataYT]()
+var instaData = [Node]()
+
+weak var instaview = InstagramCollectionView()
+
 let newsLetterURL = "http://newsletter-revels.herokuapp.com/pdf"
 
 struct NewsLetterApiRespone: Decodable{
@@ -440,6 +445,7 @@ struct Networking {
                 let decoder = JSONDecoder()
                 do {
                     let parsedData = try decoder.decode(Youtube.self, from: data)
+                    youtubeData.self=parsedData.data
                     dataCompetion(parsedData)
                 } catch {
                     print(error.localizedDescription)
@@ -456,9 +462,13 @@ struct Networking {
                 do {
                     let parsedData = try decoder.decode(Edges.self, from: data)
                     dataCompletion(parsedData)
-                } catch {
+                    instaData=parsedData.edges
+                    print((parsedData))
+                } catch let error{
                     print(error.localizedDescription)
-                    return
+                }
+                DispatchQueue.main.async {
+                    instaview?.instagramCollectionView.reloadData()
                 }
             }
         }

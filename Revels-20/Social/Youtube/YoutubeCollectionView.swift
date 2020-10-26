@@ -11,7 +11,8 @@ import UIKit
 class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
         
         private let cellId = "cellID"
-    
+//    var YoutubeData = [
+        
     lazy var titleBackgroundText: UILabel = {
            let label = UILabel()
            label.text = "VIDEOS"
@@ -50,13 +51,15 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
         
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     //      return youtubeCache.count
-            return 5
+            return youtubeData.count
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! YoutubeCell
 //            cell.layer.cornerRadius = 10
+            let data = youtubeData[indexPath.item]
             cell.backgroundColor = .black
+            cell.thumbnailImageView.sd_setImage(with: URL(string: data.thumbnail), placeholderImage: UIImage(named: "logo.png"))
             return cell
         }
         
@@ -124,6 +127,8 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+    
+   
     }
 
     

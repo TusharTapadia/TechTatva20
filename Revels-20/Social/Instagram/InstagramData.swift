@@ -24,7 +24,6 @@ struct Media: Decodable {
 //    let edge_media_to_caption: Jij
 }
 
-
 // for accessing child posts
 struct Child: Decodable {
     let edges: [Children]
