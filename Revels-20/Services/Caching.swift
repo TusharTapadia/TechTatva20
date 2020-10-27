@@ -139,7 +139,7 @@ struct Caching{
             let retrievedData = try Disk.retrieve(eventsCache, from: .caches, as: [Event].self)
             return retrievedData
         }catch let err{
-            print(err)
+            print("Error in getting events cache(Caching)", err)
             return []
         }
     }

@@ -29,7 +29,7 @@ class EventsViewController: UITableViewController {
         }
     }
     
-    var categoriesDictionary = [Int: Category]()
+    var categoriesDictionary = [String: Category]()
     var delegateDictionary = [Int: DelegateCard]()
     
     override func viewDidLoad() {
@@ -47,7 +47,7 @@ class EventsViewController: UITableViewController {
 
     func getCachedCategoriesDictionary(){
         do{
-            let retrievedCategoriesDictionary = try Disk.retrieve(categoriesDictionaryCache, from: .caches, as: [Int: Category].self)
+            let retrievedCategoriesDictionary = try Disk.retrieve(categoriesDictionaryCache, from: .caches, as: [String: Category].self)
             self.categoriesDictionary = retrievedCategoriesDictionary
         }
         catch let error{
@@ -74,7 +74,7 @@ class EventsViewController: UITableViewController {
         return 9
     }
     
-    // This is shown when you tap on a schedule cell
+//     This is shown when you tap on a schedule cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! EventCell
         
@@ -106,7 +106,7 @@ class EventsViewController: UITableViewController {
                 break
             }else{
                 textLabel = "Team Size"
-                detailedTextLabel = event.minTeamSize == event.maxTeamSize ? "\(event.minTeamSize)" : "\(event.minTeamSize) - \(event.maxTeamSize)"
+                detailedTextLabel = "\(event.teamSize ?? "N/A")"
                 imageName = "group"
             }
 
@@ -118,12 +118,14 @@ class EventsViewController: UITableViewController {
                 detailedTextLabel = formatter.string(from: startDate)
             }else{
                 textLabel = "Delegate Card"
-                if let card = self.delegateDictionary[event.delCardType]{
-                    detailedTextLabel = "\(card.name)"
-                }else{
-                   detailedTextLabel = "\(event.delCardType)"
-                }
                 
+                if(event.category == "Gaming"){
+                    detailedTextLabel = "Gaming"
+                }
+                else{
+                detailedTextLabel = "Free"
+                }
+
                 imageName = "card"
                 if detailedTextLabel != "" {
                     cell.selectionStyle = .gray
@@ -146,7 +148,7 @@ class EventsViewController: UITableViewController {
                 imageName = "timer"
             }else{
                 textLabel = "Contact 1"
-                detailedTextLabel = category?.cc1Name ?? "N/A"
+                detailedTextLabel = category?.cc?[0].name ?? "N/A"
                 if detailedTextLabel != "N/A" {
                     cell.selectionStyle = .gray
                 }
@@ -156,13 +158,11 @@ class EventsViewController: UITableViewController {
         case 4:
             if let schedule = self.schedule{
                 textLabel = "Venue"
-                //Make changes here
                 detailedTextLabel = schedule.location
                 imageName = "location"
             }else{
                 textLabel = "Contact 2"
-                //Make changes here
-                detailedTextLabel = category?.cc2Name ?? "N/A"
+                detailedTextLabel = category?.cc?[1].name ?? "N/A"
                 if detailedTextLabel != "N/A" {
                     cell.selectionStyle = .gray
                 }
@@ -173,12 +173,14 @@ class EventsViewController: UITableViewController {
             if let _ = self.schedule{
                 textLabel = "Team Size"
                 //Make changes here
-                detailedTextLabel = event.minTeamSize == event.maxTeamSize ? "\(event.minTeamSize)" : "\(event.minTeamSize) - \(event.maxTeamSize)"
+//                if let tsize = event.teamSize {
+//                    print("Team size",tsize)
+//                    detailedTextLabel = tsize
+//                }
                 imageName = "group"
             }else{
                 textLabel = "Contact 2"
-                //Make changes here
-                detailedTextLabel = category?.cc2Name ?? "N/A"
+                detailedTextLabel = category?.cc?[1].name ?? "N/A"
                 if detailedTextLabel != "N/A" {
                     cell.selectionStyle = .gray
                 }
@@ -188,23 +190,26 @@ class EventsViewController: UITableViewController {
         case 6:
             textLabel = "Delegate Card"
             //Make changes here
-            if let card = self.delegateDictionary[event.delCardType]{
-                detailedTextLabel = "\(card.name)"
-            }else{
-               detailedTextLabel = "\(event.delCardType)"
+//            if let card = self.delegateDictionary[event.delCardType]{
+//                detailedTextLabel = "\(card.name)"
+//            }else{
+//               detailedTextLabel = "\(event.delCardType)"
+//            }
+            if(event.category == "Gaming"){
+                detailedTextLabel = "Gaming"
             }
-            
+            else{
+            detailedTextLabel = "Free"
+            }
             imageName = "card"
             if detailedTextLabel != "" {
-                //Make changes here
                 cell.selectionStyle = .gray
                 cell.accessoryType = .disclosureIndicator
             }
             break
         case 7:
             textLabel = "Contact 1"
-            //Make changes here
-            detailedTextLabel = category?.cc1Name ?? "N/A"
+            detailedTextLabel = category?.cc?[0].name ?? "N/A"
             if detailedTextLabel != "N/A" {
                 cell.selectionStyle = .gray
             }
@@ -212,8 +217,7 @@ class EventsViewController: UITableViewController {
             break
         case 8:
             textLabel = "Contact 2"
-            //Make changes here
-            detailedTextLabel = category?.cc2Name ?? "N/A"
+            detailedTextLabel = category?.cc?[1].name ?? "N/A"
             if detailedTextLabel != "N/A" {
                 cell.selectionStyle = .gray
             }
@@ -249,7 +253,7 @@ class EventsViewController: UITableViewController {
         closedReg.numberOfLines = 2
         closedReg.text = "Registrations are closed for this event"
         
-        button.backgroundColor = UIColor.CustomColors.Purple.accent
+        button.backgroundColor = UIColor.CustomColors.Purple.register
         button.setTitle("Register Now", for: UIControl.State())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.startAnimatingPressActions()
@@ -267,110 +271,111 @@ class EventsViewController: UITableViewController {
         button.addTarget(self, action: #selector(registerUserForEvent), for: .touchUpInside)
 
         
-        if event.can_register == 1{
+//        if event.can_register == 1{
             view.addSubview(label)
             _ = label.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 12, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 25)
             
             view.addSubview(button)
             button.anchorWithConstants(top: label.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 8, rightConstant: 16)
-        }else{
-            
-            view.addSubview(label)
-            _ = label.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 12, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 25)
-            
-            view.addSubview(closedReg)
-            closedReg.anchorWithConstants(top: label.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 8, rightConstant: 16)
-        }
+//        }else{
+//
+//            view.addSubview(label)
+//            _ = label.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 12, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 25)
+//
+//            view.addSubview(closedReg)
+//            closedReg.anchorWithConstants(top: label.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 8, rightConstant: 16)
+//        }
         
         return view
     }
     
     @objc func registerUserForEvent(){
-        
-        if UserDefaults.standard.isLoggedIn(){
-            print("loggined")
-            print(event.id)
-            button.showLoading()
-            button.activityIndicator.color = .white
-            Networking.sharedInstance.registerEventWith(ID: event.id, successCompletion: { (message) in
-                self.button.hideLoading()
-                print(message)
-                FloatingMessage().longFloatingMessage(Message: "Successfully Registered for \(self.event.name).", Color: UIColor.CustomColors.Blue.register, onPresentation: {   
-                    Messaging.messaging().subscribe(toTopic: "event-\(self.event.id)") { (err) in
-                        if let err = err{
-                            print(err)
-                            return
-                        }
-                        
-                        var subscribeDictionary = [String: Bool]()
-                        if let subsDict = UserDefaults.standard.dictionary(forKey: "subsDictionary") as? [String: Bool]{
-                            subscribeDictionary = subsDict
-                        }
-                        subscribeDictionary["event-\(self.event.id)"] = true
-                        UserDefaults.standard.set(subscribeDictionary, forKey: "subsDictionary")
-                        UserDefaults.standard.synchronize()
-                        print("Subscribe Succesful")
-                    }
-                }){}
-            }) { (message) in
-                self.button.hideLoading()
-                print(message)
-                if message == "User already registered for event" {
-                    FloatingMessage().longFloatingMessage(Message: "You have already registered for \(self.event.name)", Color: .orange, onPresentation: {}) {}
-                }else if message == "Card for event not bought"{
-                    FloatingMessage().longFloatingMessage(Message: "You have not bought the required delegate card.", Color: .orange, onPresentation: {
-                        if let card = self.delegateDictionary[self.event.delCardType]{
-                            DispatchQueue.main.async(execute: {
-                                let alertController = UIAlertController(title: "\(card.name) Card", message: "\n\(card.description)\n\nMAHE PRICE : ₹\(card.MAHE_price)\nNON MAHE PRICE : ₹\(card.non_price)\n", preferredStyle: UIAlertController.Style.alert)
-                                let purchaseOption = UIAlertAction(title: "Purchase", style: .default) { (_) in
-                                    self.buyDelegateCard(delegateCardID: card.id)
-                                }
-                                let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
-                                })
-                                alertController.addAction(okayAction)
-                                alertController.addAction(purchaseOption)
-                                self.present(alertController, animated: true, completion: nil)
-                            })
-                            return
-                        }
-                    }) {}
-                }else{
-                    FloatingMessage().longFloatingMessage(Message: message, Color: .orange, onPresentation: {}) {}
-                }
-            }
-        }
-        else{
-            DispatchQueue.main.async(execute: {
-                let alertController = UIAlertController(title: "Sign in to Register", message: "You need to be signed in to register for any event.", preferredStyle: UIAlertController.Style.actionSheet)
-                let logInAction = UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
-                    let login = LoginViewController()
-                    let loginNav = MasterNavigationBarController(rootViewController: login)
-                    if #available(iOS 13.0, *) {
-                        loginNav.modalPresentationStyle = .fullScreen
-                        loginNav.isModalInPresentation = true
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                    fromLogin = true
-                    self.present(loginNav, animated: true)
-                })
-                let createNewAccountAction = UIAlertAction(title: "Create New Account", style: .default, handler: { (action) in
-                    let login = LoginViewController()
-                    let loginNav = MasterNavigationBarController(rootViewController: login)
-                    fromLogin = true
-                    self.present(loginNav, animated: true, completion: {
-                        login.handleRegister()
-                    })
-                })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                alertController.addAction(logInAction)
-                alertController.addAction(createNewAccountAction)
-                alertController.addAction(cancelAction)
-                self.present(alertController, animated: true, completion: nil)
-            })
-            return
-        }
     }
+//        if UserDefaults.standard.isLoggedIn(){
+//            print("loggined")
+//            print(event.eventID)
+//            button.showLoading()
+//            button.activityIndicator.color = .white
+//            guard let eventID = self.event.eventID else {return }
+//            Networking.sharedInstance.registerEventWith(ID: eventID, successCompletion: { (message) in
+//                self.button.hideLoading()
+//                print(message)
+//                FloatingMessage().longFloatingMessage(Message: "Successfully Registered for \(self.event.name).", Color: UIColor.CustomColors.Blue.register, onPresentation: {   
+//                    Messaging.messaging().subscribe(toTopic: "event-\(eventID)") { (err) in
+//                        if let err = err{
+//                            print(err)
+//                            return
+//                        }
+//                        
+//                        var subscribeDictionary = [String: Bool]()
+//                        if let subsDict = UserDefaults.standard.dictionary(forKey: "subsDictionary") as? [String: Bool]{
+//                            subscribeDictionary = subsDict
+//                        }
+//                        subscribeDictionary["event-\(self.event.eventID)"] = true
+//                        UserDefaults.standard.set(subscribeDictionary, forKey: "subsDictionary")
+//                        UserDefaults.standard.synchronize()
+//                        print("Subscribe Succesful")
+//                    }
+//                }){}
+//            }) { (message) in
+//                self.button.hideLoading()
+//                print(message)
+//                if message == "User already registered for event" {
+//                    FloatingMessage().longFloatingMessage(Message: "You have already registered for \(self.event.name)", Color: .orange, onPresentation: {}) {}
+//                }else if message == "Card for event not bought"{
+//                    FloatingMessage().longFloatingMessage(Message: "You have not bought the required delegate card.", Color: .orange, onPresentation: {
+//                        if let card = self.delegateDictionary[self.event.delCardType]{
+//                            DispatchQueue.main.async(execute: {
+//                                let alertController = UIAlertController(title: "\(card.name) Card", message: "\n\(card.description)\n\nMAHE PRICE : ₹\(card.MAHE_price)\nNON MAHE PRICE : ₹\(card.non_price)\n", preferredStyle: UIAlertController.Style.alert)
+//                                let purchaseOption = UIAlertAction(title: "Purchase", style: .default) { (_) in
+//                                    self.buyDelegateCard(delegateCardID: card.id)
+//                                }
+//                                let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
+//                                })
+//                                alertController.addAction(okayAction)
+//                                alertController.addAction(purchaseOption)
+//                                self.present(alertController, animated: true, completion: nil)
+//                            })
+//                            return
+//                        }
+//                    }) {}
+//                }else{
+//                    FloatingMessage().longFloatingMessage(Message: message, Color: .orange, onPresentation: {}) {}
+//                }
+//            }
+//        }
+//        else{
+//            DispatchQueue.main.async(execute: {
+//                let alertController = UIAlertController(title: "Sign in to Register", message: "You need to be signed in to register for any event.", preferredStyle: UIAlertController.Style.actionSheet)
+//                let logInAction = UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
+//                    let login = LoginViewController()
+//                    let loginNav = MasterNavigationBarController(rootViewController: login)
+//                    if #available(iOS 13.0, *) {
+//                        loginNav.modalPresentationStyle = .fullScreen
+//                        loginNav.isModalInPresentation = true
+//                    } else {
+//                        // Fallback on earlier versions
+//                    }
+//                    fromLogin = true
+//                    self.present(loginNav, animated: true)
+//                })
+//                let createNewAccountAction = UIAlertAction(title: "Create New Account", style: .default, handler: { (action) in
+//                    let login = LoginViewController()
+//                    let loginNav = MasterNavigationBarController(rootViewController: login)
+//                    fromLogin = true
+//                    self.present(loginNav, animated: true, completion: {
+//                        login.handleRegister()
+//                    })
+//                })
+//                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//                alertController.addAction(logInAction)
+//                alertController.addAction(createNewAccountAction)
+//                alertController.addAction(cancelAction)
+//                self.present(alertController, animated: true, completion: nil)
+//            })
+//            return
+//        }
+//    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 95
@@ -381,39 +386,39 @@ class EventsViewController: UITableViewController {
     }
     
     //Make changes to the below function as per the new event model
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        switch indexPath.row{
-        case 6:
-            if let card = self.delegateDictionary[self.event.delCardType]{
-                DispatchQueue.main.async(execute: {
-                    let alertController = UIAlertController(title: "\(card.name) Card", message: "\n\(card.description)\n\nMAHE PRICE : ₹\(card.MAHE_price)\nNON MAHE PRICE : ₹\(card.non_price)\n", preferredStyle: UIAlertController.Style.alert)
-                    let purchaseOption = UIAlertAction(title: "Purchase", style: .default) { (_) in
-                        self.buyDelegateCard(delegateCardID: card.id)
-                    }
-                    let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
-                    })
-                    alertController.addAction(okayAction)
-                    alertController.addAction(purchaseOption)
-                    self.present(alertController, animated: true, completion: nil)
-                })
-                return
-            }
-        case 7:
-            //Make changes here
-            let category = categoriesDictionary[event.category]
-            if let number = category?.cc1Contact{
-                self.callNumber(number: number)
-            }
-        case 8:
-            //Make changes here
-            let category = categoriesDictionary[event.category]
-            if let number = category?.cc2Contact{
-                self.callNumber(number: number)
-            }
-        default: return
-        }
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        switch indexPath.row{
+//        case 6:
+//            if let card = self.delegateDictionary[self.event.delCardType]{
+//                DispatchQueue.main.async(execute: {
+//                    let alertController = UIAlertController(title: "\(card.name) Card", message: "\n\(card.description)\n\nMAHE PRICE : ₹\(card.MAHE_price)\nNON MAHE PRICE : ₹\(card.non_price)\n", preferredStyle: UIAlertController.Style.alert)
+//                    let purchaseOption = UIAlertAction(title: "Purchase", style: .default) { (_) in
+//                        self.buyDelegateCard(delegateCardID: card.id)
+//                    }
+//                    let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
+//                    })
+//                    alertController.addAction(okayAction)
+//                    alertController.addAction(purchaseOption)
+//                    self.present(alertController, animated: true, completion: nil)
+//                })
+//                return
+//            }
+//        case 7:
+//            //Make changes here
+//            let category = categoriesDictionary[event.category]
+////            if let number = category?.cc1Contact{
+////                self.callNumber(number: number)
+////            }
+//        case 8:
+//            //Make changes here
+//            let category = categoriesDictionary[event.category]
+////            if let number = category?.cc2Contact{
+////                self.callNumber(number: number)
+////            }
+//        default: return
+//        }
+//    }
     
     fileprivate func callNumber(number: String){
         AudioServicesPlaySystemSound(1519)

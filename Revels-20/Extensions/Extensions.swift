@@ -137,6 +137,7 @@ extension UIColor {
         
         struct Purple {
             static let accent = UIColor(red: 207.0/255.0, green: 154.0/255.0, blue: 242.0/255.0, alpha: 1)
+            static let register = UIColor(red: 183.0/255.0, green: 130.0/255.0, blue: 239.0/255.0, alpha: 1)
         }
     }
 }

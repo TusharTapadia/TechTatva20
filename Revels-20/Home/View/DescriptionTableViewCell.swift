@@ -134,7 +134,7 @@ class DescriptionTableViewCell: UITableViewCell{
     lazy var creditsLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        let attributedString = NSMutableAttributedString(string: "Designed and Developed by the\nApp Dev Team at Techtatva’20")
+        let attributedString = NSMutableAttributedString(string: "Designed and Developed by the\nApp Dev Team at TechTatva’20")
         
         // *** Create instance of `NSMutableParagraphStyle`
         let paragraphStyle = NSMutableParagraphStyle()

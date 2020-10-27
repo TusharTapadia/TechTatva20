@@ -12,21 +12,13 @@ struct CategoriesResponse: Codable {
 }
 
 struct Category: Codable {
-    let id: Int
+    let tags: [String]
     let name: String
-    let type: String
+    let  cc : [CCInfo]?
     let description: String?
-    let cc1Name: String?
-    let cc1Contact: String?
-    let cc2Name: String?
-    let cc2Contact: String?
-    
-//    tags:[String]?
-//   let name :[CCinfo]
-   
 }
 
-struct CCInfo{
+struct CCInfo : Codable{
     let name: String
-    let phoneNo: Int
+    let phoneNo: UInt64?
 }

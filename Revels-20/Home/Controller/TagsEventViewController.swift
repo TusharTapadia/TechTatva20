@@ -23,7 +23,7 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
     
     var filteredEvents: [Event]?{
         didSet{
-            guard let events = filteredEvents else { return }
+            guard filteredEvents != nil else { return }
 //            self.eventsTableView.reloadData(with: .automatic)
             UIView.transition(with: eventsTableView,
             duration: 0.3,
@@ -39,10 +39,14 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
             self.filteredEvents = self.events
             return
         }
+        
+        
         self.filteredEvents = self.events.filter({ (event) -> Bool in
             event.tags!.contains(tag)
         })
+//        print(self.filteredEvents)
     }
+    
     
     lazy var eventsTableView: UITableView = {
         let tableView = UITableView()
@@ -69,6 +73,7 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
         self.events = Caching.sharedInstance.getEventsFromCache()
+//        print(events)
         self.tags = Caching.sharedInstance.getTagsFromCache()
         setupTagsController()
         setupLayout()
@@ -125,9 +130,9 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CategoryTableViewCell
         cell.titleLabel.text = filteredEvents?[indexPath.row].name ?? ""
-        var desc = filteredEvents?[indexPath.row].longDesc ?? ""
+        var desc = filteredEvents?[indexPath.row].description ?? ""
         if desc == "" {
-            desc = filteredEvents?[indexPath.row].shortDesc ?? ""
+            desc = filteredEvents?[indexPath.row].description ?? ""
         }
         cell.descriptionLabel.text = desc
         return cell
@@ -147,14 +152,14 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
     func handleEventTap(withEvent event: Event){
         AudioServicesPlaySystemSound(1519)
         let eventViewController = EventsViewController()
-        slideInTransitioningDelegate.categoryName = "\(event.shortDesc)"
+        slideInTransitioningDelegate.categoryName = "\(event.description)"
         eventViewController.modalPresentationStyle = .custom
         eventViewController.transitioningDelegate = slideInTransitioningDelegate
         eventViewController.event = event
         eventViewController.schedule = nil
         eventViewController.tagsEventController = self
         present(eventViewController, animated: true, completion: nil)
-        print(event.id)
+        print(event.eventID)
         print(event.name)
     }
     

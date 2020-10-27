@@ -19,7 +19,7 @@ class ScheduleController: UICollectionViewController, UICollectionViewDelegateFl
     
     var fromFavorite = false
     var favouritesDict = [String: Bool]()
-    
+    //Start making mapping changes from here
     var categoryID: Int?
     var category: Category?
     var fromCategory = false
@@ -178,88 +178,88 @@ class ScheduleController: UICollectionViewController, UICollectionViewDelegateFl
         return menuController.menuItems.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DayWiseScheduleCell
-        switch indexPath.item {
-        case 0:
-            if fromCategory{
-                cell.schedule = dayOneSchedule.filter({ (scheduleItem) -> Bool in
-                    if let category = eventsDictionary[scheduleItem.eventId]?.category{
-                        if category == self.categoryID{
-                            return true
-                        }
-                    }
-                    return false
-                })
-            }else if fromFavorite{
-                cell.schedule = dayOneSchedule.filter({ (scheduleItem) -> Bool in
-                    return (self.favouritesDict["\(scheduleItem.eventId)"] ?? false)
-                })
-            }else{
-                cell.schedule = dayOneSchedule
-            }
-        case 1:
-            if fromCategory{
-                cell.schedule = dayTwoSchedule.filter({ (scheduleItem) -> Bool in
-                    if let category = eventsDictionary[scheduleItem.eventId]?.category{
-                        if category == self.categoryID{
-                            return true
-                        }
-                    }
-                    return false
-                })
-            }else if fromFavorite{
-                cell.schedule = dayTwoSchedule.filter({ (scheduleItem) -> Bool in
-                    return (self.favouritesDict["\(scheduleItem.eventId)"] ?? false)
-                })
-            }else{
-                cell.schedule = dayTwoSchedule
-            }
-        case 2:
-            if fromCategory{
-                cell.schedule = dayThreeSchedule.filter({ (scheduleItem) -> Bool in
-                    if let category = eventsDictionary[scheduleItem.eventId]?.category{
-                        if category == self.categoryID{
-                            return true
-                        }
-                    }
-                    return false
-                })
-            }else if fromFavorite{
-                cell.schedule = dayThreeSchedule.filter({ (scheduleItem) -> Bool in
-                    return (self.favouritesDict["\(scheduleItem.eventId)"] ?? false)
-                })
-            }else{
-                cell.schedule = dayThreeSchedule
-            }
-        case 3:
-            if fromCategory{
-                cell.schedule = dayFourSchedule.filter({ (scheduleItem) -> Bool in
-                    if let category = eventsDictionary[scheduleItem.eventId]?.category{
-                        if category == self.categoryID{
-                            return true
-                        }
-                    }
-                    return false
-                })
-            }else if fromFavorite{
-                cell.schedule = dayFourSchedule.filter({ (scheduleItem) -> Bool in
-                    return (self.favouritesDict["\(scheduleItem.eventId)"] ?? false)
-                })
-            }else{
-                cell.schedule = dayFourSchedule
-            }
-        default:
-            cell.schedule = nil
-        }
-        cell.schedule = cell.schedule?.sorted(by: { (sc1, sc2) -> Bool in
-            sc1.start < sc2.start
-        })
-        cell.eventsDictionary = self.eventsDictionary
-        cell.scheduleController = self
-        cell.fromFavourite = self.fromFavorite
-        return cell
-    }
+//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DayWiseScheduleCell
+//        switch indexPath.item {
+//        case 0:
+//            if fromCategory{
+//                cell.schedule = dayOneSchedule.filter({ (scheduleItem) -> Bool in
+//                    if let category = eventsDictionary[scheduleItem.eventId]?.category{
+//                        if category == self.categoryID{
+//                            return true
+//                        }
+//                    }
+//                    return false
+//                })
+//            }else if fromFavorite{
+//                cell.schedule = dayOneSchedule.filter({ (scheduleItem) -> Bool in
+//                    return (self.favouritesDict["\(scheduleItem.eventId)"] ?? false)
+//                })
+//            }else{
+//                cell.schedule = dayOneSchedule
+//            }
+//        case 1:
+//            if fromCategory{
+//                cell.schedule = dayTwoSchedule.filter({ (scheduleItem) -> Bool in
+//                    if let category = eventsDictionary[scheduleItem.eventId]?.category{
+//                        if category == self.categoryID{
+//                            return true
+//                        }
+//                    }
+//                    return false
+//                })
+//            }else if fromFavorite{
+//                cell.schedule = dayTwoSchedule.filter({ (scheduleItem) -> Bool in
+//                    return (self.favouritesDict["\(scheduleItem.eventId)"] ?? false)
+//                })
+//            }else{
+//                cell.schedule = dayTwoSchedule
+//            }
+//        case 2:
+//            if fromCategory{
+//                cell.schedule = dayThreeSchedule.filter({ (scheduleItem) -> Bool in
+//                    if let category = eventsDictionary[scheduleItem.eventId]?.category{
+//                        if category == self.categoryID{
+//                            return true
+//                        }
+//                    }
+//                    return false
+//                })
+//            }else if fromFavorite{
+//                cell.schedule = dayThreeSchedule.filter({ (scheduleItem) -> Bool in
+//                    return (self.favouritesDict["\(scheduleItem.eventId)"] ?? false)
+//                })
+//            }else{
+//                cell.schedule = dayThreeSchedule
+//            }
+//        case 3:
+//            if fromCategory{
+//                cell.schedule = dayFourSchedule.filter({ (scheduleItem) -> Bool in
+//                    if let category = eventsDictionary[scheduleItem.eventId]?.category{
+//                        if category == self.categoryID{
+//                            return true
+//                        }
+//                    }
+//                    return false
+//                })
+//            }else if fromFavorite{
+//                cell.schedule = dayFourSchedule.filter({ (scheduleItem) -> Bool in
+//                    return (self.favouritesDict["\(scheduleItem.eventId)"] ?? false)
+//                })
+//            }else{
+//                cell.schedule = dayFourSchedule
+//            }
+//        default:
+//            cell.schedule = nil
+//        }
+//        cell.schedule = cell.schedule?.sorted(by: { (sc1, sc2) -> Bool in
+//            sc1.start < sc2.start
+//        })
+//        cell.eventsDictionary = self.eventsDictionary
+//        cell.scheduleController = self
+//        cell.fromFavourite = self.fromFavorite
+//        return cell
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width, height: view.frame.height - 50)
@@ -329,7 +329,7 @@ class ScheduleController: UICollectionViewController, UICollectionViewDelegateFl
     func handleEventTap(withEvent event: Event, withSchedule schedule: Schedule){
         AudioServicesPlaySystemSound(1519)
         let eventViewController = EventsViewController()
-        slideInTransitioningDelegate.categoryName = "\(event.shortDesc)"
+        slideInTransitioningDelegate.categoryName = "\(event.description)"
         eventViewController.modalPresentationStyle = .custom
         eventViewController.transitioningDelegate = slideInTransitioningDelegate
         eventViewController.event = event
@@ -339,7 +339,7 @@ class ScheduleController: UICollectionViewController, UICollectionViewDelegateFl
         if fromCategory{
 //            self.dismiss(animated: true)
         }
-        print(event.id)
+        print(event.eventID)
         print(event.name)
     }
     

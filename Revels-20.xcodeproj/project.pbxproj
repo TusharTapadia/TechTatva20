@@ -90,6 +90,7 @@
 		BB7FB57325389A7900F1183B /* IndiaMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB57225389A7900F1183B /* IndiaMapController.swift */; };
 		BB7FB57525389AB600F1183B /* LaunchViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB57425389AB600F1183B /* LaunchViewcontroller.swift */; };
 		C60DC9882535716100E7FFAF /* TwitterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60DC9872535716100E7FFAF /* TwitterCell.swift */; };
+		C619BE5025470B9700028803 /* EventR.swift in Sources */ = {isa = PBXBuildFile; fileRef = C619BE4F25470B9700028803 /* EventR.swift */; };
 		C62CC8DB2521085800066CB4 /* InstagramCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8DA2521085800066CB4 /* InstagramCollectionView.swift */; };
 		C62CC8DD2521086C00066CB4 /* InstagramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8DC2521086C00066CB4 /* InstagramCell.swift */; };
 		C62CC8DF252108B900066CB4 /* InstagramData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8DE252108B900066CB4 /* InstagramData.swift */; };
@@ -201,6 +202,7 @@
 		BB7FB57425389AB600F1183B /* LaunchViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewcontroller.swift; sourceTree = "<group>"; };
 		BBB46A4824630113008489D0 /* RevelsDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RevelsDebug.entitlements; sourceTree = "<group>"; };
 		C60DC9872535716100E7FFAF /* TwitterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCell.swift; sourceTree = "<group>"; };
+		C619BE4F25470B9700028803 /* EventR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventR.swift; sourceTree = "<group>"; };
 		C62CC8DA2521085800066CB4 /* InstagramCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramCollectionView.swift; sourceTree = "<group>"; };
 		C62CC8DC2521086C00066CB4 /* InstagramCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramCell.swift; sourceTree = "<group>"; };
 		C62CC8DE252108B900066CB4 /* InstagramData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramData.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 			isa = PBXGroup;
 			children = (
 				B2D9450B233E398600DA14D1 /* InformationView.swift */,
+				B268457623FEE06A0075CA16 /* collegeTableViewCell.swift */,
 				B2D94511233F56C600DA14D1 /* QRDelegateTableViewCell.swift */,
 			);
 			path = View;
@@ -390,7 +393,6 @@
 				B2D9451323406A0600DA14D1 /* RegisteredEventsViewController.swift */,
 				B2D944FA233DF77200DA14D1 /* ResetPassword.swift */,
 				B268457523FEE0690075CA16 /* collegeSearchTableViewController.swift */,
-				B268457623FEE06A0075CA16 /* collegeTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -577,6 +579,7 @@
 			isa = PBXGroup;
 			children = (
 				B2DE581C2313EAD200082EC1 /* EventsModel.swift */,
+				C619BE4F25470B9700028803 /* EventR.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				C60DC9882535716100E7FFAF /* TwitterCell.swift in Sources */,
 				B2D9450A233E377800DA14D1 /* UserModel.swift in Sources */,
 				6F0F7DDF23144A2300631BF9 /* Categories.swift in Sources */,
+				C619BE5025470B9700028803 /* EventR.swift in Sources */,
 				6F0F7DE323144B3E00631BF9 /* CategoryTableViewController.swift in Sources */,
 				B25FAEA423421C950065C763 /* HomeViewController.swift in Sources */,
 				B2D945232340E1C300DA14D1 /* QRViewController.swift in Sources */,

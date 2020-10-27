@@ -23,7 +23,7 @@ let resultsURL = "https://api.mitrevels.in/results" //"https://api.techtatva.in/
 let eventsURL = "https://categories.techtatva.in/app/events"
 let scheduleURL = "https://techtatvadata.herokuapp.com/schedule" //"https://api.techtatva.in/schedule"
 //let categoriesURL = "https://api.mitrevels.in/categories"
-let categoriesURL = "https://techtatvadata.herokuapp.com/category"
+let categoriesURL = "https://categories.techtatva.in/app/category"
 let delegateCardsURL = "https://api.mitrevels.in/delegate_cards"
 let boughtDelegateCardsURL = "https://register.mitrevels.in/boughtCards"
 let paymentsURL = "https://register.mitrevels.in/buy?card="
@@ -95,17 +95,40 @@ struct Networking {
                     }
                 }catch let error{
                     print(error)
-                    errorCompletion("Decoding Error")
+                    errorCompletion("Decoding Error in getData(Networking)")
                 }
             }
         }
     }
+    
+    func getEvents(dataCompletion: @escaping (_ Data: [Event]) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+        
+        Alamofire.request(eventsURL, method: .post, parameters: nil, encoding: URLEncoding()).response { response in
+            if let data = response.data{
+                do{
+                    let resultsResponse = try JSONDecoder().decode(EventsResponse.self, from: data)
+                    if resultsResponse.success{
+                        if let data = resultsResponse.data{
+                            dataCompletion(data)
+                        }
+                    }else{
+                        errorCompletion("Events Response Failed(Networking)")
+                    }
+                }catch let error{
+                    print(error)
+                    errorCompletion("Decoding Error in getting Events(Networking)")
+                }
+            }
+        }
+    }
+    
+    
 
     // MARK: - Events
     
     func getCategories(dataCompletion: @escaping (_ Data: [Category]) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         
-        Alamofire.request(categoriesURL, method: .get, parameters: nil, encoding: URLEncoding()).response { response in
+        Alamofire.request(categoriesURL, method: .post, parameters: nil, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
                     let resultsResponse = try JSONDecoder().decode(CategoriesResponse.self, from: data)
@@ -114,11 +137,11 @@ struct Networking {
                             dataCompletion(data)
                         }
                     }else{
-                        errorCompletion("Events Response Failed")
+                        errorCompletion("Events Response Failed(Networking)")
                     }
                 }catch let error{
                     print(error)
-                    errorCompletion("Decoding Error")
+                    errorCompletion("Decoding Error in getting Categories(Networking)")
                 }
             }
         }
