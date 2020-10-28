@@ -30,7 +30,7 @@ class YoutubeCell: UICollectionViewCell {
         label.layer.cornerRadius = 5
         label.layer.borderColor = UIColor.black.cgColor
         label.backgroundColor = .yellow
-        label.text = "2:48"
+//        label.text = "2:48"
         label.textColor = .black
         label.clipsToBounds = true
         
@@ -46,7 +46,7 @@ class YoutubeCell: UICollectionViewCell {
         label.layer.cornerRadius = 5
         label.layer.borderColor = UIColor.black.cgColor
         label.backgroundColor = .yellow
-        label.text = "248"
+//        label.text = "248"
         label.textColor = .black
         label.clipsToBounds = true
         
@@ -62,7 +62,7 @@ class YoutubeCell: UICollectionViewCell {
         }
         label.numberOfLines = 1
         label.textColor = .white
-        label.text = "Techtatva 20 is back, yeah yeah"
+//        label.text = "Techtatva 20 is back, yeah yeah"
         label.textAlignment = .center
         return label
     }()
@@ -73,7 +73,6 @@ class YoutubeCell: UICollectionViewCell {
         super.init(frame: frame)
         setupLayout()
     }
-     let containerview = UIView()
     
     fileprivate func setupLayout(){
  

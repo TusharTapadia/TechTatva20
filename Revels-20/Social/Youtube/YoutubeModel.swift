@@ -10,12 +10,13 @@ import Foundation
 
 struct Youtube: Decodable {
     var count: Int
-    var data: [Data]
+    var data: [DataYT]
 }
 
-//struct Data: Decodable {
-//    var title: String
-//    var time: String
-//    var link: String
-//    var thumbnail: String
-//}
+struct DataYT: Decodable {
+    var title: String //description label
+    var time: String //durationlabel
+    var view:String//views
+    var link: String // yeet
+    var thumbnail: String // thumbnailImageView
+}

@@ -11,7 +11,7 @@ import UIKit
 class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
    
     
-    
+    var instData = [Node]()
     let cellId = "cellId"
     let cellPadding : CGFloat = 16
     
@@ -52,6 +52,14 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+//        Networking.sharedInstance.getInstaPosts { (res) in
+////            print("insta data recieved: ------------------------")
+////            print(res)
+////            print("\n\n")
+//        }
+        
+       getInsData()
+        
         setupLayout()
     }
     
@@ -60,11 +68,16 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        print(instData.count)
+        return instData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! InstagramCell
+        let data = instData[indexPath.item]
+        print(data.node.display_url)
+        cell.postImageView.sd_setImage(with: URL(string: data.node.display_url), placeholderImage: UIImage(named: "logo.png"))
+        cell.profilePhotoImageview = UIImageView(image: UIImage(named: "logo_dark.png"))
         cell.backgroundColor = .black
         return cell
     }
@@ -96,6 +109,39 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
        addSubview(instagramCollectionView)
        instagramCollectionView.anchorWithConstants(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 2, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
         
+    }
+    
+    func getInsData(){
+        print("Getting Insta links")
+        let urlString = "https://3a8f4c428a03.ngrok.io/posts/mittechtatva"
+        let url = URL(string: urlString)
+        guard url != nil else {
+            print("wrong url")
+            return
+        }
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: url!) { (data, response, error) in
+            
+            if error == nil && data != nil {
+                
+                let decoder = JSONDecoder()
+                
+                do{
+                    let instafeed = try decoder.decode(Edges.self, from: data!)
+                    self.instData = instafeed.edges
+                    print(self.instData)
+                } catch{
+                    print(error)
+                    print("error in json parsing")
+                }
+                DispatchQueue.main.async {
+                    self.instagramCollectionView.reloadData()
+                }
+                
+            }
+        }
+        dataTask.resume()
     }
     
     

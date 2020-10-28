@@ -31,11 +31,19 @@ let mapsDataURL = "https://appdev.mitrevels.in/maps"
 let collegeDataURL = "http://api.mitrevels.in/colleges"
 let sponsorsURL = "https://appdev.mitrevels.in/sponsors"
 
+// SOCIALS URL
+let instaPostsURL = "https://3a8f4c428a03.ngrok.io/posts/mittechtatva"
+let youtubeDataURL = "https://3a8f4c428a03.ngrok.io/youtube/TechTatva"
+
+
+
 struct NetworkResponse <T: Decodable>: Decodable{
     let success: Bool
     let data: [T]?
 }
 
+var youtubeData = [DataYT]()
+var instaData = [Node]()
 let newsLetterURL = "http://newsletter-revels.herokuapp.com/pdf"
 
 struct NewsLetterApiRespone: Decodable{
@@ -432,4 +440,42 @@ struct Networking {
     }
     
     
+    // MARK: - SOCIALS
+
+//    func getYoutubeData(dataCompetion: @escaping (_ Data: Youtube) -> Void) {
+//        Alamofire.request(youtubeDataURL, method: .get, parameters: nil).response { (response) in
+//            if let data = response.data {
+//                let decoder = JSONDecoder()
+//                do {
+//                    let parsedData = try decoder.decode(Youtube.self, from: data)
+//                    youtubeData.self=parsedData.data
+//                    dataCompetion(parsedData)
+//                } catch {
+//                    print(error.localizedDescription)
+//                    return
+//                }
+//            }
+//        }
+//    }
+//    
+//    func getInstaPosts(dataCompletion: @escaping (_ Data: Edges)-> Void) {
+//        Alamofire.request(instaPostsURL, method: .get, parameters: nil).response { (response) in
+//            if let data = response.data {
+//                let decoder = JSONDecoder()
+//                do {
+//                    let parsedData = try decoder.decode(Edges.self, from: data)
+//                    dataCompletion(parsedData)
+//                    instaData=parsedData.edges
+//                    print((parsedData))
+//                } catch let error{
+//                    print(error.localizedDescription)
+//                }
+//                DispatchQueue.main.async {
+//                    instaview?.instagramCollectionView.reloadData()
+//                }
+//            }
+//        }
+//        
+//    }
 }
+

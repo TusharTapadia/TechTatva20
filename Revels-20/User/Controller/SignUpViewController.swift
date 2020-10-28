@@ -924,7 +924,6 @@ extension SignUpViewController: collegeSelected
             self.collegeField.text = name
             self.stateField.becomeFirstResponder()
         }
-        
         searchController.dismiss(animated: false, completion: nil)
     }
 }
