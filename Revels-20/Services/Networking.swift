@@ -43,16 +43,16 @@ struct NewsLetterApiRespone: Decodable{
 }
 struct Networking {
     
-    let userSignUpURL = "https://register.mitrevels.in/signup/"
+    let userSignUpURL = "https://categories.techtatva.in/app/signup"
     let userPasswordForgotURL = "https://register.mitrevels.in/forgotPassword/"
     let userPasswordResetURL = "https://register.mitrevels.in/setPassword/"
-    let userLoginURL = "https://register.mitrevels.in/login/"
-    let userLogoutURL = "https://register.mitrevels.in/logout/"
+    let userLoginURL = "https://categories.techtatva.in/app/login"
+    let userLogoutURL = "https://categories.techtatva.in/app/logout"
     let userDetailsURL = "https://register.mitrevels.in/userProfile"
-    let registerEventURL = "https://register.mitrevels.in/createteam"
-    let getRegisteredEventsURL = "https://register.mitrevels.in/registeredEvents"
-    let leaveTeamURL = "https://register.mitrevels.in/leaveteam"
-    let addTeamMateURL = "https://register.mitrevels.in/addmember"
+    let registerEventURL = "https://categories.techtatva.in/app/createteam"
+    let getRegisteredEventsURL = "https://categories.techtatva.in/app/registeredevents"
+    let leaveTeamURL = "https://categories.techtatva.in/app/leaveteam"
+    let addTeamMateURL = "https://categories.techtatva.in/app/jointeam"
 
     
     let liveBlogURL = "http://revels.herokuapp.com/"
@@ -150,13 +150,14 @@ struct Networking {
     
     // MARK: - Users
     
-    func registerUserWithDetails(name: String, email: String, mobile: String, reg: String, collname: String, dataCompletion: @escaping (_ Data: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+    func registerUserWithDetails(name: String, email: String, mobile: String, collname: String,sname:String, dlink:String, dataCompletion: @escaping (_ Data: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         let parameters = [
             "name": name,
             "email": email,
-            "regno": reg,
             "mobile": mobile,
             "collname": collname,
+            "sname": sname,
+            "dlink": dlink,
             "type": "invisible",
             "g-recaptcha-response": serverToken,
             ] as [String : Any]

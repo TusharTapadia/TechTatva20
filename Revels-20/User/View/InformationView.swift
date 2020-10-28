@@ -42,7 +42,7 @@ class InformationView: UIView {
     
     let loginTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "TechTatva'20 aims to transform the paradigm of a college fest and unite nation-wide students even in the midst of a global pandemic by going online.An arena for ideas and learning in all domains of technology and the advancing modern world with various kinds of events.\n\nSign in to your TechTatva account to register for exciting events, buy delegate cards, form teams etc. and have a chance to win huge cash prizes!"
+        label.text = "TechTatva'20 aims to transform the paradigm of a college fest and unite nation-wide students even in the midst of a global pandemic by going online.An arena for ideas and learning in all domains of technology and the advancing modern world with various kinds of events.\n\nSign in to your TechTatva account to register for exciting events and have a chance to win huge cash prizes!"
         label.textAlignment = .center
         label.textColor = .white
         label.numberOfLines = 0

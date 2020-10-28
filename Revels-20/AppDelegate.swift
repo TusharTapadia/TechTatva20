@@ -184,7 +184,7 @@ extension AppDelegate{
                 }
             }
         }else{
-            print("cant find key par")
+            print("cant find key pair")
         }
     }
     

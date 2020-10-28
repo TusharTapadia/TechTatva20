@@ -67,7 +67,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         }
         button.layer.borderWidth = 1.5
-        button.layer.borderColor = UIColor.CustomColors.Purple.register.cgColor
+        button.layer.borderColor = UIColor.CustomColors.Purple.logoLightPink.cgColor
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         return button
@@ -77,7 +77,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         let button = LoadingButton(type: .system)
         button.setTitle("Continue as Guest", for: UIControl.State())
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.CustomColors.Purple.accent, for: UIControl.State())
+        button.setTitleColor(UIColor.CustomColors.Purple.logoLightPink, for: UIControl.State())
         if isSmalliPhone(){
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
         }else{
@@ -92,7 +92,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         let button = LoadingButton(type: .system)
         button.setTitle("Forgot Password?", for: UIControl.State())
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.CustomColors.Purple.register, for: UIControl.State())
+        button.setTitleColor(UIColor.CustomColors.Purple.logoLightPink, for: UIControl.State())
         if isSmalliPhone(){
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
         }else{
@@ -114,7 +114,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         passwordField.configure(color: .white,
                                 font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
                                 cornerRadius: isSmalliPhone() ? 20 : 25,
-                                borderColor: UIColor.CustomColors.Purple.register,
+                                borderColor: UIColor.CustomColors.Purple.logoLightPink,
                                 backgroundColor: UIColor.CustomColors.Black.background,
                                 borderWidth: 1.0)
         passwordField.isSecureTextEntry = true
@@ -129,7 +129,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         emailField.configure(color: .white,
                              font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
                                        cornerRadius: isSmalliPhone() ? 20 : 25,
-                                       borderColor: UIColor.CustomColors.Purple.register,
+                                       borderColor: UIColor.CustomColors.Purple.logoLightPink,
                                        backgroundColor: UIColor.CustomColors.Black.background,
                                        borderWidth: 1.0)
         emailField.keyboardType = .emailAddress

@@ -99,6 +99,7 @@
 		C62CC8E925210BE000066CB4 /* YoutubeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8E825210BE000066CB4 /* YoutubeCell.swift */; };
 		C62CC8EB25210C0700066CB4 /* YoutubeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */; };
 		C6C2D09E2520F78900FC8B31 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C2D09D2520F78900FC8B31 /* SocialController.swift */; };
+		C6E8E41E2548864500D9BCB2 /* StateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8E41D2548864500D9BCB2 /* StateTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -211,6 +212,7 @@
 		C62CC8E825210BE000066CB4 /* YoutubeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeCell.swift; sourceTree = "<group>"; };
 		C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeModel.swift; sourceTree = "<group>"; };
 		C6C2D09D2520F78900FC8B31 /* SocialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialController.swift; sourceTree = "<group>"; };
+		C6E8E41D2548864500D9BCB2 /* StateTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTableViewController.swift; sourceTree = "<group>"; };
 		E6684DF29D7A8EB4EFF7588F /* Pods_Revels_20.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Revels_20.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -390,6 +392,7 @@
 				B242B718233A0E6D00D30292 /* UsersViewController.swift */,
 				B2C3A17F233CFC6000545451 /* LoginViewController.swift */,
 				B2D944F6233DEF3500DA14D1 /* SignUpViewController.swift */,
+				C6E8E41D2548864500D9BCB2 /* StateTableViewController.swift */,
 				B2D9451323406A0600DA14D1 /* RegisteredEventsViewController.swift */,
 				B2D944FA233DF77200DA14D1 /* ResetPassword.swift */,
 				B268457523FEE0690075CA16 /* collegeSearchTableViewController.swift */,
@@ -842,6 +845,7 @@
 				B2DE58192313EA7900082EC1 /* ResultsCell.swift in Sources */,
 				C62CC8DB2521085800066CB4 /* InstagramCollectionView.swift in Sources */,
 				B2DE58232313EBBF00082EC1 /* InternalResultsViewController.swift in Sources */,
+				C6E8E41E2548864500D9BCB2 /* StateTableViewController.swift in Sources */,
 				B2D9452C2340E1C300DA14D1 /* ToggleTorchButton.swift in Sources */,
 				B2EDA16B23436A23009D5613 /* LiveBlogController.swift in Sources */,
 				6F0F7DED23144BD100631BF9 /* CategoryTableViewCell.swift in Sources */,

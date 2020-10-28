@@ -74,7 +74,7 @@ class EventsViewController: UITableViewController {
         return 9
     }
     
-//     This is shown when you tap on a schedule cell
+//     This is shown when you tap on a schedule and event cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! EventCell
         
@@ -128,7 +128,7 @@ class EventsViewController: UITableViewController {
 
                 imageName = "card"
                 if detailedTextLabel != "" {
-                    cell.selectionStyle = .gray
+//                    cell.selectionStyle = .gray
                 }
             }
             break
@@ -386,9 +386,9 @@ class EventsViewController: UITableViewController {
     }
     
     //Make changes to the below function as per the new event model
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        switch indexPath.row{
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.row{
 //        case 6:
 //            if let card = self.delegateDictionary[self.event.delCardType]{
 //                DispatchQueue.main.async(execute: {
@@ -404,23 +404,33 @@ class EventsViewController: UITableViewController {
 //                })
 //                return
 //            }
-//        case 7:
-//            //Make changes here
-//            let category = categoriesDictionary[event.category]
-////            if let number = category?.cc1Contact{
-////                self.callNumber(number: number)
-////            }
-//        case 8:
-//            //Make changes here
-//            let category = categoriesDictionary[event.category]
-////            if let number = category?.cc2Contact{
-////                self.callNumber(number: number)
-////            }
-//        default: return
-//        }
-//    }
+        case 3:
+            let category = categoriesDictionary[event.category]
+            if let number = category?.cc?[0].phoneNo{
+                self.callNumber(number: number)
+            }
+            
+        case 4:
+            let category = categoriesDictionary[event.category]
+            if let number = category?.cc?[1].phoneNo{
+                self.callNumber(number: number)
+            }
+            
+        case 7:
+            let category = categoriesDictionary[event.category]
+            if let number = category?.cc?[0].phoneNo{
+                self.callNumber(number: number)
+            }
+        case 8:
+            let category = categoriesDictionary[event.category]
+            if let number = category?.cc?[1].phoneNo{
+                self.callNumber(number: number)
+            }
+        default: return
+        }
+    }
     
-    fileprivate func callNumber(number: String){
+    fileprivate func callNumber(number: UInt64){
         AudioServicesPlaySystemSound(1519)
         if let url = URL(string: "tel://\(number)") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -441,7 +451,7 @@ class EventsViewController: UITableViewController {
              }
         }else{
             DispatchQueue.main.async(execute: {
-                let alertController = UIAlertController(title: "Sign in to Buy Delegate Cards", message: "You need to be signed in to buy a Delegate Card.", preferredStyle: UIAlertController.Style.actionSheet)
+                let alertController = UIAlertController(title: "Sign in to Register", message: "You need to be signed in to register for an event", preferredStyle: UIAlertController.Style.actionSheet)
                 let logInAction = UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
                     let login = LoginViewController()
                     let loginNav = MasterNavigationBarController(rootViewController: login)

@@ -13,7 +13,7 @@ class noCollegeTableViewCell: UITableViewCell{
     
     lazy var informationLabel: UITextView = {
         let label = UITextView()
-        label.text = "If college is not present,\nplease contact\nOutstation Management at\nom.revels20@gmail.com\nor +91 96112 38663"
+        label.text = "If college is not present,\nplease contact\nOutstation Management at\n outstation.techtatva@manipal.edu\nor +91 75063 61422/98203 43652/ 98214 56564"
         label.textColor = .lightGray
         label.backgroundColor = UIColor.CustomColors.Black.background
         label.isEditable = false

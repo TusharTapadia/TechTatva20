@@ -152,15 +152,15 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
     func handleEventTap(withEvent event: Event){
         AudioServicesPlaySystemSound(1519)
         let eventViewController = EventsViewController()
-        slideInTransitioningDelegate.categoryName = "\(event.description)"
+        slideInTransitioningDelegate.categoryName = ""   //"\(event.description)"
         eventViewController.modalPresentationStyle = .custom
         eventViewController.transitioningDelegate = slideInTransitioningDelegate
         eventViewController.event = event
         eventViewController.schedule = nil
         eventViewController.tagsEventController = self
         present(eventViewController, animated: true, completion: nil)
-        print(event.eventID)
-        print(event.name)
+//        print(event.eventID)
+//        print(event.name)
     }
     
     func performPaymentFor(delegateCardID: Int){
