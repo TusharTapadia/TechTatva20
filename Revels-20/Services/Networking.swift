@@ -20,16 +20,15 @@ struct UserKeys{
 }
 
 let resultsURL = "https://api.mitrevels.in/results" //"https://api.techtatva.in/results"
-let eventsURL = "https://api.mitrevels.in/events"
+let eventsURL = "https://categories.techtatva.in/app/events"
 let scheduleURL = "https://techtatvadata.herokuapp.com/schedule" //"https://api.techtatva.in/schedule"
 //let categoriesURL = "https://api.mitrevels.in/categories"
-let categoriesURL = "https://techtatvadata.herokuapp.com/category"
+let categoriesURL = "https://categories.techtatva.in/app/category"
 let delegateCardsURL = "https://api.mitrevels.in/delegate_cards"
 let boughtDelegateCardsURL = "https://register.mitrevels.in/boughtCards"
 let paymentsURL = "https://register.mitrevels.in/buy?card="
 let mapsDataURL = "https://appdev.mitrevels.in/maps"
 let collegeDataURL = "http://api.mitrevels.in/colleges"
-let proshowURL = "https://appdev.mitrevels.in/proshow" //"http://aws.namanjain.me:3000/proshow/"
 let sponsorsURL = "https://appdev.mitrevels.in/sponsors"
 
 struct NetworkResponse <T: Decodable>: Decodable{
@@ -44,16 +43,16 @@ struct NewsLetterApiRespone: Decodable{
 }
 struct Networking {
     
-    let userSignUpURL = "https://register.mitrevels.in/signup/"
+    let userSignUpURL = "https://categories.techtatva.in/app/signup"
     let userPasswordForgotURL = "https://register.mitrevels.in/forgotPassword/"
     let userPasswordResetURL = "https://register.mitrevels.in/setPassword/"
-    let userLoginURL = "https://register.mitrevels.in/login/"
-    let userLogoutURL = "https://register.mitrevels.in/logout/"
+    let userLoginURL = "https://categories.techtatva.in/app/login"
+    let userLogoutURL = "https://categories.techtatva.in/app/logout"
     let userDetailsURL = "https://register.mitrevels.in/userProfile"
-    let registerEventURL = "https://register.mitrevels.in/createteam"
-    let getRegisteredEventsURL = "https://register.mitrevels.in/registeredEvents"
-    let leaveTeamURL = "https://register.mitrevels.in/leaveteam"
-    let addTeamMateURL = "https://register.mitrevels.in/addmember"
+    let registerEventURL = "https://categories.techtatva.in/app/createteam"
+    let getRegisteredEventsURL = "https://categories.techtatva.in/app/registeredevents"
+    let leaveTeamURL = "https://categories.techtatva.in/app/leaveteam"
+    let addTeamMateURL = "https://categories.techtatva.in/app/jointeam"
 
     
     let liveBlogURL = "http://revels.herokuapp.com/"
@@ -96,17 +95,40 @@ struct Networking {
                     }
                 }catch let error{
                     print(error)
-                    errorCompletion("Decoding Error")
+                    errorCompletion("Decoding Error in getData(Networking)")
                 }
             }
         }
     }
+    
+    func getEvents(dataCompletion: @escaping (_ Data: [Event]) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+        
+        Alamofire.request(eventsURL, method: .post, parameters: nil, encoding: URLEncoding()).response { response in
+            if let data = response.data{
+                do{
+                    let resultsResponse = try JSONDecoder().decode(EventsResponse.self, from: data)
+                    if resultsResponse.success{
+                        if let data = resultsResponse.data{
+                            dataCompletion(data)
+                        }
+                    }else{
+                        errorCompletion("Events Response Failed(Networking)")
+                    }
+                }catch let error{
+                    print(error)
+                    errorCompletion("Decoding Error in getting Events(Networking)")
+                }
+            }
+        }
+    }
+    
+    
 
     // MARK: - Events
     
     func getCategories(dataCompletion: @escaping (_ Data: [Category]) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         
-        Alamofire.request(categoriesURL, method: .get, parameters: nil, encoding: URLEncoding()).response { response in
+        Alamofire.request(categoriesURL, method: .post, parameters: nil, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
                     let resultsResponse = try JSONDecoder().decode(CategoriesResponse.self, from: data)
@@ -115,11 +137,11 @@ struct Networking {
                             dataCompletion(data)
                         }
                     }else{
-                        errorCompletion("Events Response Failed")
+                        errorCompletion("Events Response Failed(Networking)")
                     }
                 }catch let error{
                     print(error)
-                    errorCompletion("Decoding Error")
+                    errorCompletion("Decoding Error in getting Categories(Networking)")
                 }
             }
         }
@@ -128,13 +150,14 @@ struct Networking {
     
     // MARK: - Users
     
-    func registerUserWithDetails(name: String, email: String, mobile: String, reg: String, collname: String, dataCompletion: @escaping (_ Data: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+    func registerUserWithDetails(name: String, email: String, mobile: String, collname: String,sname:String, dlink:String, dataCompletion: @escaping (_ Data: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         let parameters = [
             "name": name,
             "email": email,
-            "regno": reg,
             "mobile": mobile,
             "collname": collname,
+            "sname": sname,
+            "dlink": dlink,
             "type": "invisible",
             "g-recaptcha-response": serverToken,
             ] as [String : Any]
@@ -211,6 +234,7 @@ struct Networking {
         let parameters = [
             "email": Email,
             "password": Password,
+            //Make changes here 
             "type": "invisible",
             "g-recaptcha-response": serverToken,
             ] as [String : Any]
@@ -407,23 +431,5 @@ struct Networking {
         }
     }
     
-    func getProshowData(dataCompletion: @escaping (_ Data: ProResponse) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
-        
-        Alamofire.request(proshowURL, method: .get, parameters: nil, encoding: URLEncoding()).response { response in
-            if let data = response.data{
-                do{
-                    let resultsResponse = try JSONDecoder().decode(ProResponse.self, from: data)
-                    if resultsResponse.success{
-                        dataCompletion(resultsResponse)
-                    }else{
-                        errorCompletion("Coudn't Fetch Registered Events")
-                    }
-                }catch let error{
-                    print(error)
-                    errorCompletion("Decoding Error")
-                }
-            }
-        }
-    }
     
 }

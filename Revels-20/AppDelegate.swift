@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         getCategories()
         getDelegateCards()
         getNewsletterURL()
-        getProshowData()
+        
         
         window = UIWindow()
         window?.makeKeyAndVisible()
@@ -78,37 +78,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         }
     }
     
-    func getProshowData(){
-        Networking.sharedInstance.getProshowData(dataCompletion: { (data) in
-            Caching.sharedInstance.saveProshowToCache(proshow: data)
-        }) { (errorMessage) in
-            print(errorMessage)
-        }
-    }
-    
     fileprivate func getEvents(){
+//        var events = [Event]()
         var tags = [String]()
         tags.append("All")
         var eventsDictionary = [Int: Event]()
-        Networking.sharedInstance.getData(url: eventsURL, decode: Event(), dataCompletion: { (data) in
-            for event in data{
-                if event.visible == 1{
-                    eventsDictionary[event.id] = event
-                    if let guardedTags = event.tags{
-                        for tag in guardedTags{
-                            if !tags.contains(tag){
-                                tags.append(tag)
+            Networking.sharedInstance.getEvents (dataCompletion: { (data) in
+                
+                for event in data{
+                    if let eventID = event.eventID{
+                        eventsDictionary[eventID] = event
+                        if let guardedTags = event.tags{
+                        let uncapitalizedArray = guardedTags.map { $0.lowercased()}
+//                            print(event.name)
+//                            print(event.eventID)
+//                            event.tags = uncapitalizedArray
+                            for tag in uncapitalizedArray{
+                                if !tags.contains(tag){
+                                    tags.append(tag)
+                                }
                             }
                         }
                     }
                 }
+                
+                Caching.sharedInstance.saveEventsToCache(events: data)
+                Caching.sharedInstance.saveEventsDictionaryToCache(eventsDictionary: eventsDictionary)
+                Caching.sharedInstance.saveTagsToCache(tags: tags)
+                print("tags", tags)
+             }) { (errorMessage) in
+                print("Event fetch problem(App Delegate):",errorMessage)
             }
-            Caching.sharedInstance.saveEventsToCache(events: data)
-            Caching.sharedInstance.saveEventsDictionaryToCache(eventsDictionary: eventsDictionary)
-            Caching.sharedInstance.saveTagsToCache(tags: tags)
-        }) { (errorMessage) in
-            print(errorMessage)
-        }
+
     }
     
     fileprivate func getSchedule(){
@@ -123,26 +124,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     }
     
     fileprivate func getCategories() {
-        var categoriesDictionary = [Int: Category]()
+        var categoriesDictionary = [String: Category]()
         Networking.sharedInstance.getCategories(dataCompletion: { (data) in
-            print("Category data:", data)
+//            print("Category data:", data)
             for category in data {
-                if category.type == "Online"{
-                    categoriesDictionary[category.id] = category
-                }
+                    categoriesDictionary[category.name] = category
             }
             self.saveCategoriesDictionaryToCache(categoriesDictionary: categoriesDictionary)
         }) { (errorMessage) in
-            print("Category cache problem",errorMessage)
+            print("Category fetch problem(App Delegate):",errorMessage)
         }
     }
     
-    func saveCategoriesDictionaryToCache(categoriesDictionary: [Int: Category]) {
+    func saveCategoriesDictionaryToCache(categoriesDictionary: [String: Category]) {
         do {
             try Disk.save(categoriesDictionary, to: .caches, as: categoriesDictionaryCache)
         }
         catch let error {
-            print(error)
+            print("Category cache problem (App delegate):",error)
         }
     }
 }
@@ -185,7 +184,7 @@ extension AppDelegate{
                 }
             }
         }else{
-            print("cant find key par")
+            print("cant find key pair")
         }
     }
     

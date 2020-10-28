@@ -134,6 +134,13 @@ extension UIColor {
 //            static let background = UIColor.rgb(red: 0, green: 0, blue: 0)
             static let card = UIColor.rgb(red: 25, green: 25, blue: 25) //UIColor.rgb(red: 65, green: 65, blue: 65)
         }
+        
+        struct Purple {
+            static let accent = UIColor(red: 207.0/255.0, green: 154.0/255.0, blue: 242.0/255.0, alpha: 1)
+            static let register = UIColor(red: 183.0/255.0, green: 130.0/255.0, blue: 239.0/255.0, alpha: 1)
+            static let logoDarkPink = UIColor(red: 107.0/255.0, green: 39.0/255.0, blue: 96.0/255.0, alpha: 1)
+            static let logoLightPink = UIColor(red: 241.0/255.0, green: 188.0/255.0, blue: 221.0/255.0, alpha: 1)
+        }
     }
 }
 

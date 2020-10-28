@@ -78,14 +78,14 @@ class FeaturedEventsConroller: UITableViewController {
     func handleEventTap(withEvent event: Event){
         AudioServicesPlaySystemSound(1519)
         let eventViewController = EventsViewController()
-        slideInTransitioningDelegate.categoryName = "\(event.shortDesc)"
+        slideInTransitioningDelegate.categoryName = "\(event.description)"
         eventViewController.modalPresentationStyle = .custom
         eventViewController.transitioningDelegate = slideInTransitioningDelegate
         eventViewController.event = event
         eventViewController.schedule = nil
 //        eventViewController.tagsEventController = self
         present(eventViewController, animated: true, completion: nil)
-        print(event.id)
+        print(event.eventID)
         print(event.name)
     }
     

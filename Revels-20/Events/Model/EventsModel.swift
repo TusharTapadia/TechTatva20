@@ -12,30 +12,26 @@ struct EventsResponse: Codable{
 }
 
 struct Event: Codable{
-    let id: Int
-    let category: Int
+
     let name: String
-    let shortDesc: String
-    let longDesc: String
-    let minTeamSize: Int
-    let maxTeamSize: Int
-    let delCardType: Int
-    let can_register: Int
-    let visible: Int
+    let category: String
     let tags: [String]?
-    
+    let mode: String?
+    let description: String
+    let teamSize: String?
+    let eventID : Int?
+//    let can_register: Int
+//    let visible: Int
+//
     init() {
-        id = 0
-        category = 0
+        category = ""
         name = ""
-        shortDesc = ""
-        longDesc = ""
-        minTeamSize = 0
-        maxTeamSize = 0
-        delCardType = 0
-        can_register = 0
-        visible = 0
         tags = []
+        mode = ""
+        description = ""
+        teamSize = ""
+        eventID = 0
     }
 }
+
 

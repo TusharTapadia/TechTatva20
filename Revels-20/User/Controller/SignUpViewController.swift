@@ -435,7 +435,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
     
     lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo_dark-1")
+        imageView.image = UIImage(named: "logo_dark")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -464,7 +464,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         return textField
     }()
     
-    lazy var regField: LeftPaddedTextField = {
+    lazy var driveField: LeftPaddedTextField = {
+        let textField = LeftPaddedTextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    lazy var stateField: LeftPaddedTextField = {
         let textField = LeftPaddedTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -479,7 +485,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
     lazy var registerButton: LoadingButton = {
         let button = LoadingButton(type: .system)
         button.setTitle("Register", for: UIControl.State())
-        button.backgroundColor = UIColor.CustomColors.Blue.logoDarkGreen
+        button.backgroundColor = UIColor(red: 183.0/255.0, green: 130.0/255.0, blue: 239.0/255.0, alpha: 1)
+//            UIColor.CustomColors.Purple.accent
+//            UIColor.CustomColors.Blue.logoDarkGreen
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: UIControl.State())
         if isSmalliPhone(){
@@ -496,7 +504,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         let button = LoadingButton(type: .system)
         button.setTitle("Continue as Guest", for: UIControl.State())
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.CustomColors.Blue.logoLightGreen, for: UIControl.State())
+        button.setTitleColor(UIColor.CustomColors.Purple.logoLightPink, for: UIControl.State())
         if isSmalliPhone(){
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
         }else{
@@ -509,6 +517,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
    
     var collegeSearchearchController = collegeSearchTableViewController()
     var searchController = UISearchController()
+    var stateSearchController = StateTableViewController()
+//    let navController = UINavigationController(rootViewController: stateSearchController)
     
     var colleges = [String]()
     var maheColleges = [String]()
@@ -536,22 +546,30 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField == collegeField {
-            hideKeyboard()
-            collegeSearchearchController.collegeDelegate = self
-            collegeSearchearchController.colleges = self.colleges
-            collegeSearchearchController.maheColleges = self.maheColleges
-            collegeSearchearchController.filteredColleges = self.filteredColleges
-            searchController = UISearchController(searchResultsController: collegeSearchearchController)
-            searchController.searchResultsUpdater = collegeSearchearchController
-            searchController.searchBar.barStyle = .blackTranslucent
-            searchController.searchBar.backgroundImage = UIImage.init(color: .clear)
-            searchController.searchBar.barTintColor = .black
-            searchController.dimsBackgroundDuringPresentation = false
-            searchController.hidesNavigationBarDuringPresentation = false
+//        if textField == collegeField {
+//            hideKeyboard()
+//            collegeSearchearchController.collegeDelegate = self
+//            collegeSearchearchController.colleges = self.colleges
+//            collegeSearchearchController.maheColleges = self.maheColleges
+//            collegeSearchearchController.filteredColleges = self.filteredColleges
+//            searchController = UISearchController(searchResultsController: collegeSearchearchController)
+//            searchController.searchResultsUpdater = collegeSearchearchController
+//            searchController.searchBar.barStyle = .blackTranslucent
+//            searchController.searchBar.backgroundImage = UIImage.init(color: .clear)
+//            searchController.searchBar.barTintColor = .black
+//            searchController.dimsBackgroundDuringPresentation = false
+//            searchController.hidesNavigationBarDuringPresentation = false
+//        
+//            present(searchController, animated: true, completion: nil)
+//            searchController.searchResultsController?.view.isHidden = false
+//            return false
+//        }
         
-            present(searchController, animated: true, completion: nil)
-            searchController.searchResultsController?.view.isHidden = false
+        if textField == stateField{
+            hideKeyboard()
+            stateSearchController.stateDelegate = self
+            present(stateSearchController, animated: true, completion: nil)
+//            searchController.searchResultsController?.view.isHidden = false
             return false
         }
         return true
@@ -567,11 +585,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
     }
     
     func setupViews(){
-        
+        //Make the bordercolor changes here for the registration page
+        //The logo looks blurry , get a high quality image to replace it 
         nameField.configure(color: .white,
                              font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
                              cornerRadius: isSmalliPhone() ? 20 : 25,
-                             borderColor: UIColor.CustomColors.Blue.logoDarkGreen,
+                             borderColor: UIColor.CustomColors.Purple.logoLightPink,
                              backgroundColor: UIColor.CustomColors.Black.background,
                              borderWidth: 1.0)
         nameField.keyboardType = .default
@@ -587,7 +606,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         emailField.configure(color: .white,
                              font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
                              cornerRadius: isSmalliPhone() ? 20 : 25,
-                             borderColor: UIColor.CustomColors.Blue.logoDarkGreen,
+                             borderColor: UIColor.CustomColors.Purple.logoLightPink,
                              backgroundColor: UIColor.CustomColors.Black.background,
                              borderWidth: 1.0)
         emailField.keyboardType = .emailAddress
@@ -604,7 +623,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         phoneField.configure(color: .white,
                              font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
                              cornerRadius: isSmalliPhone() ? 20 : 25,
-                             borderColor: UIColor.CustomColors.Blue.logoDarkGreen,
+                             borderColor: UIColor.CustomColors.Purple.logoLightPink,
                              backgroundColor: UIColor.CustomColors.Black.background,
                              borderWidth: 1.0)
         phoneField.keyboardType = .phonePad
@@ -621,7 +640,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         collegeField.configure(color: .white,
                             font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
                             cornerRadius: isSmalliPhone() ? 20 : 25,
-                            borderColor: UIColor.CustomColors.Blue.logoDarkGreen,
+                            borderColor: UIColor.CustomColors.Purple.logoLightPink,
                             backgroundColor: UIColor.CustomColors.Black.background,
                             borderWidth: 1.0)
         collegeField.keyboardType = .default
@@ -634,21 +653,38 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
             ])
         
-        regField.configure(color: .white,
+        stateField.configure(color: .white,
                             font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
                             cornerRadius: isSmalliPhone() ? 20 : 25,
-                            borderColor: UIColor.CustomColors.Blue.logoDarkGreen,
+                            borderColor: UIColor.CustomColors.Purple.logoLightPink,
                             backgroundColor: UIColor.CustomColors.Black.background,
                             borderWidth: 1.0)
-        regField.keyboardType = .default
-        regField.autocorrectionType = .no
-        regField.clipsToBounds = true
-        regField.delegate = self
-        regField.tag = 4
-        regField.attributedPlaceholder = NSAttributedString(string: "Reg No./Faculty ID", attributes: [
+        stateField.keyboardType = .default
+        stateField.autocorrectionType = .no
+        stateField.clipsToBounds = true
+        stateField.delegate = self
+        stateField.tag = 4
+        stateField.attributedPlaceholder = NSAttributedString(string: "State Name", attributes: [
             .foregroundColor: UIColor.lightGray,
             .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
             ])
+        
+        driveField.configure(color: .white,
+                            font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
+                            cornerRadius: isSmalliPhone() ? 20 : 25,
+                            borderColor: UIColor.CustomColors.Purple.logoLightPink,
+                            backgroundColor: UIColor.CustomColors.Black.background,
+                            borderWidth: 1.0)
+        driveField.keyboardType = .default
+        driveField.autocorrectionType = .no
+        driveField.clipsToBounds = true
+        driveField.delegate = self
+        driveField.tag = 5
+        driveField.attributedPlaceholder = NSAttributedString(string: "Enter drive link for ID", attributes: [
+            .foregroundColor: UIColor.lightGray,
+            .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
+            ])
+        
         
         
         if isSmalliPhone(){
@@ -662,8 +698,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             _ = phoneField.anchor(top: emailField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
             view.addSubview(collegeField)
             _ = collegeField.anchor(top: phoneField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
-            view.addSubview(regField)
-            _ = regField.anchor(top: collegeField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+            
+            view.addSubview(stateField)
+            _ = stateField.anchor(top: collegeField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+            
+            view.addSubview(driveField)
+            _ = driveField.anchor(top: stateField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
             
             view.addSubview(guestButton)
             _ = guestButton.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 32, bottomConstant: 16, rightConstant: 32, widthConstant: 0, heightConstant: 30)
@@ -682,8 +722,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             _ = phoneField.anchor(top: emailField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
             view.addSubview(collegeField)
             _ = collegeField.anchor(top: phoneField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
-            view.addSubview(regField)
-            _ = regField.anchor(top: collegeField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
+            
+            view.addSubview(stateField)
+            _ = stateField.anchor(top: collegeField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
+            
+            view.addSubview(driveField)
+            _ = driveField.anchor(top: stateField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
             
             view.addSubview(guestButton)
             _ = guestButton.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 32, bottomConstant: 16, rightConstant: 32, widthConstant: 0, heightConstant: 30)
@@ -745,9 +789,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             collegeField.becomeFirstResponder()
             break
         case 3:
-            regField.becomeFirstResponder()
+            stateField.becomeFirstResponder()
             break
         case 4:
+            //Made changes here
+            driveField.becomeFirstResponder()
+            break
+        case 5:
             hideKeyboard()
             break
         default: break
@@ -768,7 +816,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         guard let email = emailField.text else { return }
         guard let phone = phoneField.text else { return }
         guard let college = collegeField.text else { return }
-        guard let regNo = regField.text else { return }
+        guard let state = stateField.text else {return}
+        guard let dlink = driveField.text else { return }
         
         if name == ""{
             FloatingMessage().floatingMessage(Message: "Please enter your Details", Color: .red, onPresentation: {
@@ -812,9 +861,16 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             return
         }
         
-        if regNo == ""{
-            FloatingMessage().floatingMessage(Message: "Please enter your Reg No./Faculty ID", Color: .red, onPresentation: {
-                self.regField.becomeFirstResponder()
+        if dlink == ""{
+            FloatingMessage().floatingMessage(Message: "Please enter the drive link", Color: .red, onPresentation: {
+                self.driveField.becomeFirstResponder()
+            }) {}
+            return
+        }
+        
+        if state == ""{
+            FloatingMessage().floatingMessage(Message: "Please enter your State", Color: .red, onPresentation: {
+                self.stateField.becomeFirstResponder()
             }) {}
             return
         }
@@ -822,7 +878,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         registerButton.showLoading()
         registerButton.activityIndicator.color = .white
         
-        Networking.sharedInstance.registerUserWithDetails(name: name, email: email, mobile: phone, reg: regNo, collname: college, dataCompletion: { (successString) in
+        Networking.sharedInstance.registerUserWithDetails(name: name, email: email, mobile: phone, collname: college, sname: state, dlink: dlink, dataCompletion: { (successString) in
             print(successString)
             FloatingMessage().longFloatingMessage(Message: "A confirmation link has been sent to \(email).", Color: UIColor.CustomColors.Blue.register, onPresentation: {
                 self.hideKeyboard()
@@ -866,9 +922,25 @@ extension SignUpViewController: collegeSelected
         
         searchController.dismiss(animated: true) {
             self.collegeField.text = name
-            self.regField.becomeFirstResponder()
+            self.stateField.becomeFirstResponder()
         }
         
         searchController.dismiss(animated: false, completion: nil)
     }
+}
+
+extension SignUpViewController: StateSelected{
+    
+    func stateSelected(state: String) {
+        stateSearchController.dismiss(animated: true) {
+            self.stateField.text = state
+            self.driveField.becomeFirstResponder()
+        }
+        stateSearchController.dismiss(animated: false, completion: nil)
+        
+    }
+    
+    
+    
+    
 }

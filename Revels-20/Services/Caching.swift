@@ -60,13 +60,13 @@ struct Caching{
         }
     }
     
-    func saveProshowToCache(proshow: ProResponse){
-        do{
-            try Disk.save(proshow, to: .caches, as: proshowCache)
-        }catch let error{
-            print(error)
-        }
-    }
+//    func saveProshowToCache(proshow: ProResponse){
+//        do{
+//            try Disk.save(proshow, to: .caches, as: proshowCache)
+//        }catch let error{
+//            print(error)
+//        }
+//    }
     
     func saveSponsorsToCache(sponsors: [SponsorsData]){
         do{
@@ -139,7 +139,7 @@ struct Caching{
             let retrievedData = try Disk.retrieve(eventsCache, from: .caches, as: [Event].self)
             return retrievedData
         }catch let err{
-            print(err)
+            print("Error in getting events cache(Caching)", err)
             return []
         }
     }
@@ -154,15 +154,15 @@ struct Caching{
         }
     }
     
-    func getProshowFromCache() -> ProResponse? {
-        do{
-            let retrievedData = try Disk.retrieve(proshowCache, from: .caches, as: ProResponse.self)
-            return retrievedData
-        }catch let err{
-            print(err)
-            return nil
-        }
-    }
+//    func getProshowFromCache() -> ProResponse? {
+//        do{
+//            let retrievedData = try Disk.retrieve(proshowCache, from: .caches, as: ProResponse.self)
+//            return retrievedData
+//        }catch let err{
+//            print(err)
+//            return nil
+//        }
+//    }
     
     func getSponsorsFromCache() -> [SponsorsData]? {
         do{

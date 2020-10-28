@@ -149,7 +149,7 @@ class QRDelegateIDTableViewCell: UITableViewCell {
         button.setTitleColor(UIColor.white, for: UIControl.State())
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(showDelegateCards), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(showDelegateCards), for: .touchUpInside)
         return button
     }()
     
@@ -180,29 +180,29 @@ class QRDelegateIDTableViewCell: UITableViewCell {
         }
     }
     
-    @objc func showDelegateCards(){
-        delegateCardButton.showLoading()
-        delegateCardButton.activityIndicator.tintColor = .white
-        delegateCardButton.isEnabled = false
-        delegateCardButton.animateDown(sender: self.delegateCardButton)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
-            self.delegateCardButton.animateUp(sender: self.delegateCardButton)
-        }
-        let apiStruct = ApiStruct(url: boughtDelegateCardsURL, method: .get, body: nil)
-        WSManager.shared.getJSONResponse(apiStruct: apiStruct, success: { (boughtCards: BoughtDelegateCard) in
-           self.delegateCardButton.hideLoading()
-           self.delegateCardButton.isEnabled = true
-            var cards = [Int]()
-            for card in boughtCards.data{
-                cards.append(card.card_type)
-            }
-            self.usersViewController?.showDelegateCards(BoughtCards: cards)
-        }) { (error) in
-           print(error)
-            self.delegateCardButton.hideLoading()
-            self.delegateCardButton.isEnabled = true
-        }
-    }
+//    @objc func showDelegateCards(){
+//        delegateCardButton.showLoading()
+//        delegateCardButton.activityIndicator.tintColor = .white
+//        delegateCardButton.isEnabled = false
+//        delegateCardButton.animateDown(sender: self.delegateCardButton)
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+//            self.delegateCardButton.animateUp(sender: self.delegateCardButton)
+//        }
+//        let apiStruct = ApiStruct(url: boughtDelegateCardsURL, method: .get, body: nil)
+//        WSManager.shared.getJSONResponse(apiStruct: apiStruct, success: { (boughtCards: BoughtDelegateCard) in
+//           self.delegateCardButton.hideLoading()
+//           self.delegateCardButton.isEnabled = true
+//            var cards = [Int]()
+//            for card in boughtCards.data{
+//                cards.append(card.card_type)
+//            }
+//            self.usersViewController?.showDelegateCards(BoughtCards: cards)
+//        }) { (error) in
+//           print(error)
+//            self.delegateCardButton.hideLoading()
+//            self.delegateCardButton.isEnabled = true
+//        }
+//    }
     
     lazy var logoutButton: LoadingButton = {
         let button = LoadingButton(type: .system)

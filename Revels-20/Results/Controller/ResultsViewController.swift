@@ -151,8 +151,8 @@ class ResultsViewController: UICollectionViewController {
             
             for event in self.eventsWithResults{
                 for result in data{
-                    if result.event == event.id{
-                        self.resultsDictionary[event.id]?.append(result)
+                    if result.event == event.eventID{
+                        self.resultsDictionary[event.eventID!]?.append(result)
                     }
                 }
             }
@@ -174,11 +174,14 @@ class ResultsViewController: UICollectionViewController {
     fileprivate func getEvents(){
         Networking.sharedInstance.getData(url: eventsURL, decode: Event(), dataCompletion: { (data) in
             for event in data{
-                self.eventsDictionary[event.id] = event
+                if let eventID = event.eventID{
+                self.eventsDictionary[eventID] = event
             }
+        }
             self.saveEventsDictionaryToCache()
             self.getResults()
-        }) { (errorMessage) in
+        
+            }) { (errorMessage) in
             print(errorMessage)
         }
     }
@@ -249,10 +252,11 @@ extension ResultsViewController: UICollectionViewDelegateFlowLayout{
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ResultsCell
-        let selectedEventId = isFiltering() ? filteredEventsWithResults[indexPath.item].id : eventsWithResults[indexPath.item].id
+        if let selectedEventId = isFiltering() ? filteredEventsWithResults[indexPath.item].eventID : eventsWithResults[indexPath.item].eventID{
         cell.event = self.eventsDictionary[selectedEventId]
-        return cell
     }
+        return cell
+}
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if eventsWithResults.count == 0{
@@ -263,7 +267,7 @@ extension ResultsViewController: UICollectionViewDelegateFlowLayout{
         let resultsDetailViewController = ResultsDetailViewController(collectionViewLayout: UICollectionViewFlowLayout())
         print(selectedEvent.name)
         resultsDetailViewController.event = selectedEvent
-        resultsDetailViewController.results = self.resultsDictionary[selectedEvent.id]
+//        resultsDetailViewController.results = self.resultsDictionary[selectedEvent.id]
         navigationController?.pushViewController(resultsDetailViewController, animated: true)
         
     }

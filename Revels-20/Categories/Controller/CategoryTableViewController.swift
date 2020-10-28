@@ -21,7 +21,7 @@ class CategoriesTableViewController: UITableViewController, DayTableViewCellProt
     
     fileprivate let cellId = "cellId"
     
-    var categoriesDictionary = [Int: Category]()
+    var categoriesDictionary = [String: Category]()
     
     var popUp = SpinnerPopUp()
     
@@ -35,7 +35,7 @@ class CategoriesTableViewController: UITableViewController, DayTableViewCellProt
         }
     }
     
-    var detailsLauncher = DetailsLauncher()
+//    var detailsLauncher = DetailsLauncher()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,15 +103,15 @@ class CategoriesTableViewController: UITableViewController, DayTableViewCellProt
     
     func showSchedule(category : Int){
         AudioServicesPlaySystemSound(1519)
-        let scheduleController = ScheduleController(collectionViewLayout: UICollectionViewFlowLayout())
-        let categoryID = categories?[category].id
-        scheduleController.categoryID = categoryID
-        let category = self.categoriesDictionary[categoryID!]
-        slideInTransitioningDelegate.categoryName = category?.name ?? ""
-        scheduleController.fromCategory = true
-        scheduleController.modalPresentationStyle = .custom
-        scheduleController.transitioningDelegate = slideInTransitioningDelegate
-        present(scheduleController, animated: true, completion: nil)
+//        let scheduleController = ScheduleController(collectionViewLayout: UICollectionViewFlowLayout())
+//        let categoryID = categories?[category].id
+//        scheduleController.categoryID = categoryID
+//        let category = self.categoriesDictionary[categoryID!]
+//        slideInTransitioningDelegate.categoryName = category?.name ?? ""
+//        scheduleController.fromCategory = true
+//        scheduleController.modalPresentationStyle = .custom
+//        scheduleController.transitioningDelegate = slideInTransitioningDelegate
+//        present(scheduleController, animated: true, completion: nil)
     }
     
     //MARK: - Data Functions
@@ -123,7 +123,7 @@ class CategoriesTableViewController: UITableViewController, DayTableViewCellProt
     
     func getCachedCategoriesDictionary(){
         do{
-            let retrievedCategoriesDictionary = try Disk.retrieve(categoriesDictionaryCache, from: .caches, as: [Int: Category].self)
+            let retrievedCategoriesDictionary = try Disk.retrieve(categoriesDictionaryCache, from: .caches, as: [String: Category].self)
             self.categories = Array(retrievedCategoriesDictionary.values)
             self.categoriesDictionary = retrievedCategoriesDictionary
         }
@@ -134,20 +134,21 @@ class CategoriesTableViewController: UITableViewController, DayTableViewCellProt
     }
     
     fileprivate func getCategories() {
-        var categoriesDictionary = [Int: Category]()
-        Networking.sharedInstance.getCategories(dataCompletion: { (data) in
-            for category in data {
-                if category.type == "TECHNICAL"{
-                    categoriesDictionary[category.id] = category
-                }
-            }
-            self.saveCategoriesDictionaryToCache(categoriesDictionary: categoriesDictionary)
-        }) { (errorMessage) in
-            print(errorMessage)
-        }
+//        var categoriesDictionary = [Int: Category]()
+//        Networking.sharedInstance.getCategories(dataCompletion: { (data) in
+//            for category in data {
+//                if category.type == "TECHNICAL"{
+//                    categoriesDictionary[category.id] = category
+//                }
+//            }
+//            self.saveCategoriesDictionaryToCache(categoriesDictionary: categoriesDictionary)
+//    }) { (errorMessage) in
+//            print(errorMessage)
+//        }
     }
+
     
-    func saveCategoriesDictionaryToCache(categoriesDictionary: [Int: Category]) {
+    func saveCategoriesDictionaryToCache(categoriesDictionary: [String: Category]) {
         do {
             try Disk.save(categoriesDictionary, to: .caches, as: categoriesDictionaryCache)
             self.categories = Array(categoriesDictionary.values)

@@ -16,7 +16,7 @@ class PaymentsWebViewController: UIViewController, WKScriptMessageHandler{
     
     var delegateCardID: Int?
     var delegateCardsController: DelegateCardsController?
-    var proshowViewController: ProshowViewController?
+//    var proshowViewController: ProshowViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = webView
@@ -62,7 +62,7 @@ class PaymentsWebViewController: UIViewController, WKScriptMessageHandler{
                             confettiView.intensity = 0.5
                             confettiView.startConfetti()
                             self.delegateCardsController?.getBoughtDelegateCards()
-                            self.proshowViewController?.markedCardAsBought()
+//                            self.proshowViewController?.markedCardAsBought()
                             UIApplication.shared.keyWindow?.addSubview(confettiView)
                             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                 UIView.animate(withDuration: 0.5, animations: {
