@@ -620,6 +620,23 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
             ])
         
+        passwordField.configure(color: .white,
+                             font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
+                             cornerRadius: isSmalliPhone() ? 20 : 25,
+                             borderColor: UIColor.CustomColors.Purple.logoLightPink,
+                             backgroundColor: UIColor.CustomColors.Black.background,
+                             borderWidth: 1.0)
+        passwordField.keyboardType = .emailAddress
+        passwordField.autocorrectionType = .no
+        passwordField.autocapitalizationType = .none
+        passwordField.clipsToBounds = true
+        passwordField.isSecureTextEntry = true
+        passwordField.delegate = self
+        passwordField.tag = 2
+        passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [
+            .foregroundColor: UIColor.lightGray,
+            .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
+            ])
         phoneField.configure(color: .white,
                              font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18),
                              cornerRadius: isSmalliPhone() ? 20 : 25,
@@ -631,7 +648,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         phoneField.autocapitalizationType = .none
         phoneField.clipsToBounds = true
         phoneField.delegate = self
-        phoneField.tag = 2
+        phoneField.tag = 3
         phoneField.attributedPlaceholder = NSAttributedString(string: "Phone Number", attributes: [
             .foregroundColor: UIColor.lightGray,
             .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
@@ -647,7 +664,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         collegeField.autocorrectionType = .no
         collegeField.clipsToBounds = true
         collegeField.delegate = self
-        collegeField.tag = 3
+        collegeField.tag = 4
         collegeField.attributedPlaceholder = NSAttributedString(string: "College Name", attributes: [
             .foregroundColor: UIColor.lightGray,
             .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
@@ -663,7 +680,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         stateField.autocorrectionType = .no
         stateField.clipsToBounds = true
         stateField.delegate = self
-        stateField.tag = 4
+        stateField.tag = 5
         stateField.attributedPlaceholder = NSAttributedString(string: "State Name", attributes: [
             .foregroundColor: UIColor.lightGray,
             .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
@@ -679,7 +696,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         driveField.autocorrectionType = .no
         driveField.clipsToBounds = true
         driveField.delegate = self
-        driveField.tag = 5
+        driveField.tag = 6
         driveField.attributedPlaceholder = NSAttributedString(string: "Enter drive link for ID", attributes: [
             .foregroundColor: UIColor.lightGray,
             .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
@@ -688,14 +705,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         
         
         if isSmalliPhone(){
-            view.addSubview(logoImageView)
-            _ = logoImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 32, bottomConstant: 32, rightConstant: 32, widthConstant: 70, heightConstant: 70)
+//            view.addSubview(logoImageView)
+//            _ = logoImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 32, bottomConstant: 32, rightConstant: 32, widthConstant: 70, heightConstant: 70)
             view.addSubview(nameField)
-            _ = nameField.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+            _ = nameField.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 70, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
             view.addSubview(emailField)
             _ = emailField.anchor(top: nameField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+            
+            view.addSubview(passwordField)
+            _ = passwordField.anchor(top: emailField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+//
             view.addSubview(phoneField)
             _ = phoneField.anchor(top: emailField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+            
             view.addSubview(collegeField)
             _ = collegeField.anchor(top: phoneField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
             
@@ -718,8 +740,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             _ = nameField.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 48, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
             view.addSubview(emailField)
             _ = emailField.anchor(top: nameField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
+            
+            view.addSubview(passwordField)
+            _ = passwordField.anchor(top: emailField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
+
+            
             view.addSubview(phoneField)
-            _ = phoneField.anchor(top: emailField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
+            _ = phoneField.anchor(top: passwordField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
             view.addSubview(collegeField)
             _ = collegeField.anchor(top: phoneField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
             
@@ -783,21 +810,24 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             emailField.becomeFirstResponder()
             break
         case 1:
-            phoneField.becomeFirstResponder()
+            passwordField.becomeFirstResponder()
             break
         case 2:
-            collegeField.becomeFirstResponder()
+            phoneField.becomeFirstResponder()
+            
             break
         case 3:
-            stateField.becomeFirstResponder()
+            collegeField.becomeFirstResponder()
             break
         case 4:
             //Made changes here
-            driveField.becomeFirstResponder()
+            stateField.becomeFirstResponder()
             break
         case 5:
-            hideKeyboard()
+            driveField.becomeFirstResponder()
             break
+        case 6:
+        hideKeyboard()
         default: break
         }
         return true
@@ -814,10 +844,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
     @objc func handleRegister(){
         guard let name = nameField.text else { return }
         guard let email = emailField.text else { return }
+        guard let password = passwordField.text else {return}
         guard let phone = phoneField.text else { return }
         guard let college = collegeField.text else { return }
         guard let state = stateField.text else {return}
         guard let dlink = driveField.text else { return }
+        
         
         if name == ""{
             FloatingMessage().floatingMessage(Message: "Please enter your Details", Color: .red, onPresentation: {
@@ -832,13 +864,28 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             }) {}
             return
         }
-        
         if validateEmail(enteredEmail: email) == false{
             FloatingMessage().floatingMessage(Message: "Invalid Email Address", Color: .red, onPresentation: {
                 self.emailField.becomeFirstResponder()
             }) {}
             return
         }
+        
+        if password == ""{
+            FloatingMessage().floatingMessage(Message: "Please enter Password", Color: .red, onPresentation: {
+                self.emailField.becomeFirstResponder()
+            }) {}
+            return
+        }
+        
+        if validatePassword(enteredPassword: password) == false{
+            FloatingMessage().floatingMessage(Message: "Password is too short", Color: .red, onPresentation: {
+                self.emailField.becomeFirstResponder()
+            }) {}
+            return
+        }
+        
+        
         
         if phone == ""{
             FloatingMessage().floatingMessage(Message: "Please enter Phone Number", Color: .red, onPresentation: {
@@ -878,12 +925,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         registerButton.showLoading()
         registerButton.activityIndicator.color = .white
         
-        Networking.sharedInstance.registerUserWithDetails(name: name, email: email, mobile: phone, collname: college, sname: state, dlink: dlink, dataCompletion: { (successString) in
+        Networking.sharedInstance.registerUserWithDetails(name: name, email: email,mobile: phone, password:password, collname: college, sname: state, dlink: dlink, dataCompletion: { (successString) in
             print(successString)
-            FloatingMessage().longFloatingMessage(Message: "A confirmation link has been sent to \(email).", Color: UIColor.CustomColors.Blue.register, onPresentation: {
+            FloatingMessage().longFloatingMessage(Message: "Successfully Registered", Color: UIColor.CustomColors.Purple.register, onPresentation: {
                 self.hideKeyboard()
             }) {
                 self.loginViewController?.emailField.text = email
+                self.loginViewController?.passwordField.text = password
                 self.navigationController?.popViewController(animated: true)
             }
             self.registerButton.hideLoading()
@@ -906,6 +954,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         let phoneNumberRegex = "^[6-9]\\d{9}$"
         let phonePredicate = NSPredicate(format:"SELF MATCHES %@", phoneNumberRegex)
         return phonePredicate.evaluate(with: enteredNumber)
+    }
+    
+    func validatePassword(enteredPassword: String) -> Bool {
+        if(enteredPassword.count<8){
+            return false
+        }
+        return true
     }
     
 }

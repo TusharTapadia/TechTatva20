@@ -157,7 +157,7 @@ class UsersViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! QRDelegateIDTableViewCell
-//        cell.user = self.user
+        cell.user = self.user
         cell.usersViewController = self
         cell.selectionStyle = .none
         return cell

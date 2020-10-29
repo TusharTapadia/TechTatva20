@@ -43,10 +43,10 @@ struct NewsLetterApiRespone: Decodable{
 }
 struct Networking {
     
-    let userSignUpURL = "https://categories.techtatva.in/app/signup"
+    let userSignUpURL = "https://techtatva.in/app/signup"
     let userPasswordForgotURL = "https://register.mitrevels.in/forgotPassword/"
     let userPasswordResetURL = "https://register.mitrevels.in/setPassword/"
-    let userLoginURL = "https://categories.techtatva.in/app/login"
+    let userLoginURL = "https://techtatva.in/app/status"
     let userLogoutURL = "https://categories.techtatva.in/app/logout"
     let userDetailsURL = "https://register.mitrevels.in/userProfile"
     let registerEventURL = "https://categories.techtatva.in/app/createteam"
@@ -137,7 +137,7 @@ struct Networking {
                             dataCompletion(data)
                         }
                     }else{
-                        errorCompletion("Events Response Failed(Networking)")
+                        errorCompletion("Category Response Failed(Networking)")
                     }
                 }catch let error{
                     print(error)
@@ -150,16 +150,17 @@ struct Networking {
     
     // MARK: - Users
     
-    func registerUserWithDetails(name: String, email: String, mobile: String, collname: String,sname:String, dlink:String, dataCompletion: @escaping (_ Data: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+    func registerUserWithDetails(name: String, email: String, mobile: String,password:String, collname: String,sname:String, dlink:String, dataCompletion: @escaping (_ Data: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         let parameters = [
             "name": name,
             "email": email,
-            "mobile": mobile,
-            "collname": collname,
-            "sname": sname,
-            "dlink": dlink,
-            "type": "invisible",
-            "g-recaptcha-response": serverToken,
+            "phoneNo": mobile,
+            "password":password,
+            "branch":"engineering",
+            "college": collname,
+            "state": sname,
+            "isMahe": true,
+            "driveLink": dlink,
             ] as [String : Any]
         
         Alamofire.request(userSignUpURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
@@ -234,25 +235,22 @@ struct Networking {
         let parameters = [
             "email": Email,
             "password": Password,
-            //Make changes here 
-            "type": "invisible",
-            "g-recaptcha-response": serverToken,
+            "key":"o92PqCYAstWGq1Mx0kou"
             ] as [String : Any]
-        self.logoutUser()
+//        self.logoutUser()
         Alamofire.request(userLoginURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
-                    let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
+                    let response = try JSONDecoder().decode(UserResponse.self, from: data)
                     if response.success{
-                        self.getUserDetails(dataCompletion: { (userData) in
-                            dataCompletion(userData)
-                        }, errorCompletion: { (errorMessage) in
-                            errorCompletion(errorMessage)
-                        })
-                        
+                        if let data = response.data{
+                            print(data)
+                            dataCompletion(data[0])
+                        }
+//
                     }else{
                         print(response)
-                        errorCompletion(response.msg)
+                        errorCompletion(response.msg ?? "")
                     }
                 }catch let error{
                     errorCompletion("decoder_error")
@@ -262,26 +260,25 @@ struct Networking {
         }
     }
     
-    func getUserDetails(dataCompletion: @escaping (_ Data: User) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
-        
-        Alamofire.request(userDetailsURL, method: .get, parameters: nil, encoding: URLEncoding()).response { response in
-            if let data = response.data{
-                do{
-                    let resultsResponse = try JSONDecoder().decode(UserResponse.self, from: data)
-                    if resultsResponse.success{
-                        if let data = resultsResponse.data{
-                            dataCompletion(data)
-                        }
-                    }else{
-                        errorCompletion("Coudnt Fetch User Data")
-                    }
-                }catch let error{
-                    print(error)
-                    errorCompletion("Decoding Error")
-                }
-            }
-        }
-    }
+//    func getUserDetails(dataCompletion: @escaping (_ Data: [User]) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+//
+//        Alamofire.request(userDetailsURL, method: .post, parameters: nil, encoding: URLEncoding()).response { response in
+//            if let data = response.data{
+//                do{
+//                    let resultsResponse = try JSONDecoder().decode(UserResponse.self, from: data)
+//                    if resultsResponse.success{
+////                        if let data = resultsResponse.data{
+////
+////                        }
+//                        dataCompletion(resultsResponse.data)
+//                    }
+//                }catch let error{
+//                    errorCompletion("decoder_error")
+//                    print("Decoding error in userlogin", error)
+//                }
+//            }
+//        }
+//    }
     
     func getNewsLetterUrl(dataCompletion: @escaping (_ Data: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         
