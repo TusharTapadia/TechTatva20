@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
                 Caching.sharedInstance.saveEventsToCache(events: data)
                 Caching.sharedInstance.saveEventsDictionaryToCache(eventsDictionary: eventsDictionary)
                 Caching.sharedInstance.saveTagsToCache(tags: tags)
-                print("tags", tags)
+//                print("tags", tags)
              }) { (errorMessage) in
                 print("Event fetch problem(App Delegate):",errorMessage)
             }

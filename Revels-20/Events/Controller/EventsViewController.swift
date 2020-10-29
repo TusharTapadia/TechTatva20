@@ -29,6 +29,12 @@ class EventsViewController: UITableViewController {
         }
     }
     
+    var user: User?{
+        didSet{
+            
+        }
+    }
+    
     var categoriesDictionary = [String: Category]()
     var delegateDictionary = [Int: DelegateCard]()
     
@@ -41,6 +47,7 @@ class EventsViewController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+        getCachedUserDetails()
         getCachedCategoriesDictionary()
         getCachedDelegatedCardDictionary()
     }
@@ -63,6 +70,10 @@ class EventsViewController: UITableViewController {
         catch let error{
             print("Delegate card cache error in EventsController:", error)
         }
+    }
+    
+    func getCachedUserDetails(){
+        self.user =  Caching.sharedInstance.getUserDetailsFromCache()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -234,7 +245,8 @@ class EventsViewController: UITableViewController {
         return cell
     }
     
-    let button = LoadingButton(type: .system) 
+    let createTeam = LoadingButton(type: .system)
+    let joinTeam = LoadingButton(type: .system)
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
@@ -253,30 +265,46 @@ class EventsViewController: UITableViewController {
         closedReg.numberOfLines = 2
         closedReg.text = "Registrations are closed for this event"
         
-        button.backgroundColor = UIColor.CustomColors.Purple.register
-        button.setTitle("Register Now", for: UIControl.State())
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.startAnimatingPressActions()
-        button.layer.cornerRadius = 10
-        button.setTitleColor(.white, for: UIControl.State())
+        createTeam.backgroundColor = UIColor.CustomColors.Purple.register
+        createTeam.setTitle("Create Team", for: UIControl.State())
+        createTeam.translatesAutoresizingMaskIntoConstraints = false
+        createTeam.startAnimatingPressActions()
+        createTeam.layer.cornerRadius = 10
+        createTeam.setTitleColor(.white, for: UIControl.State())
+        
+        joinTeam.backgroundColor = UIColor.systemRed
+        joinTeam.setTitle("Join Team", for: UIControl.State())
+        joinTeam.translatesAutoresizingMaskIntoConstraints = false
+        joinTeam.startAnimatingPressActions()
+        joinTeam.layer.cornerRadius = 10
+        joinTeam.setTitleColor(.white, for: UIControl.State())
+        
+        let stackView = UIStackView(arrangedSubviews: [createTeam,joinTeam])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
         if isSmalliPhone(){
             label.font = UIFont.boldSystemFont(ofSize: 15)
             closedReg.font = UIFont.systemFont(ofSize: 12)
-            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+            createTeam.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         }else{
             label.font = UIFont.boldSystemFont(ofSize: 18)
-            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+            createTeam.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         }
-        button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(registerUserForEvent), for: .touchUpInside)
+        createTeam.layer.cornerRadius = 10
+        createTeam.addTarget(self, action: #selector(registerTeamLeader), for: .touchUpInside)
+        joinTeam.addTarget(self, action: #selector(registerTeammate), for: .touchUpInside)
 
         
 //        if event.can_register == 1{
             view.addSubview(label)
             _ = label.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 12, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 25)
             
-            view.addSubview(button)
-            button.anchorWithConstants(top: label.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 8, rightConstant: 16)
+            view.addSubview(createTeam)
+           _ = createTeam.anchor(top: label.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: nil, topConstant: 8, leftConstant: 64, bottomConstant: 8, rightConstant: 0,widthConstant: 128)
+        
+            view.addSubview(joinTeam)
+        _ = joinTeam.anchor(top: label.bottomAnchor, left: createTeam.rightAnchor, bottom: view.bottomAnchor, right: nil, topConstant: 8, leftConstant: 16, bottomConstant: 8, rightConstant: 0,widthConstant: 128)
+        
 //        }else{
 //
 //            view.addSubview(label)
@@ -289,93 +317,102 @@ class EventsViewController: UITableViewController {
         return view
     }
     
-    @objc func registerUserForEvent(){
+    @objc func registerTeamLeader(){
+        print("Create Team Pressed")
+        DispatchQueue.main.async(execute:{
+        let alertController = UIAlertController(title: "Create Team", message: "\n Register for the event as a single person or as a team leader in a team event", preferredStyle: .alert)
+
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let sureAction = UIAlertAction(title: "Continue", style: .destructive) { (_) in
+            if UserDefaults.standard.isLoggedIn(){
+                print("loggined")
+                self.createTeam.showLoading()
+                self.createTeam.activityIndicator.color = .white
+                guard let eventID = self.event.eventID else {return }
+                guard let userID = self.user?.userID else {return}
+                
+                Networking.sharedInstance.registerEventWith(eventID: eventID,userid: userID, category:self.event.category, successCompletion: { (message) in
+                    self.createTeam.hideLoading()
+                    print(message)
+                    FloatingMessage().longFloatingMessage(Message: "Successfully Registered for \(self.event.name).", Color: UIColor.CustomColors.Blue.register, onPresentation: {
+                    }){}
+                }) { (message) in
+                    self.createTeam.hideLoading()
+                    print(message)
+                    if message == "User already registered for event" {
+                        FloatingMessage().longFloatingMessage(Message: "You have already registered for \(self.event.name)", Color: .orange, onPresentation: {}) {}
+                    }else{
+                        FloatingMessage().longFloatingMessage(Message: message, Color: .orange, onPresentation: {}) {}
+                    }
+                }
+                self.createTeam.hideLoading()
+            }
+            else{
+                DispatchQueue.main.async(execute: {
+                    let alertController = UIAlertController(title: "Sign in to Register", message: "You need to be signed in to register for any event.", preferredStyle: UIAlertController.Style.actionSheet)
+                    let logInAction = UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
+                        let login = LoginViewController()
+                        let loginNav = MasterNavigationBarController(rootViewController: login)
+                        if #available(iOS 13.0, *) {
+                            loginNav.modalPresentationStyle = .fullScreen
+                            loginNav.isModalInPresentation = true
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                        fromLogin = true
+                        self.present(loginNav, animated: true)
+                    })
+                    let createNewAccountAction = UIAlertAction(title: "Create New Account", style: .default, handler: { (action) in
+                        let login = LoginViewController()
+                        let loginNav = MasterNavigationBarController(rootViewController: login)
+                        fromLogin = true
+                        self.present(loginNav, animated: true, completion: {
+                            login.handleRegister()
+                        })
+                    })
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    alertController.addAction(logInAction)
+                    alertController.addAction(createNewAccountAction)
+                    alertController.addAction(cancelAction)
+                    self.present(alertController, animated: true, completion: nil)
+                })
+                return
+            }
+        }
+            alertController.addAction(sureAction)
+            alertController.addAction(cancel)
+            self.present(alertController, animated: true, completion: nil)
+      
+        })
     }
-//        if UserDefaults.standard.isLoggedIn(){
-//            print("loggined")
-//            print(event.eventID)
-//            button.showLoading()
-//            button.activityIndicator.color = .white
-//            guard let eventID = self.event.eventID else {return }
-//            Networking.sharedInstance.registerEventWith(ID: eventID, successCompletion: { (message) in
-//                self.button.hideLoading()
-//                print(message)
-//                FloatingMessage().longFloatingMessage(Message: "Successfully Registered for \(self.event.name).", Color: UIColor.CustomColors.Blue.register, onPresentation: {   
-//                    Messaging.messaging().subscribe(toTopic: "event-\(eventID)") { (err) in
-//                        if let err = err{
-//                            print(err)
-//                            return
-//                        }
-//                        
-//                        var subscribeDictionary = [String: Bool]()
-//                        if let subsDict = UserDefaults.standard.dictionary(forKey: "subsDictionary") as? [String: Bool]{
-//                            subscribeDictionary = subsDict
-//                        }
-//                        subscribeDictionary["event-\(self.event.eventID)"] = true
-//                        UserDefaults.standard.set(subscribeDictionary, forKey: "subsDictionary")
-//                        UserDefaults.standard.synchronize()
-//                        print("Subscribe Succesful")
-//                    }
-//                }){}
-//            }) { (message) in
-//                self.button.hideLoading()
-//                print(message)
-//                if message == "User already registered for event" {
-//                    FloatingMessage().longFloatingMessage(Message: "You have already registered for \(self.event.name)", Color: .orange, onPresentation: {}) {}
-//                }else if message == "Card for event not bought"{
-//                    FloatingMessage().longFloatingMessage(Message: "You have not bought the required delegate card.", Color: .orange, onPresentation: {
-//                        if let card = self.delegateDictionary[self.event.delCardType]{
-//                            DispatchQueue.main.async(execute: {
-//                                let alertController = UIAlertController(title: "\(card.name) Card", message: "\n\(card.description)\n\nMAHE PRICE : ₹\(card.MAHE_price)\nNON MAHE PRICE : ₹\(card.non_price)\n", preferredStyle: UIAlertController.Style.alert)
-//                                let purchaseOption = UIAlertAction(title: "Purchase", style: .default) { (_) in
-//                                    self.buyDelegateCard(delegateCardID: card.id)
-//                                }
-//                                let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
-//                                })
-//                                alertController.addAction(okayAction)
-//                                alertController.addAction(purchaseOption)
-//                                self.present(alertController, animated: true, completion: nil)
-//                            })
-//                            return
-//                        }
-//                    }) {}
-//                }else{
-//                    FloatingMessage().longFloatingMessage(Message: message, Color: .orange, onPresentation: {}) {}
-//                }
-//            }
-//        }
-//        else{
-//            DispatchQueue.main.async(execute: {
-//                let alertController = UIAlertController(title: "Sign in to Register", message: "You need to be signed in to register for any event.", preferredStyle: UIAlertController.Style.actionSheet)
-//                let logInAction = UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
-//                    let login = LoginViewController()
-//                    let loginNav = MasterNavigationBarController(rootViewController: login)
-//                    if #available(iOS 13.0, *) {
-//                        loginNav.modalPresentationStyle = .fullScreen
-//                        loginNav.isModalInPresentation = true
-//                    } else {
-//                        // Fallback on earlier versions
-//                    }
-//                    fromLogin = true
-//                    self.present(loginNav, animated: true)
-//                })
-//                let createNewAccountAction = UIAlertAction(title: "Create New Account", style: .default, handler: { (action) in
-//                    let login = LoginViewController()
-//                    let loginNav = MasterNavigationBarController(rootViewController: login)
-//                    fromLogin = true
-//                    self.present(loginNav, animated: true, completion: {
-//                        login.handleRegister()
-//                    })
-//                })
-//                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//                alertController.addAction(logInAction)
-//                alertController.addAction(createNewAccountAction)
-//                alertController.addAction(cancelAction)
-//                self.present(alertController, animated: true, completion: nil)
-//            })
-//            return
-//        }
-//    }
+        
+    
+    @objc func registerTeammate(){
+        DispatchQueue.main.async(execute:{
+        let alertController = UIAlertController(title: "Join Team", message: "\n Enter party code to register with a team", preferredStyle: .alert)
+
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let sureAction = UIAlertAction(title: "Continue", style: .destructive) { (_) in
+            if let subsDict = UserDefaults.standard.dictionary(forKey: "subsDictionary") as? [String: Bool]{
+                for (key, _) in subsDict{
+                    Messaging.messaging().unsubscribe(fromTopic: key)
+                    print("Unsubscribing from \(key)")
+                }
+            }
+        }
+            alertController.addAction(sureAction)
+            alertController.addAction(cancel)
+            alertController.addTextField { (textField) in
+                textField.placeholder = "Enter Partycode"
+            }
+            
+            self.present(alertController, animated: true, completion: nil)
+      
+        })
+}
+        
+
+
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 95

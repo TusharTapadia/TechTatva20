@@ -269,50 +269,49 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         Networking.sharedInstance.loginUser(Email: email, Password: password, dataCompletion: { (user) in
             self.loginButton.hideLoading()
             UserDefaults.standard.setIsLoggedIn(value: true)
+//            guard let user = user[0] else { return}
             Caching.sharedInstance.saveUserDetailsToCache(user: user)
             
-            FloatingMessage().longFloatingMessage(Message: "Successfully logged in!", Color: UIColor.CustomColors.Green.register, onPresentation: {
-                Networking.sharedInstance.getRegisteredEvents(dataCompletion: { (data) in
-                    var subscribeDictionary = [String: Bool]()
-                   if let subsDict = UserDefaults.standard.dictionary(forKey: "subsDictionary") as? [String: Bool]{
-                       subscribeDictionary = subsDict
-                   }
-                    for event in data{
-                        subscribeDictionary["event-\(event.event)"] = true
-                        print(event.event)
-                        Messaging.messaging().subscribe(toTopic: "event-\(event.event)") { (err) in
-                        if let err = err{
-                            print(err)
-                            print("Error in Subscribe - \(event.event)")
-                        }else{
-                            print("Subscribe Successful - \(event.event)")
-                        }
-                            
-                        }
-                    }
-                    
-                    Messaging.messaging().subscribe(toTopic: "user-\(user.id)") { (err) in
-                        if let err = err{
-                            print(err)
-                            print("Error in Subscribe - User with ID: \(user.id)")
-                        }else{
-                            print("Subscribe Successful - User with ID: \(user.id)")
-                        }
-                    }
-                    
-                    subscribeDictionary["user-\(user.id)"] = true
-                    UserDefaults.standard.set(subscribeDictionary, forKey: "subsDictionary")
-                    UserDefaults.standard.synchronize()
-                    
-                }) { (message) in
-                    print(message)
-                }
+            FloatingMessage().longFloatingMessage(Message: "Successfully logged in!", Color: UIColor.CustomColors.Purple.register, onPresentation: {
+//                Networking.sharedInstance.getRegisteredEvents(dataCompletion: { (data) in
+//                    var subscribeDictionary = [String: Bool]()
+//                   if let subsDict = UserDefaults.standard.dictionary(forKey: "subsDictionary") as? [String: Bool]{
+//                       subscribeDictionary = subsDict
+//                   }
+//                    for event in data{
+//                        subscribeDictionary["event-\(event.event)"] = true
+//                        print(event.event)
+//                        Messaging.messaging().subscribe(toTopic: "event-\(event.event)") { (err) in
+//                        if let err = err{
+//                            print(err)
+//                            print("Error in Subscribe - \(event.event)")
+//                        }else{
+//                            print("Subscribe Successful - \(event.event)")
+//                        }
+//
+//                        }
+//                    }
+//                    Messaging.messaging().subscribe(toTopic: "user-\(user[0].userID)") { (err) in
+//                        if let err = err{
+//                            print(err)
+//                            print("Error in Subscribe - User with ID: \(user[0].userID)")
+//                        }else{
+//                            print("Subscribe Successful - User with ID: \(user[0].userID)")
+//                        }
+//                    }
+//
+//                    subscribeDictionary["user-\(user[0].userID)"] = true
+//                    UserDefaults.standard.set(subscribeDictionary, forKey: "subsDictionary")
+//                    UserDefaults.standard.synchronize()
+//                    }) { (message) in
+//                    print(message)
+//                }
                 self.dismiss(animated: true)
             }) {
             }
         }) { (errorMessage) in
             self.loginButton.hideLoading()
-            if errorMessage == "Invalid email/password combination"{
+            if errorMessage == "Invalid Credentials"{
                 FloatingMessage().floatingMessage(Message: "Invalid Credentials", Color: .red, onPresentation: {
                     self.emailField.becomeFirstResponder()
                 }) {}
@@ -325,6 +324,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             return
         }
     }
+
     
     @objc func handleDismiss(){
         self.dismiss(animated: true)

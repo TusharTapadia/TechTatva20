@@ -121,11 +121,11 @@ class UsersViewController: UITableViewController {
                 }
             }
             UserDefaults.standard.set([:], forKey: "subsDictionary")
-            UserDefaults.standard.set(false, forKey: "boughtProshow")
+//            UserDefaults.standard.set(false, forKey: "boughtProshow")
             UserDefaults.standard.synchronize()
 
             UserDefaults.standard.setIsLoggedIn(value: false)
-            Networking.sharedInstance.logoutUser()
+//            Networking.sharedInstance.logoutUser()
             self.setupViewForLoggedOutUser()
         }
         actionSheet.addAction(sureAction)
@@ -154,10 +154,16 @@ class UsersViewController: UITableViewController {
         }
         return 0
     }
-
+    
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return .init(view.frame.height)
+//    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! QRDelegateIDTableViewCell
-//        cell.user = self.user
+        cell.user = self.user
+//        cell.contentView.backgroundColor = .white
+        cell.contentView.isUserInteractionEnabled = false
         cell.usersViewController = self
         cell.selectionStyle = .none
         return cell
