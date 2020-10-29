@@ -19,6 +19,7 @@ struct UserKeys{
     let active = "active"
 }
 
+let apiKey = "o92PqCYAstWGq1Mx0kou"
 let resultsURL = "https://api.mitrevels.in/results" //"https://api.techtatva.in/results"
 let eventsURL = "https://categories.techtatva.in/app/events"
 let scheduleURL = "https://techtatvadata.herokuapp.com/schedule" //"https://api.techtatva.in/schedule"
@@ -49,10 +50,10 @@ struct Networking {
     let userLoginURL = "https://techtatva.in/app/status"
     let userLogoutURL = "https://categories.techtatva.in/app/logout"
     let userDetailsURL = "https://register.mitrevels.in/userProfile"
-    let registerEventURL = "https://categories.techtatva.in/app/createteam"
-    let getRegisteredEventsURL = "https://categories.techtatva.in/app/registeredevents"
-    let leaveTeamURL = "https://categories.techtatva.in/app/leaveteam"
-    let addTeamMateURL = "https://categories.techtatva.in/app/jointeam"
+    let registerEventURL = "https://techtatva.in/app/createteam"
+    let getRegisteredEventsURL = "https://techtatva.in/app/registeredevents"
+    let leaveTeamURL = "https://techtatva.in/app/leaveteam"
+    let addTeamMateURL = "https://techtatva.in/app/jointeam"
 
     
     let liveBlogURL = "http://revels.herokuapp.com/"
@@ -235,15 +236,18 @@ struct Networking {
         let parameters = [
             "email": Email,
             "password": Password,
-            "key":"o92PqCYAstWGq1Mx0kou"
+            "key": apiKey
             ] as [String : Any]
-//        self.logoutUser()
+
         Alamofire.request(userLoginURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
                     let response = try JSONDecoder().decode(UserResponse.self, from: data)
                     if response.success{
                         if let data = response.data{
+                            let defaults = UserDefaults.standard
+                            defaults.set(Email, forKey: "Email")
+                            defaults.set(Password, forKey: "Password")
                             print(data)
                             dataCompletion(data[0])
                         }
@@ -260,25 +264,6 @@ struct Networking {
         }
     }
     
-//    func getUserDetails(dataCompletion: @escaping (_ Data: [User]) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
-//
-//        Alamofire.request(userDetailsURL, method: .post, parameters: nil, encoding: URLEncoding()).response { response in
-//            if let data = response.data{
-//                do{
-//                    let resultsResponse = try JSONDecoder().decode(UserResponse.self, from: data)
-//                    if resultsResponse.success{
-////                        if let data = resultsResponse.data{
-////
-////                        }
-//                        dataCompletion(resultsResponse.data)
-//                    }
-//                }catch let error{
-//                    errorCompletion("decoder_error")
-//                    print("Decoding error in userlogin", error)
-//                }
-//            }
-//        }
-//    }
     
     func getNewsLetterUrl(dataCompletion: @escaping (_ Data: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         
@@ -300,28 +285,33 @@ struct Networking {
     }
     
     
-    func logoutUser(){
-        Alamofire.request(userLogoutURL, method: .get, parameters: nil, encoding: URLEncoding()).response { response in
-//            Caching.sharedInstance.saveUserDetailsToCache(user: nil)
-            if let data = response.data{
-                print(data)
-            }
-        }
-    }
-    
     
     //MARK: - EVENTS
     
     
-    func registerEventWith(ID id: Int, successCompletion: @escaping (_ SuccessMessage: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+    func registerEventWith(eventID: Int, userid:Int, category:String, successCompletion: @escaping (_ SuccessMessage: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+        
+        let defaults = UserDefaults.standard
+        let email = defaults.object(forKey: "Email") as? String ?? ""
+        let password = defaults.object(forKey: "Password") as? String ?? ""
+        print("Email", email)
+        print("password", password)
+        print(eventID)
+        print(userid)
+        print(category)
         let parameters = [
-            "eventid": id
+            "email": email,
+            "password": password,
+            "key":apiKey,
+            "userID": userid,
+            "eventID":"\(eventID)",
+            "category":category,
             ] as [String : Any]
         
         Alamofire.request(registerEventURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
-                    let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
+                    let response = try JSONDecoder().decode(CreateTeamResponse.self, from: data)
                     if response.success{
                         successCompletion(response.msg)
                     }else{
