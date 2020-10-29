@@ -454,7 +454,6 @@
 		B25FAE9F2341EEE80065C763 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B2C112C323D97A7C0014B36D /* DelegateCardTableViewCell.swift */,
 				B2F5F32423E4025E0011E937 /* DescriptionTableViewCell.swift */,
 				B2B73C1423EAE201002DE75F /* MITPostTableViewCell.swift */,
 				B2B73C1623EAE542002DE75F /* SectionTableViewCell.swift */,
@@ -469,6 +468,7 @@
 				B2EDA16823435D55009D5613 /* DelegateCardsController.swift */,
 				B2EDA16A23436A23009D5613 /* LiveBlogController.swift */,
 				B2D972A823E49EFE001270E2 /* ProshowViewController.swift */,
+				B2C112C323D97A7C0014B36D /* DelegateCardTableViewCell.swift */,
 				B29DB0592401BB78006D9811 /* FeaturedEventsConroller.swift */,
 				B2EDA16C234431D3009D5613 /* DeveloperViewController.swift */,
 				B2CFF484234718220092AB8B /* SponsorsViewController.swift */,

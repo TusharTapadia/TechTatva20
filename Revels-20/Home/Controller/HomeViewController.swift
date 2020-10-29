@@ -361,17 +361,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 6{
+        if indexPath.row == 4{
             let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as! DescriptionTableViewCell
             cell.homeViewController = self
             cell.selectionStyle = .none
             return cell
             
-        }else if indexPath.row == 5{
+        }else if indexPath.row == 3{
             let cell = tableView.dequeueReusableCell(withIdentifier: "MITPostTableViewCell") as! MITPostTableViewCell
             cell.homeViewController = self
             cell.selectionStyle = .none
@@ -397,19 +397,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.subSubTitleLabel.text = ""
                 cell.mainImageView.image = UIImage(named: "blog")
                 break
-            case 3:
-                cell.titleLabel.text = "Featured Events"
-                cell.subTitleLabel.text = "Win Big Cash Prizes"
-                cell.subSubTitleLabel.text = ""
-                cell.mainImageView.image = UIImage(named: "featured")
-                break
-            case 4:
-                cell.titleLabel.text = "Sponsors"
-                cell.subTitleLabel.text = "Our Proud Partners"
-                cell.subSubTitleLabel.text = ""
-                cell.mainImageView.image = UIImage(named: "sponsors")
-                cell.seperatorLine.alpha = 0
-                break
+//            case 3:
+//                cell.titleLabel.text = "Featured Events"
+//                cell.subTitleLabel.text = "Win Big Cash Prizes"
+//                cell.subSubTitleLabel.text = ""
+//                cell.mainImageView.image = UIImage(named: "featured")
+//                break
+//            case 4:
+//                cell.titleLabel.text = "Sponsors"
+//                cell.subTitleLabel.text = "Our Proud Partners"
+//                cell.subSubTitleLabel.text = ""
+//                cell.mainImageView.image = UIImage(named: "sponsors")
+//                cell.seperatorLine.alpha = 0
+//                break
             default: break
             }
             return cell
@@ -419,7 +419,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
-            case 6:
+            case 4:
                 return UITableView.automaticDimension
             default:
                 if isSmalliPhone(){
@@ -444,16 +444,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let socialController = SocialController(collectionViewLayout: UICollectionViewFlowLayout())
             self.navigationController?.pushViewController(socialController, animated: true)
             break
-        case 3:
-            let featuredViewController = FeaturedEventsConroller()
-            self.navigationController?.pushViewController(featuredViewController, animated: true)
-            break
-        case 4:
-            let sponsorsViewController = SponsorsViewController()
-            sponsorsViewController.homeViewController = self
-            sponsorsViewController.sponsors = self.sponsors
-            self.navigationController?.pushViewController(sponsorsViewController, animated: true)
-            break
+//        case 3:
+//            let featuredViewController = FeaturedEventsConroller()
+//            self.navigationController?.pushViewController(featuredViewController, animated: true)
+//            break
+//        case 4:
+//            let sponsorsViewController = SponsorsViewController()
+//            sponsorsViewController.homeViewController = self
+//            sponsorsViewController.sponsors = self.sponsors
+//            self.navigationController?.pushViewController(sponsorsViewController, animated: true)
+//            break
         default:
             break
         }

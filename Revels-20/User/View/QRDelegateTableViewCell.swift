@@ -17,23 +17,7 @@ class QRDelegateIDTableViewCell: UITableViewCell {
         didSet{
             guard let user = user else { return }
                 DispatchQueue.main.async {
-//                    self.qrImageView.image = self.generateQRCode(from: user.qr)
-//                    print(user.qr)
-//                    let myString = user.qr
-//                    let data = myString.data(using: String.Encoding.ascii)
-//                    guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return }
-//                    qrFilter.setValue(data, forKey: "inputMessage")
-//                    guard let qrImage = qrFilter.outputImage else { return }
-//
-//                    let transform = CGAffineTransform(scaleX: 10, y: 10)
-//                    let scaledQrImage = qrImage.transformed(by: transform)
-//                    let processedImage = UIImage(ciImage: scaledQrImage)
-//                    self.qrImageView.image = processedImage
                 }
-//            let url = NSURL(string: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=\(user.qr)")
-//            qrImageView.sd_setImage(with: url! as URL, placeholderImage:nil)
-
-            
             nameLabel.text = user.name
             emailLabel.text = user.email
             collegeLabel.text = user.college
@@ -52,18 +36,18 @@ class QRDelegateIDTableViewCell: UITableViewCell {
 //        return spinner
 //    }()
     
-//    let qrCodeView : UIView = {
-//        let view = UIView()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.layer.cornerRadius = 14
-//        view.layer.shadowColor = UIColor.white.cgColor
-//        view.layer.shadowOffset = CGSize.zero
-//        view.layer.shadowOpacity = 0.3
-//        view.layer.shadowRadius = 12
-//        view.layer.masksToBounds = false
-//        view.backgroundColor = .white
-//        return view
-//    }()
+    let logoView : UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 14
+        view.layer.shadowColor = UIColor.white.cgColor
+        view.layer.shadowOffset = CGSize.zero
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowRadius = 12
+        view.layer.masksToBounds = false
+        view.backgroundColor = .white
+        return view
+    }()
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -125,16 +109,18 @@ class QRDelegateIDTableViewCell: UITableViewCell {
         return label
     }()
     
-//    lazy var qrImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        return imageView
-//    }()
+    lazy var logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named:"anonymous")
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     lazy var eventsButton: LoadingButton = {
         let button = LoadingButton(type: .system)
         button.startAnimatingPressActions()
-        button.backgroundColor = UIColor.CustomColors.Blue.register
+        button.backgroundColor = UIColor.CustomColors.Purple.register
         button.setTitle("Registered Events", for: UIControl.State())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: UIControl.State())
@@ -290,17 +276,17 @@ class QRDelegateIDTableViewCell: UITableViewCell {
             logoutButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
             
         }else{
-//            addSubview(qrCodeView)
-//            _ = qrCodeView.anchor(top: safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 24, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 200)
-//            qrCodeView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-//            qrCodeView.addSubview(spinnerView)
+            addSubview(logoImageView)
+            _ = logoImageView.anchor(top: safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 24, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 200)
+            logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+//            logoView.addSubview(spinnerView)
 //            spinnerView.fillSuperview()
 //            spinnerView.startAnimating()
-//            qrCodeView.addSubview(qrImageView)
-//            qrImageView.fillSuperview(padding: UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24))
+//            logoView.addSubview(logoImageView)
+//            logoImageView.fillSuperview(padding: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
             
             addSubview(nameLabel)
-            _ = nameLabel.anchor(top: safeAreaLayoutGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 200, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 0)
+            _ = nameLabel.anchor(top: logoImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 32, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 0)
             
             addSubview(collegeLabel)
             _ = collegeLabel.anchor(top: nameLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
@@ -320,11 +306,11 @@ class QRDelegateIDTableViewCell: UITableViewCell {
             addSubview(eventsButton)
             _ = eventsButton.anchor(top: userIDLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 24, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 50)
             
-            addSubview(delegateCardButton)
-            _ = delegateCardButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 14, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 50)
+//            addSubview(delegateCardButton)
+//            _ = delegateCardButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 14, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 50)
             
             addSubview(logoutButton)
-            _ = logoutButton.anchor(top: delegateCardButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 32, rightConstant: 16, widthConstant: 0, heightConstant: 50)
+            _ = logoutButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 32, rightConstant: 16, widthConstant: 0, heightConstant: 50)
         }
         
         addSubview(loveLabel)
