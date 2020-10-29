@@ -53,7 +53,7 @@ class UsersViewController: UITableViewController {
         view.backgroundColor = .black
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.CustomColors.Black.background
-        tableView.register(QRDelegateIDTableViewCell.self, forCellReuseIdentifier: "cellId")
+        tableView.register(UserIDTableViewCell.self, forCellReuseIdentifier: "cellId")
         if UserDefaults.standard.isLoggedIn(){
 
         }else{
@@ -121,11 +121,9 @@ class UsersViewController: UITableViewController {
                 }
             }
             UserDefaults.standard.set([:], forKey: "subsDictionary")
-//            UserDefaults.standard.set(false, forKey: "boughtProshow")
             UserDefaults.standard.synchronize()
 
             UserDefaults.standard.setIsLoggedIn(value: false)
-//            Networking.sharedInstance.logoutUser()
             self.setupViewForLoggedOutUser()
         }
         actionSheet.addAction(sureAction)
@@ -134,7 +132,7 @@ class UsersViewController: UITableViewController {
     }
 
 
-    func showRegisteredEvents(RegisteredEvents: [RegisteredEvent]){
+    func showRegisteredEvents(RegisteredEvents: [TeamDetails]){
         let vc = RegisteredEventsViewController()
         vc.registeredEvents = RegisteredEvents
         navigationController?.pushViewController(vc, animated: true)
@@ -155,14 +153,10 @@ class UsersViewController: UITableViewController {
         return 0
     }
     
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return .init(view.frame.height)
-//    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! QRDelegateIDTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! UserIDTableViewCell
         cell.user = self.user
-//        cell.contentView.backgroundColor = .white
         cell.contentView.isUserInteractionEnabled = false
         cell.usersViewController = self
         cell.selectionStyle = .none

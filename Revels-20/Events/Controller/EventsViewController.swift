@@ -279,9 +279,7 @@ class EventsViewController: UITableViewController {
         joinTeam.layer.cornerRadius = 10
         joinTeam.setTitleColor(.white, for: UIControl.State())
         
-        let stackView = UIStackView(arrangedSubviews: [createTeam,joinTeam])
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
+        
         if isSmalliPhone(){
             label.font = UIFont.boldSystemFont(ofSize: 15)
             closedReg.font = UIFont.systemFont(ofSize: 12)
@@ -300,10 +298,10 @@ class EventsViewController: UITableViewController {
             _ = label.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 12, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 25)
             
             view.addSubview(createTeam)
-           _ = createTeam.anchor(top: label.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: nil, topConstant: 8, leftConstant: 64, bottomConstant: 8, rightConstant: 0,widthConstant: 128)
-        
+           _ = createTeam.anchor(top: label.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: nil, topConstant: 8, leftConstant: 32, bottomConstant: 8, rightConstant: 0,widthConstant: UIViewController().view.frame.width/2-40)
+//        print("create team width", UIViewController().view.frame.width/2-40)
             view.addSubview(joinTeam)
-        _ = joinTeam.anchor(top: label.bottomAnchor, left: createTeam.rightAnchor, bottom: view.bottomAnchor, right: nil, topConstant: 8, leftConstant: 16, bottomConstant: 8, rightConstant: 0,widthConstant: 128)
+        _ = joinTeam.anchor(top: label.bottomAnchor, left: createTeam.rightAnchor, bottom: view.bottomAnchor, right: nil, topConstant: 8, leftConstant: 16, bottomConstant: 8, rightConstant: 0,widthConstant: UIViewController().view.frame.width/2-40)
         
 //        }else{
 //
@@ -334,7 +332,7 @@ class EventsViewController: UITableViewController {
                 Networking.sharedInstance.registerEventWith(eventID: eventID,userid: userID, category:self.event.category, successCompletion: { (message) in
                     self.createTeam.hideLoading()
                     print(message)
-                    FloatingMessage().longFloatingMessage(Message: "Successfully Registered for \(self.event.name).", Color: UIColor.CustomColors.Blue.register, onPresentation: {
+                    FloatingMessage().longFloatingMessage(Message: "Successfully Registered for \(self.event.name).", Color: UIColor.CustomColors.Purple.register, onPresentation: {
                     }){}
                 }) { (message) in
                     self.createTeam.hideLoading()
@@ -386,25 +384,81 @@ class EventsViewController: UITableViewController {
         })
     }
         
+    var partyCode: UITextField!
     
     @objc func registerTeammate(){
+        
         DispatchQueue.main.async(execute:{
         let alertController = UIAlertController(title: "Join Team", message: "\n Enter party code to register with a team", preferredStyle: .alert)
-
+    
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let sureAction = UIAlertAction(title: "Continue", style: .destructive) { (_) in
-            if let subsDict = UserDefaults.standard.dictionary(forKey: "subsDictionary") as? [String: Bool]{
-                for (key, _) in subsDict{
-                    Messaging.messaging().unsubscribe(fromTopic: key)
-                    print("Unsubscribing from \(key)")
+            if UserDefaults.standard.isLoggedIn(){
+                print("loggined")
+                self.joinTeam.showLoading()
+                self.joinTeam.activityIndicator.color = .white
+                guard let eventID = self.event.eventID else {return }
+                guard let userID = self.user?.userID else {return}
+                guard let partyCodeValue = self.partyCode.text else{return}
+                print(partyCodeValue)
+                
+        Networking.sharedInstance.joinTeam(eventId: eventID, userID: userID, category: self.event.category, partyCode: partyCodeValue, successCompletion: { (message) in
+                    self.joinTeam.hideLoading()
+                    print(message)
+            FloatingMessage().longFloatingMessage(Message: "Successfully joined the team for \(self.event.name). ", Color: UIColor.CustomColors.Purple.register, onPresentation: {
+                    }){}
+                }) { (message) in
+                    self.joinTeam.hideLoading()
+                    print(message)
+                    if message == "User already registered for event" {
+                        FloatingMessage().longFloatingMessage(Message: "You have already registered for \(self.event.name)", Color: .orange, onPresentation: {}) {}
+                    }else{
+                        self.joinTeam.hideLoading()
+                        FloatingMessage().longFloatingMessage(Message: message, Color: .orange, onPresentation: {
+//                            self.joinTeam.hideLoading()
+                        }) {}
+                    }
                 }
+                self.joinTeam.hideLoading()
+            }
+            else{
+                DispatchQueue.main.async(execute: {
+                    let alertController = UIAlertController(title: "Sign in to Register", message: "You need to be signed in to register for any event.", preferredStyle: UIAlertController.Style.actionSheet)
+                    let logInAction = UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
+                        let login = LoginViewController()
+                        let loginNav = MasterNavigationBarController(rootViewController: login)
+                        if #available(iOS 13.0, *) {
+                            loginNav.modalPresentationStyle = .fullScreen
+                            loginNav.isModalInPresentation = true
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                        fromLogin = true
+                        self.present(loginNav, animated: true)
+                    })
+                    let createNewAccountAction = UIAlertAction(title: "Create New Account", style: .default, handler: { (action) in
+                        let login = LoginViewController()
+                        let loginNav = MasterNavigationBarController(rootViewController: login)
+                        fromLogin = true
+                        self.present(loginNav, animated: true, completion: {
+                            login.handleRegister()
+                        })
+                    })
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    alertController.addAction(logInAction)
+                    alertController.addAction(createNewAccountAction)
+                    alertController.addAction(cancelAction)
+                    self.present(alertController, animated: true, completion: nil)
+                })
+                return
             }
         }
             alertController.addAction(sureAction)
             alertController.addAction(cancel)
-            alertController.addTextField { (textField) in
-                textField.placeholder = "Enter Partycode"
-            }
+            alertController.addTextField(configurationHandler: {(textField: UITextField!) in
+                        textField.placeholder = "Enter Party Code"
+                        self.partyCode = textField
+                    })
             
             self.present(alertController, animated: true, completion: nil)
       

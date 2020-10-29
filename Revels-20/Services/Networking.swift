@@ -31,6 +31,10 @@ let paymentsURL = "https://register.mitrevels.in/buy?card="
 let mapsDataURL = "https://appdev.mitrevels.in/maps"
 let collegeDataURL = "http://api.mitrevels.in/colleges"
 let sponsorsURL = "https://appdev.mitrevels.in/sponsors"
+let teamDetailsURL = "https://techtatva.in/app/teamDetails"
+let defaults = UserDefaults.standard
+let emailCached = defaults.object(forKey: "Email") as? String ?? ""
+let passwordCached = defaults.object(forKey: "Password") as? String ?? ""
 
 struct NetworkResponse <T: Decodable>: Decodable{
     let success: Bool
@@ -53,7 +57,7 @@ struct Networking {
     let registerEventURL = "https://techtatva.in/app/createteam"
     let getRegisteredEventsURL = "https://techtatva.in/app/registeredevents"
     let leaveTeamURL = "https://techtatva.in/app/leaveteam"
-    let addTeamMateURL = "https://techtatva.in/app/jointeam"
+    let joinTeamURL = "https://techtatva.in/app/jointeam"
 
     
     let liveBlogURL = "http://revels.herokuapp.com/"
@@ -169,6 +173,7 @@ struct Networking {
                 do{
                     let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
                     if response.success{
+//                        defaults.set(data[0].userID, forKey: "userId")
                         dataCompletion(response.msg)
                     }else{
                         print(response)
@@ -235,6 +240,7 @@ struct Networking {
     func loginUser(Email: String, Password: String, dataCompletion: @escaping (_ Data: User) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         let parameters = [
             "email": Email,
+            "userID": 5013,
             "password": Password,
             "key": apiKey
             ] as [String : Any]
@@ -248,10 +254,8 @@ struct Networking {
                             let defaults = UserDefaults.standard
                             defaults.set(Email, forKey: "Email")
                             defaults.set(Password, forKey: "Password")
-                            print(data)
-                            dataCompletion(data[0])
+                            dataCompletion(data)
                         }
-//
                     }else{
                         print(response)
                         errorCompletion(response.msg ?? "")
@@ -291,17 +295,9 @@ struct Networking {
     
     func registerEventWith(eventID: Int, userid:Int, category:String, successCompletion: @escaping (_ SuccessMessage: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         
-        let defaults = UserDefaults.standard
-        let email = defaults.object(forKey: "Email") as? String ?? ""
-        let password = defaults.object(forKey: "Password") as? String ?? ""
-        print("Email", email)
-        print("password", password)
-        print(eventID)
-        print(userid)
-        print(category)
         let parameters = [
-            "email": email,
-            "password": password,
+            "email": emailCached,
+            "password": passwordCached,
             "key":apiKey,
             "userID": userid,
             "eventID":"\(eventID)",
@@ -370,13 +366,18 @@ struct Networking {
         }
     }
     
-    func addTeamMateToEventWith(EventID id: Int, TeamMateDelegateID delid: String, successCompletion: @escaping (_ SuccessMessage: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+    func joinTeam( eventId: Int,userID:Int,category :String,partyCode:String, successCompletion: @escaping (_ SuccessMessage: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         let parameters = [
-            "eventid": id,
-            "delid" : delid
+            "userID":userID,
+            "eventid": eventId,
+            "category":category,
+            "partyCode": partyCode,
+            "email":emailCached,
+            "password":passwordCached,
+            "key":apiKey
             ] as [String : Any]
         
-        Alamofire.request(addTeamMateURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
+        Alamofire.request(joinTeamURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
                     let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
@@ -385,6 +386,36 @@ struct Networking {
                     }else{
                         print(response)
                         errorCompletion(response.msg)
+                    }
+                }catch let error{
+                    errorCompletion("decoder_error")
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    
+    func getTeamDetails(teamID:Int, dataCompletion: @escaping (_ Data: User) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+        let parameters = [
+            "teamID": teamID,
+            "email": emailCached,
+            "userID": 5013,
+            "password": passwordCached,
+            "key": apiKey
+            ] as [String : Any]
+
+        Alamofire.request(teamDetailsURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
+            if let data = response.data{
+                do{
+                    let response = try JSONDecoder().decode(UserResponse.self, from: data)
+                    if response.success{
+                        if let data = response.data{
+                            dataCompletion(data)
+                        }
+                    }else{
+                        print(response)
+                        errorCompletion(response.msg ?? "")
                     }
                 }catch let error{
                     errorCompletion("decoder_error")

@@ -374,6 +374,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }else if indexPath.row == 3{
             let cell = tableView.dequeueReusableCell(withIdentifier: "MITPostTableViewCell") as! MITPostTableViewCell
             cell.homeViewController = self
+            cell.contentView.isUserInteractionEnabled = false
             cell.selectionStyle = .none
             return cell
         }else{

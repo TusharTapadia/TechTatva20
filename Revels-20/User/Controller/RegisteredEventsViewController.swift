@@ -10,6 +10,18 @@ import UIKit
 
 
 class RegisteredEventsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+   
+    
+    
+    var user: User? {
+        didSet{
+            tableView.isScrollEnabled = true
+            tableView.reloadData()
+            tableView.showsVerticalScrollIndicator = false
+        }
+    }
+
+  
     
     lazy var tableView : UITableView = {
         let tv = UITableView()
@@ -18,7 +30,7 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         return tv
     }()
     
-    var registeredEvents : [RegisteredEvent]!{
+    var registeredEvents : [TeamDetails]!{
         didSet{
         }
     }
@@ -32,6 +44,10 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = "Registered Events"
+        if let user = Caching.sharedInstance.getUserDetailsFromCache() {
+            print(user)
+            self.user = user
+        }
         updateStatusBar()
     }
     
@@ -52,16 +68,16 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         getSchedule()
     }
     
-    var fromScanner = false
+  
     
-    override func viewWillDisappear(_ animated: Bool) {
-        if fromScanner{
-            fromScanner = false
-        }else{
-           navigationController?.popViewController(animated: true)
-        }
-        
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        if fromScanner{
+//            fromScanner = false
+//        }else{
+//           navigationController?.popViewController(animated: true)
+//        }
+//
+//    }
     
     fileprivate func getSchedule(){
         
@@ -84,9 +100,9 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
 
     }
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
+//    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        return true
+//    }
     
     lazy var navigationView: UIView = {
         let view = UIView()
@@ -110,24 +126,25 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! RegisteredEventTableViewCell
         let regEvent = self.registeredEvents[indexPath.row]
-        guard let eventSchedule = self.scheduleDict?["\(regEvent.event)+\(regEvent.round)"] else {
+//        guard let eventSchedule = self.scheduleDict?["\(regEvent.event)+\(regEvent.round)"] else {
             print("failed here")
-            return cell }
-        cell.schedule = eventSchedule
+//            return cell 
+//        cell.schedule = eventSchedule
+        cell.contentView.isUserInteractionEnabled = false
         cell.registeredEvent = regEvent
         cell.registeredEventsViewController = self
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.showMenuForEventAt(IndexPath: indexPath)
-    }
-    
-    func showMenuForCell(Cell: UITableViewCell){
-        if let indexPath = tableView.indexPath(for: Cell){
-           self.showMenuForEventAt(IndexPath: indexPath)
-        }
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        self.showMenuForEventAt(IndexPath: indexPath)
+//    }
+//
+//    func showMenuForCell(Cell: UITableViewCell){
+//        if let indexPath = tableView.indexPath(for: Cell){
+////           self.showMenuForEventAt(IndexPath: indexPath)
+//        }
+//    }
     
     func showQRAddTeamMate(Cell: UITableViewCell){
         if let indexPath = tableView.indexPath(for: Cell){
@@ -135,77 +152,77 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
                 self.tableView.deselectRow(at: indexPath, animated: true)
             }
             guard let selectedEvent = self.registeredEvents?[indexPath.row] else { return }
-            addTeamMate(selectedEvent: selectedEvent)
+//            addTeamMate(selectedEvent: selectedEvent)
         }
     }
     
-    func showLeaveTeam(Cell: UITableViewCell){
-        if let indexPath = tableView.indexPath(for: Cell){
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                self.tableView.deselectRow(at: indexPath, animated: true)
-            }
-            guard let selectedEvent = self.registeredEvents?[indexPath.row] else { return }
-            leaveTeam(selectedEvent: selectedEvent, indexPath: indexPath)
-        }
-    }
+//    func showLeaveTeam(Cell: UITableViewCell){
+//        if let indexPath = tableView.indexPath(for: Cell){
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+//                self.tableView.deselectRow(at: indexPath, animated: true)
+//            }
+//            guard let selectedEvent = self.registeredEvents?[indexPath.row] else { return }
+//            leaveTeam(selectedEvent: selectedEvent, indexPath: indexPath)
+//        }
+//    }
     
-    func leaveTeam(selectedEvent: RegisteredEvent, indexPath: IndexPath){
-        let actionSheet = UIAlertController(title: "Are you Sure?", message: nil, preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let sureAction = UIAlertAction(title: "Yes", style: .destructive) { (_) in
-            Networking.sharedInstance.leaveTeamForEventWith(ID: selectedEvent.teamid, successCompletion: { (message) in
-                FloatingMessage().floatingMessage(Message: "Successfully left Team \(selectedEvent.teamid)", Color: .orange, onPresentation: {
-                    self.registeredEvents.remove(at: indexPath.row)
-                    self.tableView.deleteRows(at: [indexPath], with: .left)
-                    if self.registeredEvents.count == 0{
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                }) {}
-            }, errorCompletion: { (message) in
-                FloatingMessage().floatingMessage(Message: message, Color: .red, onPresentation: {}) {}
-            })
-        }
-        actionSheet.addAction(sureAction)
-        actionSheet.addAction(cancel)
-        self.present(actionSheet, animated: true, completion: nil)
-    }
+//    func leaveTeam(selectedEvent: RegisteredEvent, indexPath: IndexPath){
+//        let actionSheet = UIAlertController(title: "Are you Sure?", message: nil, preferredStyle: .alert)
+//        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//        let sureAction = UIAlertAction(title: "Yes", style: .destructive) { (_) in
+//            Networking.sharedInstance.leaveTeamForEventWith(ID: selectedEvent.teamid, successCompletion: { (message) in
+//                FloatingMessage().floatingMessage(Message: "Successfully left Team \(selectedEvent.teamid)", Color: .orange, onPresentation: {
+//                    self.registeredEvents.remove(at: indexPath.row)
+//                    self.tableView.deleteRows(at: [indexPath], with: .left)
+//                    if self.registeredEvents.count == 0{
+//                        self.navigationController?.popViewController(animated: true)
+//                    }
+//                }) {}
+//            }, errorCompletion: { (message) in
+//                FloatingMessage().floatingMessage(Message: message, Color: .red, onPresentation: {}) {}
+//            })
+//        }
+//        actionSheet.addAction(sureAction)
+//        actionSheet.addAction(cancel)
+//        self.present(actionSheet, animated: true, completion: nil)
+//    }
     
     func addTeamMate(selectedEvent: RegisteredEvent){
-        let qrVC = QRViewController()
-        fromScanner = true
-        qrVC.eventId = selectedEvent.event
-        self.present(qrVC, animated: true, completion: nil)
+//        let qrVC = QRViewController()
+//        fromScanner = true
+//        qrVC.eventId = selectedEvent.event
+//        self.present(qrVC, animated: true, completion: nil)
         return
     }
     
-    func showMenuForEventAt(IndexPath indexPath: IndexPath){
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-            self.tableView.deselectRow(at: indexPath, animated: true)
-        }
-        guard let selectedEvent = self.registeredEvents?[indexPath.row] else { return }
-        print(selectedEvent)
-        
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        let cancel = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
-        let addTeamMateAction = UIAlertAction(title: "Add a Team Mate", style: .default){ action in
-            self.addTeamMate(selectedEvent: selectedEvent)
-        }
-        let leaveTeamAction = UIAlertAction(title: "Leave Team and Unregister", style: .destructive){ action in
-            self.leaveTeam(selectedEvent: selectedEvent, indexPath: indexPath)
-        }
-        actionSheet.addAction(addTeamMateAction)
-        actionSheet.addAction(leaveTeamAction)
-        actionSheet.addAction(cancel)
-        self.present(actionSheet, animated: true, completion: nil)
-    }
+//    func showMenuForEventAt(IndexPath indexPath: IndexPath){
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+//            self.tableView.deselectRow(at: indexPath, animated: true)
+//        }
+//        guard let selectedEvent = self.registeredEvents?[indexPath.row] else { return }
+//        print(selectedEvent)
+//
+//        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//
+//        let cancel = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+//        let addTeamMateAction = UIAlertAction(title: "Add a Team Mate", style: .default){ action in
+//            self.addTeamMate(selectedEvent: selectedEvent)
+//        }
+//        let leaveTeamAction = UIAlertAction(title: "Leave Team and Unregister", style: .destructive){ action in
+//            self.leaveTeam(selectedEvent: selectedEvent, indexPath: indexPath)
+//        }
+//        actionSheet.addAction(addTeamMateAction)
+//        actionSheet.addAction(leaveTeamAction)
+//        actionSheet.addAction(cancel)
+//        self.present(actionSheet, animated: true, completion: nil)
+//    }
 }
 
 class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
     
     
     var registeredEventsViewController: RegisteredEventsViewController?
-    var registeredEvent: RegisteredEvent?
+    var registeredEvent: TeamDetails?
     var schedule: Schedule?{
         didSet{
 //            guard let event = registeredEvent else { return }
@@ -217,9 +234,9 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if schedule == nil{
-            return 0
+            return 5
         }
-        return 5
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -237,64 +254,49 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         case 0:
             textLabel = "Team ID"
             imageName = "group"
-            detailedTextLabel = "\(registeredEvent?.teamid ?? 0)"
+            detailedTextLabel = "\(registeredEvent?.teamID ?? 0)"
             break
         case 1:
             textLabel = "Date"
             formatter.dateFormat = "dd MMM yyyy"
-            let startDate = Date(dateString: schedule!.start)
-            detailedTextLabel = formatter.string(from: startDate)
+//            let startDate = Date(dateString: schedule!.start)
+            detailedTextLabel = "N/A"
+//                formatter.string(from: startDate)
             break
         case 2:
-            textLabel = "Time"
-            formatter.dateFormat = "h:mm a"
-            var startDate = Date(dateString: schedule!.start)
-            startDate = Calendar.current.date(byAdding: .hour, value: -5, to: startDate)!
-            startDate = Calendar.current.date(byAdding: .minute, value: -30, to: startDate)!
-            var endDate = Date(dateString: schedule!.end)
-            endDate = Calendar.current.date(byAdding: .hour, value: -5, to: endDate)!
-            endDate = Calendar.current.date(byAdding: .minute, value: -30, to: endDate)!
-            var dateString = formatter.string(from: startDate)
-            dateString.append(" - \(formatter.string(from: endDate))")
-            detailedTextLabel = dateString
+//            textLabel = "Time"
+//            formatter.dateFormat = "h:mm a"
+//            var startDate = Date(dateString: schedule!.start)
+//            startDate = Calendar.current.date(byAdding: .hour, value: -5, to: startDate)!
+//            startDate = Calendar.current.date(byAdding: .minute, value: -30, to: startDate)!
+//            var endDate = Date(dateString: schedule!.end)
+//            endDate = Calendar.current.date(byAdding: .hour, value: -5, to: endDate)!
+//            endDate = Calendar.current.date(byAdding: .minute, value: -30, to: endDate)!
+//            var dateString = formatter.string(from: startDate)
+//            dateString.append(" - \(formatter.string(from: endDate))")
+            detailedTextLabel = "N/A"
+//                dateString
             imageName = "timer"
             break
         case 3:
             textLabel = "Venue"
-            detailedTextLabel = schedule!.location
+            detailedTextLabel = "N/A"
+//                schedule!.location
             imageName = "location"
             break
         case 4:
             textLabel = "Round"
-            detailedTextLabel = "\(String(describing: schedule!.round))"
+            detailedTextLabel = "N/A"
+//                "\(String(describing: schedule!.round))"
             imageName = "assessment"
             break
         case 5:
             textLabel = "Venue"
-            detailedTextLabel = schedule!.location
+            detailedTextLabel = "N/A"
+//                schedule!.location
             imageName = "location"
             break
-        case 6:
-            textLabel = "Team Size"
-//            detailedTextLabel = event.minTeamSize == event.maxTeamSize ? "\(event.minTeamSize)" : "\(event.minTeamSize) - \(event.maxTeamSize)"
-            imageName = "group"
-            break
-//        case 6:
-//            textLabel = "Contact 1"
-//            detailedTextLabel = category?.cc1Name ?? ""
-//            if detailedTextLabel != "" {
-//                cell.selectionStyle = .gray
-//            }
-//            imageName = "contact"
-//            break
-//        case 7:
-//            textLabel = "Contact 2"
-//            detailedTextLabel = category?.cc2Name ?? ""
-//            if detailedTextLabel != "" {
-//                cell.selectionStyle = .gray
-//            }
-//            imageName = "contact"
-//            break
+      
         default:
             textLabel = "Team Size"
             cell.selectionStyle = .gray
@@ -321,15 +323,15 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         label.text = schedule?.eventName ?? ""
         
         let button = UIButton()
-        button.backgroundColor = UIColor.CustomColors.Blue.register
-        button.setTitle("Add Team Mate", for: UIControl.State())
+        button.backgroundColor = UIColor.CustomColors.Purple.register
+        button.setTitle("Team Members", for: UIControl.State())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.startAnimatingPressActions()
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: UIControl.State())
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(addTeamMate), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showTeamDetails), for: .touchUpInside)
             
         let button2 = UIButton()
         button2.backgroundColor = #colorLiteral(red: 0.7536286485, green: 0.1785056603, blue: 0.07220073951, alpha: 1)
@@ -340,7 +342,7 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         button2.setTitleColor(.white, for: UIControl.State())
         button2.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         button2.layer.cornerRadius = 10
-        button2.addTarget(self, action: #selector(leaveTeam), for: .touchUpInside)
+//        button2.addTarget(self, action: #selector(leaveTeam), for: .touchUpInside)
         
         view.addSubview(label)
         _ = label.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 12, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 25)
@@ -416,17 +418,17 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
     
     
     
-    @objc func showMenu(){
-        self.registeredEventsViewController?.showMenuForCell(Cell: self)
-    }
+//    @objc func showMenu(){
+//        self.registeredEventsViewController?.showMenuForCell(Cell: self)
+//    }
     
-    @objc func addTeamMate(){
+    @objc func showTeamDetails(){
         self.registeredEventsViewController?.showQRAddTeamMate(Cell: self)
     }
     
-    @objc func leaveTeam(){
-        self.registeredEventsViewController?.showLeaveTeam(Cell: self)
-    }
+//    @objc func leaveTeam(){
+//        self.registeredEventsViewController?.showLeaveTeam(Cell: self)
+//    }
 }
 
 

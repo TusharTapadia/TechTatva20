@@ -168,7 +168,7 @@ class LoadingButton: UIButton {
     
     @objc func hideLoading() {
         self.setTitle(originalButtonText, for: UIControl.State())
-//        activityIndicator.stopAnimating()
+        activityIndicator.stopAnimating()
     }
     
     private func createActivityIndicator() -> UIActivityIndicatorView {

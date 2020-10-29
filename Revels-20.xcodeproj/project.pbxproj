@@ -98,6 +98,7 @@
 		C62CC8E925210BE000066CB4 /* YoutubeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8E825210BE000066CB4 /* YoutubeCell.swift */; };
 		C62CC8EB25210C0700066CB4 /* YoutubeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */; };
 		C633B6AC254B063800E4A8CB /* RegisteredTeamResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C633B6AB254B063800E4A8CB /* RegisteredTeamResponse.swift */; };
+		C6966A3B254B683F00AE8D75 /* TeamDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6966A3A254B683F00AE8D75 /* TeamDetailsModel.swift */; };
 		C6C2D09E2520F78900FC8B31 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C2D09D2520F78900FC8B31 /* SocialController.swift */; };
 		C6E8E41E2548864500D9BCB2 /* StateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8E41D2548864500D9BCB2 /* StateTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -211,6 +212,7 @@
 		C62CC8E825210BE000066CB4 /* YoutubeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeCell.swift; sourceTree = "<group>"; };
 		C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeModel.swift; sourceTree = "<group>"; };
 		C633B6AB254B063800E4A8CB /* RegisteredTeamResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredTeamResponse.swift; sourceTree = "<group>"; };
+		C6966A3A254B683F00AE8D75 /* TeamDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsModel.swift; sourceTree = "<group>"; };
 		C6C2D09D2520F78900FC8B31 /* SocialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialController.swift; sourceTree = "<group>"; };
 		C6E8E41D2548864500D9BCB2 /* StateTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTableViewController.swift; sourceTree = "<group>"; };
 		E6684DF29D7A8EB4EFF7588F /* Pods_Revels_20.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Revels_20.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -428,6 +430,7 @@
 				B2B7DC4423D87ABD00B6A3AA /* WSManager.swift */,
 				B2C112C123D8D2150014B36D /* PopUp.swift */,
 				B25D43C023125E1900920FDA /* Networking.swift */,
+				C6966A3A254B683F00AE8D75 /* TeamDetailsModel.swift */,
 				B2272EAA23182C3800BB789F /* Caching.swift */,
 				B2D94507233E00CE00DA14D1 /* FloatingMessage.swift */,
 			);
@@ -879,6 +882,7 @@
 				B242B719233A0E6D00D30292 /* UsersViewController.swift in Sources */,
 				B222745F23144EDC0008D08B /* ScheduleModel.swift in Sources */,
 				C62CC8DF252108B900066CB4 /* InstagramData.swift in Sources */,
+				C6966A3B254B683F00AE8D75 /* TeamDetailsModel.swift in Sources */,
 				B2DE58212313EB8B00082EC1 /* ResultsViewController.swift in Sources */,
 				B2DE581F2313EB6900082EC1 /* PositionCell.swift in Sources */,
 				B2C112C423D97A7C0014B36D /* DelegateCardTableViewCell.swift in Sources */,

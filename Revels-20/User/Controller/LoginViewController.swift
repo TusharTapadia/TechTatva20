@@ -158,8 +158,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
             
-            view.addSubview(forgotPasswordButton)
-            _ = forgotPasswordButton.anchor(top: loginButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+//            view.addSubview(forgotPasswordButton)
+//            _ = forgotPasswordButton.anchor(top: loginButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
             
             view.addSubview(guestButton)
             _ = guestButton.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 32, bottomConstant: 16, rightConstant: 32, widthConstant: 0, heightConstant: 30)
@@ -180,8 +180,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
             
-            view.addSubview(forgotPasswordButton)
-            _ = forgotPasswordButton.anchor(top: loginButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+//            view.addSubview(forgotPasswordButton)
+//            _ = forgotPasswordButton.anchor(top: loginButton.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
             
             view.addSubview(guestButton)
             _ = guestButton.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 32, bottomConstant: 16, rightConstant: 32, widthConstant: 0, heightConstant: 30)
@@ -312,6 +312,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         }) { (errorMessage) in
             self.loginButton.hideLoading()
             if errorMessage == "Invalid Credentials"{
+                self.loginButton.hideLoading()
                 FloatingMessage().floatingMessage(Message: "Invalid Credentials", Color: .red, onPresentation: {
                     self.emailField.becomeFirstResponder()
                 }) {}
