@@ -30,11 +30,10 @@ let boughtDelegateCardsURL = "https://register.mitrevels.in/boughtCards"
 let paymentsURL = "https://register.mitrevels.in/buy?card="
 let mapsDataURL = "https://appdev.mitrevels.in/maps"
 let collegeDataURL = "http://api.mitrevels.in/colleges"
-let sponsorsURL = "https://appdev.mitrevels.in/sponsors"
-let teamDetailsURL = "https://techtatva.in/app/teamDetails"
 let defaults = UserDefaults.standard
 let emailCached = defaults.object(forKey: "Email") as? String ?? ""
 let passwordCached = defaults.object(forKey: "Password") as? String ?? ""
+let userIDCached = defaults.object(forKey: "UserID") as! Int
 
 struct NetworkResponse <T: Decodable>: Decodable{
     let success: Bool
@@ -58,6 +57,7 @@ struct Networking {
     let getRegisteredEventsURL = "https://techtatva.in/app/registeredevents"
     let leaveTeamURL = "https://techtatva.in/app/leaveteam"
     let joinTeamURL = "https://techtatva.in/app/jointeam"
+    let teamDetailsURL = "https://techtatva.in/app/teamDetails"
 
     
     let liveBlogURL = "http://revels.herokuapp.com/"
@@ -240,7 +240,6 @@ struct Networking {
     func loginUser(Email: String, Password: String, dataCompletion: @escaping (_ Data: User) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         let parameters = [
             "email": Email,
-            "userID": 5013,
             "password": Password,
             "key": apiKey
             ] as [String : Any]
@@ -254,6 +253,7 @@ struct Networking {
                             let defaults = UserDefaults.standard
                             defaults.set(Email, forKey: "Email")
                             defaults.set(Password, forKey: "Password")
+                            defaults.set(data.userID, forKey: "UserID")
                             dataCompletion(data)
                         }
                     }else{
@@ -268,6 +268,31 @@ struct Networking {
         }
     }
     
+    
+    func getStatusUpdate(dataCompletion: @escaping (_ Data: User) -> ()){
+        let parameters = [
+            "email": emailCached,
+            "password": passwordCached,
+            "key": apiKey
+            ] as [String : Any]
+
+        Alamofire.request(userLoginURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
+            if let data = response.data{
+                do{
+                    let response = try JSONDecoder().decode(UserResponse.self, from: data)
+                    if response.success{
+                        if let data = response.data{
+                            dataCompletion(data)
+                        }
+                    }else{
+                        print(response)
+                    }
+                }catch let error{
+                    print("Error in getting status update after registering" ,error)
+                }
+            }
+        }
+    }
     
     func getNewsLetterUrl(dataCompletion: @escaping (_ Data: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         
@@ -322,9 +347,16 @@ struct Networking {
         }
     }
     
-    func getRegisteredEvents(dataCompletion: @escaping (_ Data: [RegisteredEvent]) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+    func getRegisteredEvents(dataCompletion: @escaping (_ Data: [RegEvent]) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         
-        Alamofire.request(getRegisteredEventsURL, method: .get, parameters: nil, encoding: URLEncoding()).response { response in
+        let parameters = [
+            "userID": userIDCached,
+            "email": emailCached,
+            "password": passwordCached,
+            "key":apiKey,
+            ] as [String : Any]
+        
+        Alamofire.request(getRegisteredEventsURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
                     let resultsResponse = try JSONDecoder().decode(RegisteredEventsResponse.self, from: data)
@@ -343,9 +375,15 @@ struct Networking {
         }
     }
     
-    func leaveTeamForEventWith(ID id: Int, successCompletion: @escaping (_ SuccessMessage: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+    func leaveTeamForEventWith(userID: Int, teamID:Int, eventID:Int, successCompletion: @escaping (_ SuccessMessage: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         let parameters = [
-            "teamid": id
+            "userID":userID,
+            "teamID":teamID,
+            "eventID": eventID,
+            "teamid": teamID,
+            "email":emailCached,
+            "password":passwordCached,
+            "key":apiKey
             ] as [String : Any]
         
         Alamofire.request(leaveTeamURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in

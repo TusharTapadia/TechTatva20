@@ -30,6 +30,13 @@ class UserIDTableViewCell: UITableViewCell {
     }
 }
     
+    var regEvents: [RegEvent]?{
+        didSet{
+            guard let regEvents = regEvents else {return}
+            
+        }
+    }
+    
 //    lazy var spinnerView : UIActivityIndicatorView = {
 //        let spinner = UIActivityIndicatorView(style: .gray)
 //        spinner.translatesAutoresizingMaskIntoConstraints = false
@@ -160,6 +167,14 @@ class UserIDTableViewCell: UITableViewCell {
             //Do something
         }
         
+        
+        Networking.sharedInstance.getRegisteredEvents { (regEvents) in
+            self.regEvents = regEvents
+            print(regEvents)
+        } errorCompletion: { (error) in
+            print("Error in getting registered events",error)
+        }
+
         if userReg.regEvents?.count == 0{
                 FloatingMessage().longFloatingMessage(Message: "You have not registered for any events.", Color: .orange, onPresentation: {}) {}
                 return
@@ -253,9 +268,9 @@ class UserIDTableViewCell: UITableViewCell {
             logoutButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
             
         }else{
-            addSubview(logoImageView)
-            _ = logoImageView.anchor(top: safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 24, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 200)
-            logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+//            addSubview(logoImageView)
+//            _ = logoImageView.anchor(top: safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 24, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 200)
+//            logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 //            logoView.addSubview(spinnerView)
 //            spinnerView.fillSuperview()
 //            spinnerView.startAnimating()
@@ -263,7 +278,7 @@ class UserIDTableViewCell: UITableViewCell {
 //            logoImageView.fillSuperview(padding: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
             
             addSubview(nameLabel)
-            _ = nameLabel.anchor(top: logoImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 32, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 0)
+            _ = nameLabel.anchor(top: safeAreaLayoutGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 256, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 0)
             
             addSubview(collegeLabel)
             _ = collegeLabel.anchor(top: nameLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)

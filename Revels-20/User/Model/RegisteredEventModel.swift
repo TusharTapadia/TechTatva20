@@ -6,13 +6,35 @@
 //  Copyright © 2019 Naman Jain. All rights reserved.
 //
 
-struct RegisteredEventsResponse: Decodable {
+struct RegisteredEventsResponse: Codable {
     let success: Bool
-    let data : [RegisteredEvent]?
+    let data : [RegEvent]?
+}
+
+struct RegEvent: Codable {
+    let regEvent:[RegisteredEvent]?
 }
 
 struct RegisteredEvent: Codable{
-    let eventID: Int
-    let teamID: Int
+        let tags : [String]
+        let eventID: Int 
+        let name: String
+        let category: String
+        let description: String
+        let eventType: String
+        let mode: String?
+        let participationCriteria: String?
+        let teamSize: String?
+        let minMembers: Int?
+        let maxMembers: Int?
+        let prize: Int?
+        let eventHead: [EventHead]?
+        let __v: Int
+}
+
+struct EventHead : Codable{
+    let _id: String
+    let name:String
+    let phoneNo: Int64
 }
 

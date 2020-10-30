@@ -55,7 +55,7 @@ class UsersViewController: UITableViewController {
         tableView.backgroundColor = UIColor.CustomColors.Black.background
         tableView.register(UserIDTableViewCell.self, forCellReuseIdentifier: "cellId")
         if UserDefaults.standard.isLoggedIn(){
-
+          
         }else{
             setupViewForLoggedOutUser()
         }
@@ -69,16 +69,18 @@ class UsersViewController: UITableViewController {
                 if let user = Caching.sharedInstance.getUserDetailsFromCache() {
                     print(user)
                     self.user = user
-                }else{
+                }
+            else{
                     self.logOutUser()
                     print("cannot get user")
                 }
                 fromLogin = false
             }
-        }else{
+        else{
             print("not logged in")
         }
     }
+}
 
     func setupViewForLoggedOutUser(){
         tableView.reloadData()

@@ -98,6 +98,17 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
         return button
     }()
+    
+    lazy var driveLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.text = "Note: Enter publicly shareable google drive link with college ID uploaded for verification"
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        label.textColor = .systemRed
+        return label
+    }()
+    
    
     var collegeSearchearchController = collegeSearchTableViewController()
     var searchController = UISearchController()
@@ -291,6 +302,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         if isSmalliPhone(){
 //            view.addSubview(logoImageView)
 //            _ = logoImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 32, bottomConstant: 32, rightConstant: 32, widthConstant: 70, heightConstant: 70)
+            driveLabel.font = UIFont.systemFont(ofSize: 13)
             view.addSubview(nameField)
             _ = nameField.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 70, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
             view.addSubview(emailField)
@@ -310,6 +322,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             
             view.addSubview(driveField)
             _ = driveField.anchor(top: stateField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 40)
+            
+            view.addSubview(driveLabel)
+            _ = driveLabel.anchor(top: driveField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 6, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
             
             view.addSubview(guestButton)
             _ = guestButton.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 32, bottomConstant: 16, rightConstant: 32, widthConstant: 0, heightConstant: 30)
@@ -339,6 +354,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
             
             view.addSubview(driveField)
             _ = driveField.anchor(top: stateField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 16, leftConstant: 40, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 50)
+            
+            view.addSubview(driveLabel)
+            _ = driveLabel.anchor(top: driveField.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 6, leftConstant: 16, bottomConstant: 0, rightConstant: 16,heightConstant: 0)
             
             view.addSubview(guestButton)
             _ = guestButton.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 32, bottomConstant: 16, rightConstant: 32, widthConstant: 0, heightConstant: 30)

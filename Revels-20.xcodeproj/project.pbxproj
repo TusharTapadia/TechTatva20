@@ -83,6 +83,7 @@
 		B2F5F32523E4025E0011E937 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F5F32423E4025E0011E937 /* DescriptionTableViewCell.swift */; };
 		BB7FB57325389A7900F1183B /* IndiaMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB57225389A7900F1183B /* IndiaMapController.swift */; };
 		BB7FB57525389AB600F1183B /* LaunchViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB57425389AB600F1183B /* LaunchViewcontroller.swift */; };
+		C60C55DD254C3F3000019CE5 /* TeamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60C55DC254C3F3000019CE5 /* TeamTableViewController.swift */; };
 		C60DC9882535716100E7FFAF /* TwitterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60DC9872535716100E7FFAF /* TwitterCell.swift */; };
 		C62CC8DB2521085800066CB4 /* InstagramCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8DA2521085800066CB4 /* InstagramCollectionView.swift */; };
 		C62CC8DD2521086C00066CB4 /* InstagramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8DC2521086C00066CB4 /* InstagramCell.swift */; };
@@ -91,7 +92,7 @@
 		C62CC8E725210B9F00066CB4 /* YoutubeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8E625210B9F00066CB4 /* YoutubeCollectionView.swift */; };
 		C62CC8E925210BE000066CB4 /* YoutubeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8E825210BE000066CB4 /* YoutubeCell.swift */; };
 		C62CC8EB25210C0700066CB4 /* YoutubeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */; };
-		C633B6AC254B063800E4A8CB /* RegisteredTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C633B6AB254B063800E4A8CB /* RegisteredTeamModel.swift */; };
+		C633B6AC254B063800E4A8CB /* CreateTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C633B6AB254B063800E4A8CB /* CreateTeamModel.swift */; };
 		C6966A3B254B683F00AE8D75 /* TeamDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6966A3A254B683F00AE8D75 /* TeamDetailsModel.swift */; };
 		C6C2D09E2520F78900FC8B31 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C2D09D2520F78900FC8B31 /* SocialController.swift */; };
 		C6DEE283254BFB33000DE896 /* DevelopersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DEE282254BFB33000DE896 /* DevelopersTableViewCell.swift */; };
@@ -192,6 +193,7 @@
 		BB7FB57225389A7900F1183B /* IndiaMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndiaMapController.swift; sourceTree = "<group>"; };
 		BB7FB57425389AB600F1183B /* LaunchViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewcontroller.swift; sourceTree = "<group>"; };
 		BBB46A4824630113008489D0 /* RevelsDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RevelsDebug.entitlements; sourceTree = "<group>"; };
+		C60C55DC254C3F3000019CE5 /* TeamTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTableViewController.swift; sourceTree = "<group>"; };
 		C60DC9872535716100E7FFAF /* TwitterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCell.swift; sourceTree = "<group>"; };
 		C62CC8DA2521085800066CB4 /* InstagramCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramCollectionView.swift; sourceTree = "<group>"; };
 		C62CC8DC2521086C00066CB4 /* InstagramCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramCell.swift; sourceTree = "<group>"; };
@@ -200,7 +202,7 @@
 		C62CC8E625210B9F00066CB4 /* YoutubeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeCollectionView.swift; sourceTree = "<group>"; };
 		C62CC8E825210BE000066CB4 /* YoutubeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeCell.swift; sourceTree = "<group>"; };
 		C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeModel.swift; sourceTree = "<group>"; };
-		C633B6AB254B063800E4A8CB /* RegisteredTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredTeamModel.swift; sourceTree = "<group>"; };
+		C633B6AB254B063800E4A8CB /* CreateTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTeamModel.swift; sourceTree = "<group>"; };
 		C6966A3A254B683F00AE8D75 /* TeamDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsModel.swift; sourceTree = "<group>"; };
 		C6C2D09D2520F78900FC8B31 /* SocialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialController.swift; sourceTree = "<group>"; };
 		C6DEE282254BFB33000DE896 /* DevelopersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopersTableViewCell.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				B2D94509233E377800DA14D1 /* UserModel.swift */,
+				C633B6AB254B063800E4A8CB /* CreateTeamModel.swift */,
 				B2D94515234076BD00DA14D1 /* RegisteredEventModel.swift */,
 			);
 			path = Model;
@@ -377,10 +380,12 @@
 			children = (
 				B2D945182340E1C200DA14D1 /* QRSources */,
 				B2D945172340E1C200DA14D1 /* QRViewController.swift */,
+				B242B718233A0E6D00D30292 /* UsersViewController.swift */,
 				B2C3A17F233CFC6000545451 /* LoginViewController.swift */,
 				B2D944F6233DEF3500DA14D1 /* SignUpViewController.swift */,
 				C6E8E41D2548864500D9BCB2 /* StateTableViewController.swift */,
 				B2D9451323406A0600DA14D1 /* RegisteredEventsViewController.swift */,
+				C60C55DC254C3F3000019CE5 /* TeamTableViewController.swift */,
 				B2D944FA233DF77200DA14D1 /* ResetPassword.swift */,
 				B268457523FEE0690075CA16 /* collegeSearchTableViewController.swift */,
 			);
@@ -445,7 +450,6 @@
 				B2F5F32423E4025E0011E937 /* DescriptionTableViewCell.swift */,
 				B2B73C1423EAE201002DE75F /* MITPostTableViewCell.swift */,
 				C6DEE282254BFB33000DE896 /* DevelopersTableViewCell.swift */,
-				B242B718233A0E6D00D30292 /* UsersViewController.swift */,
 				B2B73C1623EAE542002DE75F /* SectionTableViewCell.swift */,
 			);
 			path = View;
@@ -570,7 +574,6 @@
 			isa = PBXGroup;
 			children = (
 				B2DE581C2313EAD200082EC1 /* EventsModel.swift */,
-				C633B6AB254B063800E4A8CB /* RegisteredTeamModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -813,7 +816,7 @@
 				B2DE58232313EBBF00082EC1 /* InternalResultsViewController.swift in Sources */,
 				B2B7DC4523D87ABD00B6A3AA /* WSManager.swift in Sources */,
 				B2D94506233DF85500DA14D1 /* DatePickerBulletinItem.swift in Sources */,
-				C633B6AC254B063800E4A8CB /* RegisteredTeamModel.swift in Sources */,
+				C633B6AC254B063800E4A8CB /* CreateTeamModel.swift in Sources */,
 				B2D944FB233DF77200DA14D1 /* ResetPassword.swift in Sources */,
 				B2D945262340E1C300DA14D1 /* QRCodeReaderViewContainer.swift in Sources */,
 				C62CC8DD2521086C00066CB4 /* InstagramCell.swift in Sources */,
@@ -878,6 +881,7 @@
 				B25D43BB23125C3000920FDA /* MasterTabBarController.swift in Sources */,
 				B2EDA16D234431D3009D5613 /* DeveloperViewController.swift in Sources */,
 				B2D94502233DF85500DA14D1 /* FeedbackPageBulletinItem.swift in Sources */,
+				C60C55DD254C3F3000019CE5 /* TeamTableViewController.swift in Sources */,
 				B2272EAB23182C3800BB789F /* Caching.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
