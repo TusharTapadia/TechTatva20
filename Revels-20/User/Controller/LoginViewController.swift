@@ -379,3 +379,4 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         return emailPredicate.evaluate(with: enteredEmail)
     }
 }
+

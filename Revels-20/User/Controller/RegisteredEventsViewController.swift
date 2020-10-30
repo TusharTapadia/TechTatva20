@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import AudioToolbox
 
 
 class RegisteredEventsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
    
-    
+    let slideInTransitioningDelegate = SlideInPresentationManager(from: UIViewController(), to: UIViewController())
     
     var user: User? {
         didSet{
@@ -35,6 +36,8 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         }
     }
     
+    
+    
     var scheduleDict : [String:Schedule]?{
         didSet{
             tableView.reloadData()
@@ -45,7 +48,6 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.title = "Registered Events"
         if let user = Caching.sharedInstance.getUserDetailsFromCache() {
-            print(user)
             self.user = user
         }
         updateStatusBar()
@@ -68,16 +70,6 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         getSchedule()
     }
     
-  
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        if fromScanner{
-//            fromScanner = false
-//        }else{
-//           navigationController?.popViewController(animated: true)
-//        }
-//
-//    }
     
     fileprivate func getSchedule(){
         
@@ -96,13 +88,8 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
                 print(errorMessage)
             }
         }
-        
-
     }
     
-//    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-//        return true
-//    }
     
     lazy var navigationView: UIView = {
         let view = UIView()
@@ -127,11 +114,11 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! RegisteredEventTableViewCell
         let regEvent = self.registeredEvents[indexPath.row]
 //        guard let eventSchedule = self.scheduleDict?["\(regEvent.event)+\(regEvent.round)"] else {
-            print("failed here")
-//            return cell 
+//            print("failed here")
+//            return cell
 //        cell.schedule = eventSchedule
         cell.contentView.isUserInteractionEnabled = false
-        cell.registeredEvent = regEvent
+        cell.teamDetails = regEvent
         cell.registeredEventsViewController = self
         return cell
     }
@@ -146,83 +133,63 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
 //        }
 //    }
     
-    func showQRAddTeamMate(Cell: UITableViewCell){
+    func showTeamDetails(Cell: UITableViewCell){
+        handleTeamDetailsTap()
+    }
+
+    func showLeaveTeam(Cell: UITableViewCell, teamDetails: TeamDetails){
         if let indexPath = tableView.indexPath(for: Cell){
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
                 self.tableView.deselectRow(at: indexPath, animated: true)
             }
-            guard let selectedEvent = self.registeredEvents?[indexPath.row] else { return }
-//            addTeamMate(selectedEvent: selectedEvent)
+//            guard let teamId = teamDetails.teamID else{return }
+//            guard let eventId = teamDetails.eventID else {return}
+            
+            leaveTeam(teamId: teamDetails.teamID,eventId:teamDetails.eventID)
+            
         }
     }
-    
-//    func showLeaveTeam(Cell: UITableViewCell){
-//        if let indexPath = tableView.indexPath(for: Cell){
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-//                self.tableView.deselectRow(at: indexPath, animated: true)
-//            }
-//            guard let selectedEvent = self.registeredEvents?[indexPath.row] else { return }
-//            leaveTeam(selectedEvent: selectedEvent, indexPath: indexPath)
-//        }
-//    }
-    
-//    func leaveTeam(selectedEvent: RegisteredEvent, indexPath: IndexPath){
-//        let actionSheet = UIAlertController(title: "Are you Sure?", message: nil, preferredStyle: .alert)
-//        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//        let sureAction = UIAlertAction(title: "Yes", style: .destructive) { (_) in
-//            Networking.sharedInstance.leaveTeamForEventWith(ID: selectedEvent.teamid, successCompletion: { (message) in
-//                FloatingMessage().floatingMessage(Message: "Successfully left Team \(selectedEvent.teamid)", Color: .orange, onPresentation: {
+//    selectedEvent: RegisteredEvent, indexPath: IndexPath
+    func leaveTeam(teamId: Int, eventId: Int){
+        let actionSheet = UIAlertController(title: "Are you Sure?", message: nil, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let sureAction = UIAlertAction(title: "Yes", style: .destructive) { (_) in
+            guard  let userId = self.user?.userID else {return}
+            Networking.sharedInstance.leaveTeamForEventWith(userID: userId, teamID: teamId, eventID: eventId, successCompletion: { (message) in
+                FloatingMessage().floatingMessage(Message: "Successfully left Team \(teamId)", Color: .orange, onPresentation: {
 //                    self.registeredEvents.remove(at: indexPath.row)
 //                    self.tableView.deleteRows(at: [indexPath], with: .left)
 //                    if self.registeredEvents.count == 0{
 //                        self.navigationController?.popViewController(animated: true)
 //                    }
-//                }) {}
-//            }, errorCompletion: { (message) in
-//                FloatingMessage().floatingMessage(Message: message, Color: .red, onPresentation: {}) {}
-//            })
-//        }
-//        actionSheet.addAction(sureAction)
-//        actionSheet.addAction(cancel)
-//        self.present(actionSheet, animated: true, completion: nil)
-//    }
-    
-    func addTeamMate(selectedEvent: RegisteredEvent){
-//        let qrVC = QRViewController()
-//        fromScanner = true
-//        qrVC.eventId = selectedEvent.event
-//        self.present(qrVC, animated: true, completion: nil)
-        return
+                }) {}
+            }, errorCompletion: { (message) in
+                FloatingMessage().floatingMessage(Message: message, Color: .red, onPresentation: {}) {}
+            })
+        }
+        actionSheet.addAction(sureAction)
+        actionSheet.addAction(cancel)
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
-//    func showMenuForEventAt(IndexPath indexPath: IndexPath){
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-//            self.tableView.deselectRow(at: indexPath, animated: true)
-//        }
-//        guard let selectedEvent = self.registeredEvents?[indexPath.row] else { return }
-//        print(selectedEvent)
-//
-//        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//
-//        let cancel = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
-//        let addTeamMateAction = UIAlertAction(title: "Add a Team Mate", style: .default){ action in
-//            self.addTeamMate(selectedEvent: selectedEvent)
-//        }
-//        let leaveTeamAction = UIAlertAction(title: "Leave Team and Unregister", style: .destructive){ action in
-//            self.leaveTeam(selectedEvent: selectedEvent, indexPath: indexPath)
-//        }
-//        actionSheet.addAction(addTeamMateAction)
-//        actionSheet.addAction(leaveTeamAction)
-//        actionSheet.addAction(cancel)
-//        self.present(actionSheet, animated: true, completion: nil)
-//    }
+    
+    func handleTeamDetailsTap(){
+        AudioServicesPlaySystemSound(1519)
+        let teamTableViewController = TeamTableViewController()
+        slideInTransitioningDelegate.categoryName = ""   //"\(event.description)"
+        teamTableViewController.modalPresentationStyle = .custom
+        teamTableViewController.transitioningDelegate = slideInTransitioningDelegate
+        present(teamTableViewController, animated: true, completion: nil)
+    }
+    
+    
 }
 
 class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
     
     
     var registeredEventsViewController: RegisteredEventsViewController?
-    var registeredEvent: TeamDetails?
+    var teamDetails: TeamDetails?
     var schedule: Schedule?{
         didSet{
 //            guard let event = registeredEvent else { return }
@@ -254,7 +221,7 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         case 0:
             textLabel = "Team ID"
             imageName = "group"
-            detailedTextLabel = "\(registeredEvent?.teamID ?? 0)"
+            detailedTextLabel = "\(teamDetails?.teamID ?? 0)"
             break
         case 1:
             textLabel = "Date"
@@ -342,7 +309,7 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         button2.setTitleColor(.white, for: UIControl.State())
         button2.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         button2.layer.cornerRadius = 10
-//        button2.addTarget(self, action: #selector(leaveTeam), for: .touchUpInside)
+        button2.addTarget(self, action: #selector(leaveTeam), for: .touchUpInside)
         
         view.addSubview(label)
         _ = label.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 12, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 25)
@@ -410,25 +377,17 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         _ = cardBackground.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 8, rightConstant: 16, widthConstant: 0, heightConstant: 270)
         cardBackground.addSubview(tableView)
         tableView.fillSuperview()
-        
-//        let tapOnScreen: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showMenu))
-//        tapOnScreen.cancelsTouchesInView = false
-//        addGestureRecognizer(tapOnScreen)
     }
-    
-    
-    
-//    @objc func showMenu(){
-//        self.registeredEventsViewController?.showMenuForCell(Cell: self)
-//    }
     
     @objc func showTeamDetails(){
-        self.registeredEventsViewController?.showQRAddTeamMate(Cell: self)
+        self.registeredEventsViewController?.showTeamDetails(Cell: self)
     }
     
-//    @objc func leaveTeam(){
-//        self.registeredEventsViewController?.showLeaveTeam(Cell: self)
-//    }
+    
+    @objc func leaveTeam(){
+        guard let teamDetails = teamDetails else {return}
+        self.registeredEventsViewController?.showLeaveTeam(Cell: self, teamDetails: teamDetails)
+    }
 }
 
 
@@ -450,3 +409,4 @@ class RegisteredEventCell: UITableViewCell{
         fatalError("init(coder:) has not been implemented")
     }
 }
+
