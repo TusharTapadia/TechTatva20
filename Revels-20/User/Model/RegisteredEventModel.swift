@@ -12,9 +12,7 @@ struct RegisteredEventsResponse: Decodable {
 }
 
 struct RegisteredEvent: Codable{
-    let teamid: Int
-    let event: Int
-    let round: Int
-    let delid: Int
+    let eventID: Int
+    let teamID: Int
 }
 

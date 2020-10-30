@@ -116,8 +116,8 @@ class DeveloperViewController: UICollectionViewController, UICollectionViewDeleg
         let appURL = URL(string: developersData[indexPath.item].instaURL)
             let webURL = developersData[indexPath.item].instaURL
         let application = UIApplication.shared
-        if application.canOpenURL(appURL as! URL) {
-            application.open(appURL as! URL)
+            if application.canOpenURL(appURL!) {
+                application.open(appURL!)
         }else{
             homeViewController?.openURL(url: webURL)
             }

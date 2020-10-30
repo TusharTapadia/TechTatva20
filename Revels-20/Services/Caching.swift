@@ -68,13 +68,7 @@ struct Caching{
 //        }
 //    }
     
-    func saveSponsorsToCache(sponsors: [SponsorsData]){
-        do{
-            try Disk.save(sponsors, to: .caches, as: sponsorsCache)
-        }catch let error{
-            print(error)
-        }
-    }
+   
     
     func saveDelegateCardsDictionaryToCache(dict: [Int: DelegateCard]){
         do{
@@ -153,24 +147,6 @@ struct Caching{
             return nil
         }
     }
+
     
-//    func getProshowFromCache() -> ProResponse? {
-//        do{
-//            let retrievedData = try Disk.retrieve(proshowCache, from: .caches, as: ProResponse.self)
-//            return retrievedData
-//        }catch let err{
-//            print(err)
-//            return nil
-//        }
-//    }
-    
-    func getSponsorsFromCache() -> [SponsorsData]? {
-        do{
-            let retrievedData = try Disk.retrieve(sponsorsCache, from: .caches, as: [SponsorsData].self)
-            return retrievedData
-        }catch let _{
-            print("sponsors cache not found")
-            return nil
-        }
-    }
 }

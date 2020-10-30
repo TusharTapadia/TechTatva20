@@ -25,32 +25,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var sequence = [Int]()
     var i = 0
     
-    var sponsors = [SponsorsData]()
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupTableView()
         testerFunction()
-        getSponsors()
         let shuffledSequence = 0 ..< images.count
         sequence = shuffledSequence.shuffled()
     }
     
-    func getSponsors(){
-        if let spns = Caching.sharedInstance.getSponsorsFromCache(){
-            self.sponsors = spns
-        }else{
-            let apiStruct = ApiStruct(url: sponsorsURL, method: .get, body: nil)
-            WSManager.shared.getJSONResponse(apiStruct: apiStruct, success: { (spns: [SponsorsData]) in
-                self.sponsors = spns
-                Caching.sharedInstance.saveSponsorsToCache(sponsors: spns)
-            }) { (error) in
-               print(error)
-            }
-        }
-    }
-    
+ 
     @objc func showInfoOptions(){
         let thoughts = ["“The only thing we have to fear is fear itself.”", "“Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that.”", "“If you tell the truth, you don’t have to remember anything.”", "“Great minds discuss ideas; average minds discuss events; small minds discuss people.”", "“A person who never made a mistake never tried anything new.”", "“If you look at what you have in life, you’ll always have more. If you look at what you don’t have in life, you’ll never have enough.”" ,"“It is never too late to be what you might have been.”" ,"“You miss 100% of the shots you don’t take.”" ,"“If you want to lift yourself up, lift up someone else.”" ,"“Too many of us are not living our dreams because we are living our fears.”" ,"“Remember that happiness is a way of travel, not a destination.”" ," “Believe you can and you’re halfway there.”" ,"“Everything has beauty, but not everyone can see.”" ,"“The difference between ordinary and extraordinary is that little extra.”" ,"“Life shrinks or expands in proportion to one’s courage.”" ,"“A journey of a thousand leagues begins beneath one’s feet.”" ,"“I haven’t failed. I’ve just found 10,000 ways that won’t work.”" ,"“Strive not to be a success, but rather to be of value.”" ,"“Wise men speak because they have something to say; fools because they have to say something.”" ,"“If opportunity doesn’t knock, build a door.”" ,"“If you cannot do great things, do small things in a great way.”" ,"“Be yourself; everyone else is already taken.”" ,"“Do what you can, with what you have, where you are.”" ,"“Anyone who stops learning is old, whether at twenty or eighty. Anyone who keeps learning stays young. The greatest thing in life is to keep your mind young.”" ,"“Though no one can go back and make a brand new start, anyone can start from now and make a brand new ending.”" ,"“Self-reverence, self-knowledge, self control — these three alone lead to power.”" ,"“In three words I can sum up everything I’ve learned about life: It goes on.”" ,"“There are two ways of spreading light: to be the candle or the mirror that reflects it.”" ,"“Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.”" ,"“Always forgive your enemies; nothing annoys them so much.”" ,"“Courage doesn’t always roar. Sometimes courage is the little voice at the end of the day that says ‘I’ll try again tomorrow.'”" ,"“He who angers you conquers you.”"]
         
@@ -177,13 +163,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.pushViewController(liveBlogVC, animated: true)
     }
     
-    @objc func showSponsors(){
-        let sponsorsViewController = SponsorsViewController()
-        sponsorsViewController.homeViewController = self
-        sponsorsViewController.sponsors = self.sponsors
-        self.navigationController?.pushViewController(sponsorsViewController, animated: true)
-    }
-    
+   
     
     @objc func showNewsLetter(){
         let newsLetterVC = OrderPDFViewController()
@@ -270,10 +250,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         tableView.backgroundColor = UIColor.CustomColors.Black.background
         tableView.separatorStyle = .none
-//        tableView.register(HeaderTableViewCell.self, forCellReuseIdentifier: "HeaderTableViewCell")
         tableView.register(SectionTableViewCell.self, forCellReuseIdentifier: "SectionTableViewCell")
         tableView.register(DescriptionTableViewCell.self, forCellReuseIdentifier: "DescriptionTableViewCell")
         tableView.register(MITPostTableViewCell.self, forCellReuseIdentifier: "MITPostTableViewCell")
+        tableView.register(DevelopersTableViewCell.self, forCellReuseIdentifier: "DeveloperTableViewCell")
         
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 200)
         homeHeader = HomeHeader(frame: frame)
@@ -291,7 +271,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         homeHeader?.headerImageView.image = UIImage(named: "placeholder")
         
-        let widhtConstant = 40
+//        let widhtConstant = 40
         
         if UIDevice.current.hasNotch {
             view.addSubview(navigationView)
@@ -361,11 +341,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 4{
+        if indexPath.row == 5{
             let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell") as! DescriptionTableViewCell
             cell.homeViewController = self
             cell.selectionStyle = .none
@@ -374,8 +354,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }else if indexPath.row == 3{
             let cell = tableView.dequeueReusableCell(withIdentifier: "MITPostTableViewCell") as! MITPostTableViewCell
             cell.homeViewController = self
+            cell.contentView.isUserInteractionEnabled = false
             cell.selectionStyle = .none
             return cell
+            
+        }else if indexPath.row == 4 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DeveloperTableViewCell", for: indexPath) as! DevelopersTableViewCell
+            cell.homeViewController = self
+            cell.contentView.isUserInteractionEnabled = false
+            cell.selectionStyle = .none
+            return cell
+        
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTableViewCell") as! SectionTableViewCell
             cell.accessoryType = .disclosureIndicator
@@ -397,19 +386,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.subSubTitleLabel.text = ""
                 cell.mainImageView.image = UIImage(named: "blog")
                 break
-//            case 3:
-//                cell.titleLabel.text = "Featured Events"
-//                cell.subTitleLabel.text = "Win Big Cash Prizes"
-//                cell.subSubTitleLabel.text = ""
-//                cell.mainImageView.image = UIImage(named: "featured")
-//                break
-//            case 4:
-//                cell.titleLabel.text = "Sponsors"
-//                cell.subTitleLabel.text = "Our Proud Partners"
-//                cell.subSubTitleLabel.text = ""
-//                cell.mainImageView.image = UIImage(named: "sponsors")
-//                cell.seperatorLine.alpha = 0
-//                break
+            case 3:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MITPostTableViewCell") as! MITPostTableViewCell
+                cell.homeViewController = self
+                cell.contentView.isUserInteractionEnabled = false
+                cell.selectionStyle = .none
+                break
             default: break
             }
             return cell
@@ -419,7 +401,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
-            case 4:
+            case 5:
                 return UITableView.automaticDimension
             default:
                 if isSmalliPhone(){
@@ -468,59 +450,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 }
 
-//class HeaderTableViewCell: UITableViewCell{
-//
-//    lazy var mainImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.backgroundColor = UIColor.CustomColors.Black.card
-//        imageView.layer.cornerRadius = 10
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.layer.masksToBounds = true
-//        imageView.clipsToBounds = true
-//        return imageView
-//    }()
-//
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        backgroundColor = .clear
-//
-//        let titleLabel = UILabel()
-//        titleLabel.text = "Revels'20"
-//        titleLabel.font = UIFont.boldSystemFont(ofSize: 25)
-//        titleLabel.textColor = .white
-//        titleLabel.sizeToFit()
-//
-//        let subTitleLabel = UILabel()
-//        subTitleLabel.text = "Qainaat - A World Apart"
-//        subTitleLabel.font = UIFont.boldSystemFont(ofSize: 18)
-//        subTitleLabel.textColor = .white
-//        subTitleLabel.sizeToFit()
-//
-//        addSubview(mainImageView)
-//        mainImageView.fillSuperview(padding: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
-//
-//        let gradient: CAGradientLayer = CAGradientLayer()
-//        if UIViewController().isSmalliPhone(){
-//           gradient.frame = CGRect(x: 0, y: 0, width: frame.width + 100, height: 180)
-//        }else{
-//            gradient.frame = CGRect(x: 0, y: 0, width: frame.width + 100, height: 230)
-//        }
-//        gradient.colors = [UIColor.clear.cgColor, UIColor.clear.cgColor, UIColor.init(white: 0, alpha: 0.9).cgColor]
-//        gradient.locations = [0.0, 0.4, 0.95]
-//        mainImageView.layer.insertSublayer(gradient, at: 0)
-//
-//        mainImageView.addSubview(subTitleLabel)
-//        subTitleLabel.anchorWithConstants(top: nil, left: mainImageView.leftAnchor, bottom: mainImageView.bottomAnchor, right: nil, topConstant: 0, leftConstant: 16, bottomConstant: 16, rightConstant: 16)
-//
-//        mainImageView.addSubview(titleLabel)
-//        titleLabel.anchorWithConstants(top: nil, left: mainImageView.leftAnchor, bottom: subTitleLabel.topAnchor, right: nil, topConstant: 0, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//}
-//
 
 class HomeHeader: UIView, UIGestureRecognizerDelegate{
     

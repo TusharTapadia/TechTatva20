@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class QRDelegateIDTableViewCell: UITableViewCell {
+class UserIDTableViewCell: UITableViewCell {
     
     var usersViewController: UsersViewController?
 
@@ -152,47 +152,24 @@ class QRDelegateIDTableViewCell: UITableViewCell {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
             self.eventsButton.animateUp(sender: self.eventsButton)
         }
-        Networking.sharedInstance.getRegisteredEvents(dataCompletion: { (data) in
             self.eventsButton.hideLoading()
             self.eventsButton.isEnabled = true
-            print(data)
-            if data.count == 0{
+        guard let userReg = user else{return}
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+            //Do something
+        }
+        
+        if userReg.regEvents?.count == 0{
                 FloatingMessage().longFloatingMessage(Message: "You have not registered for any events.", Color: .orange, onPresentation: {}) {}
                 return
             }else{
-               self.usersViewController?.showRegisteredEvents(RegisteredEvents: data)
+                self.usersViewController?.showRegisteredEvents(RegisteredEvents: userReg.teamDetails ?? [])
             }
-            
-        }) { (message) in
-            print(message)
-            self.eventsButton.hideLoading()
-            self.eventsButton.isEnabled = true
-        }
+        self.eventsButton.hideLoading()
+        self.eventsButton.isEnabled = true
     }
     
-//    @objc func showDelegateCards(){
-//        delegateCardButton.showLoading()
-//        delegateCardButton.activityIndicator.tintColor = .white
-//        delegateCardButton.isEnabled = false
-//        delegateCardButton.animateDown(sender: self.delegateCardButton)
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
-//            self.delegateCardButton.animateUp(sender: self.delegateCardButton)
-//        }
-//        let apiStruct = ApiStruct(url: boughtDelegateCardsURL, method: .get, body: nil)
-//        WSManager.shared.getJSONResponse(apiStruct: apiStruct, success: { (boughtCards: BoughtDelegateCard) in
-//           self.delegateCardButton.hideLoading()
-//           self.delegateCardButton.isEnabled = true
-//            var cards = [Int]()
-//            for card in boughtCards.data{
-//                cards.append(card.card_type)
-//            }
-//            self.usersViewController?.showDelegateCards(BoughtCards: cards)
-//        }) { (error) in
-//           print(error)
-//            self.delegateCardButton.hideLoading()
-//            self.delegateCardButton.isEnabled = true
-//        }
-//    }
     
     lazy var logoutButton: LoadingButton = {
         let button = LoadingButton(type: .system)

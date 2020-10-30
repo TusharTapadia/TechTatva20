@@ -28,7 +28,7 @@ class LiveBlogController: UITableViewController {
         tableView.tableFooterView = UIView()
 //        tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.separatorColor = UIColor.CustomColors.Blue.accent
+        tableView.separatorColor = UIColor.CustomColors.Purple.accent
     }
     
     func setupView(){
