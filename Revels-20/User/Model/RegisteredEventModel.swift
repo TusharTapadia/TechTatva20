@@ -18,19 +18,19 @@ struct RegEvent: Codable {
 
 struct RegisteredEvent: Codable{
         let tags : [String]
-        let eventID: Int
+        let eventID: Int?
         let name: String
         let category: String
         let description: String
         let eventType: String
         let mode: String?
         let participationCriteria: String?
-        let teamSize: String?
         let minMembers: Int?
         let maxMembers: Int?
         let prize: Int?
         let eventHead: [EventHead]?
         let __v: Int
+        let deadline: String?
 }
 
 struct EventHead : Codable{

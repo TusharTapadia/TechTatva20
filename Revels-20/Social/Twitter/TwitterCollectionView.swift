@@ -10,6 +10,8 @@ import UIKit
 import SDWebImage
 
 class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+
+    
     
     private let cellId = "cellID"
 
@@ -46,15 +48,48 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
         return cv
     }()
     
-   
-    
+//    lazy var tweetsTableView: UITableView = {
+//        let tv = UITableView()
+//        tv.delegate = self
+//        tv.dataSource = self
+//        tv.isUserInteractionEnabled = true
+//        tv.register(TweetTableViewCell.self, forCellReuseIdentifier: cellId)
+//        tv.separatorStyle = .none
+//        return tv
+//    }()
+
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return tweetData.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableView.automaticDimension
+//    }
+//
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tweetData.count
     }
     
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TweetTableViewCell
+//        let data = tweetData[indexPath.row]
+//        print(data)
+//        cell.usernameLabel.text = data.name
+//        cell.profileImageView.sd_setImage(with: URL(string: data.profileImage), placeholderImage: UIImage(named: "logo.png"))
+//        cell.tweetlabel.text=data.tweet
+//        cell.likesLabel.text = data.like
+//        cell.retweetLabel.text = data.reTweet
+//        return cell
+////    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! TwitterCell
-        let data = tweetData[indexPath.item]
+        let data = tweetData[indexPath.row]
         print(data)
         cell.usernameLabel.text = data.name
         cell.profileImageView.sd_setImage(with: URL(string: data.profileImage), placeholderImage: UIImage(named: "logo.png"))
@@ -76,11 +111,6 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: frame.width, height: 172 )
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Clicked me ")
-    }
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

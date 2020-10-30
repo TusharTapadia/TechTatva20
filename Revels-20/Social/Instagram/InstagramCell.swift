@@ -76,7 +76,7 @@ class InstagramCell: UICollectionViewCell {
     
     lazy var postCaption: UILabel = {
         let lb = UILabel()
-        lb.text = "bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh bleh"
+        lb.text = ""
         lb.font = UIFont.systemFont(ofSize: 20)
         lb.textColor = .black
         lb.numberOfLines = 0

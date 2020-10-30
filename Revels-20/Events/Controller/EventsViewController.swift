@@ -324,10 +324,8 @@ class EventsViewController: UITableViewController {
     @objc func registerTeamLeader(){
         print("Create Team Pressed")
         
-        let dispatchQueue = DispatchQueue.global(qos: .background)
-        let semaphore = DispatchSemaphore(value: 0)
-        dispatchQueue.async{
-            
+        
+  
         DispatchQueue.main.async(execute:{
         let alertController = UIAlertController(title: "Register", message: "\n Register for the event as a single person or as a team leader in a team event", preferredStyle: .alert)
 
@@ -344,6 +342,12 @@ class EventsViewController: UITableViewController {
                     self.createTeam.hideLoading()
                     print(message)
                     FloatingMessage().longFloatingMessage(Message: "Successfully Registered for \(self.event.name).", Color: UIColor.CustomColors.Purple.register, onPresentation: {
+                        Networking.sharedInstance.getStatusUpdate { (user) in
+                            print(user)
+                            Caching.sharedInstance.saveUserDetailsToCache(user: user)
+                            self.userStatusUpdate = user
+                        }
+
                     }){}
                 }) { (message) in
                     self.createTeam.hideLoading()
@@ -392,16 +396,7 @@ class EventsViewController: UITableViewController {
             alertController.addAction(sureAction)
             alertController.addAction(cancel)
             self.present(alertController, animated: true, completion: nil)
-      
         })
-            semaphore.signal()
-    }
-        semaphore.wait()
-        Networking.sharedInstance.getStatusUpdate { (user) in
-            Caching.sharedInstance.saveUserDetailsToCache(user: user)
-            self.userStatusUpdate = user
-            
-        }
         
     }
         
@@ -427,6 +422,11 @@ class EventsViewController: UITableViewController {
                     self.joinTeam.hideLoading()
                     print(message)
             FloatingMessage().longFloatingMessage(Message: "Successfully joined the team for \(self.event.name). ", Color: UIColor.CustomColors.Purple.register, onPresentation: {
+                Networking.sharedInstance.getStatusUpdate { (user) in
+                    print(user)
+                    Caching.sharedInstance.saveUserDetailsToCache(user: user)
+                    self.userStatusUpdate = user
+                }
                     }){}
                 }) { (message) in
                     self.joinTeam.hideLoading()

@@ -16,15 +16,7 @@ struct TeamDetailsResponse : Codable {
 
 struct TeamMemberDetails: Codable{
     let timeStamp: String// "2020-10-29T08:59:48.542Z",
-//    let members: [
-//                [
-//                    {
-//                        "_id": "5f997ab82e7a0d745177eefc",
-//                        "userID": 5013,
-//                        "name": "Rohit Kuber"
-//                    }
-//                ]
-//            ],
+    let members: [MemberInfo]
     let _id: String //"5f9ad8799f546c28600bc480",
     let teamID: Int //1020,
     let eventName: String //"Hopeless Opus",
@@ -33,6 +25,10 @@ struct TeamMemberDetails: Codable{
     let maxMembers: Int
     let leader:Int // 5013,
     let __v: Int
+}
+
+struct MemberObject: Codable {
+    let memberinfo: [MemberInfo]?
 }
 
 struct MemberInfo: Codable {

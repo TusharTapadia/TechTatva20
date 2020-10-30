@@ -27,14 +27,20 @@ class UserIDTableViewCell: UITableViewCell {
             if let userid = user.userID{
             userIDLabel.text = String(userid)
         }
+            if let userVerified = user.verified{
+                titleBackgroundText.text = userVerified
+            }
     }
 }
     
-//    lazy var spinnerView : UIActivityIndicatorView = {
-//        let spinner = UIActivityIndicatorView(style: .gray)
-//        spinner.translatesAutoresizingMaskIntoConstraints = false
-//        return spinner
-//    }()
+    lazy var titleBackgroundText: UILabel = {
+           let label = UILabel()
+           label.text = "VIDEOS"
+           label.font = UIFont.systemFont(ofSize: 72, weight: .bold)
+           label.textColor = UIColor(white: 0.4, alpha: 0.3)
+           label.textAlignment = .center
+           return label
+       }()
     
     let logoView : UIView = {
         let view = UIView()
@@ -51,7 +57,7 @@ class UserIDTableViewCell: UITableViewCell {
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 28)
+        label.font = UIFont.boldSystemFont(ofSize: 22)
         label.text = "Error 404"
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -143,7 +149,7 @@ class UserIDTableViewCell: UITableViewCell {
         return button
     }()
     
-    
+
     @objc func showRegisteredEvents(){
         eventsButton.showLoading()
         eventsButton.activityIndicator.tintColor = .white
@@ -154,11 +160,8 @@ class UserIDTableViewCell: UITableViewCell {
         }
             self.eventsButton.hideLoading()
             self.eventsButton.isEnabled = true
-        guard let userReg = user else{return}
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-            //Do something
-        }
+        guard let userReg = Caching.sharedInstance.getUserDetailsFromCache() else {return}
         
         if userReg.regEvents?.count == 0{
                 FloatingMessage().longFloatingMessage(Message: "You have not registered for any events.", Color: .orange, onPresentation: {}) {}
@@ -207,18 +210,17 @@ class UserIDTableViewCell: UITableViewCell {
         backgroundColor = .clear
         
         if UIViewController().isSmalliPhone(){
-//            addSubview(qrCodeView)
-//            _ = qrCodeView.anchor(top: safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 10, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 150, heightConstant: 150)
-//            qrCodeView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-//            qrCodeView.addSubview(spinnerView)
-//            spinnerView.fillSuperview()
-//            spinnerView.startAnimating()
-//            qrCodeView.addSubview(qrImageView)
-//            qrImageView.fillSuperview(padding: UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24))
+
+            titleBackgroundText.font = UIFont.systemFont(ofSize: 48, weight: .bold)
+            addSubview(titleBackgroundText)
+            _ = titleBackgroundText.anchor(top: safeAreaLayoutGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 128, leftConstant: -12, bottomConstant: 0, rightConstant: -12, widthConstant: 0, heightConstant: 0)
+            
+            addSubview(nameLabel)
+            _ = nameLabel.anchor(top: titleBackgroundText.topAnchor, left: leftAnchor, bottom: titleBackgroundText.bottomAnchor, right: rightAnchor, topConstant: 6, leftConstant: 16, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 0)
             
             nameLabel.font = UIFont.boldSystemFont(ofSize: 23)
             addSubview(nameLabel)
-            _ = nameLabel.anchor(top: safeAreaLayoutGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 100, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 0)
+            _ = nameLabel.anchor(top: safeAreaLayoutGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 160, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 0)
             
             collegeLabel.font = UIFont.boldSystemFont(ofSize: 15)
             addSubview(collegeLabel)
@@ -253,17 +255,21 @@ class UserIDTableViewCell: UITableViewCell {
             logoutButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
             
         }else{
-            addSubview(logoImageView)
-            _ = logoImageView.anchor(top: safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 24, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 200)
-            logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+//            addSubview(logoImageView)
+//            _ = logoImageView.anchor(top: safeAreaLayoutGuide.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 24, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 200)
+//            logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 //            logoView.addSubview(spinnerView)
 //            spinnerView.fillSuperview()
 //            spinnerView.startAnimating()
 //            logoView.addSubview(logoImageView)
 //            logoImageView.fillSuperview(padding: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
             
+            addSubview(titleBackgroundText)
+            _ = titleBackgroundText.anchor(top: safeAreaLayoutGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 128, leftConstant: -12, bottomConstant: 0, rightConstant: -12, widthConstant: 0, heightConstant: 0)
+            
+            
             addSubview(nameLabel)
-            _ = nameLabel.anchor(top: logoImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 32, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 0)
+            _ = nameLabel.anchor(top: titleBackgroundText.topAnchor, left: leftAnchor, bottom: titleBackgroundText.bottomAnchor, right: rightAnchor, topConstant: 6, leftConstant: 16, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 0)
             
             addSubview(collegeLabel)
             _ = collegeLabel.anchor(top: nameLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
