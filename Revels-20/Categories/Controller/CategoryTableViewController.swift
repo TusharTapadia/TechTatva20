@@ -10,6 +10,10 @@ import UIKit
 import Disk
 import AudioToolbox
 
+protocol DayTableViewCellProtocol {
+    func didTapEvent( day: Int, event:Int)
+}
+
 class CategoriesTableViewController: UITableViewController, DayTableViewCellProtocol {
     
     

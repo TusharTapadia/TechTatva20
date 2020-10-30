@@ -15,7 +15,7 @@ class EventsViewController: UITableViewController {
     
     var scheduleController: ScheduleController?
     var tagsEventController: TagsEventsViewController?
-    var featuredEventController: FeaturedEventsConroller?
+//    var featuredEventController: FeaturedEventsConroller?
     
     var event: Event! {
         didSet{
@@ -321,7 +321,7 @@ class EventsViewController: UITableViewController {
         let alertController = UIAlertController(title: "Create Team", message: "\n Register for the event as a single person or as a team leader in a team event", preferredStyle: .alert)
 
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let sureAction = UIAlertAction(title: "Continue", style: .destructive) { (_) in
+        let sureAction = UIAlertAction(title: "Continue", style: .default) { (_) in
             if UserDefaults.standard.isLoggedIn(){
                 print("loggined")
                 self.createTeam.showLoading()
@@ -392,7 +392,7 @@ class EventsViewController: UITableViewController {
         let alertController = UIAlertController(title: "Join Team", message: "\n Enter party code to register with a team", preferredStyle: .alert)
     
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let sureAction = UIAlertAction(title: "Continue", style: .destructive) { (_) in
+        let sureAction = UIAlertAction(title: "Continue", style: .default) { (_) in
             if UserDefaults.standard.isLoggedIn(){
                 print("loggined")
                 self.joinTeam.showLoading()
@@ -538,7 +538,7 @@ class EventsViewController: UITableViewController {
              self.dismiss(animated: true) {
                  self.scheduleController?.performPaymentFor(delegateCardID: delegateCardID)
                 self.tagsEventController?.performPaymentFor(delegateCardID: delegateCardID)
-                self.featuredEventController?.performPaymentFor(delegateCardID: delegateCardID)
+//                self.featuredEventController?.performPaymentFor(delegateCardID: delegateCardID)
              }
         }else{
             DispatchQueue.main.async(execute: {

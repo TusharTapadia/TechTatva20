@@ -11,7 +11,7 @@ import Foundation
 struct CreateTeamResponse:Codable{
     let success: Bool
     let msg: String
-    let data: CreateTeam
+    let data: CreateTeam?
 }
 
 struct CreateTeam:Codable{
