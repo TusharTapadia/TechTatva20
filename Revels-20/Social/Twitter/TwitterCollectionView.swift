@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SDWebImage
 
 class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     private let cellId = "cellID"
 
+    var tweetData = [tweets]()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -47,28 +49,18 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return tweetData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! TwitterCell
-//        cell.likesImageView.image = UIImage(named: "Insta")
-         
-         cell.tweetlabel.text = "Early civilizations thought Venus was two different bodies. These were called Phosphorus and Hesperus by the Greeks, and Lucifer and Vesper by the Romans. This is because it was visible both before and after sunrise."
-//         cell.tweetlabel.numberOfLines = 4
-//         cell.tweetlabel.font = UIFont.boldSystemFont(ofSize: 20)
-//        
-//         cell.usernameLabel.text = "MITTECHTATTVA"
-//         cell.usernameLabel.font = UIFont.boldSystemFont(ofSize: 17)
-//         
-         cell.likesLabel.text = "12k"
-         cell.likesLabel.font = UIFont.boldSystemFont(ofSize: 20)
-         
-         cell.retweetLabel.text = "1.2k"
-         cell.retweetLabel.font = UIFont.boldSystemFont(ofSize: 20)
-         
-         cell.commentsLabel.text = "6.5K"
-         cell.commentsLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        let data = tweetData[indexPath.item]
+        print(data)
+        cell.usernameLabel.text = data.name
+        cell.profileImageView.sd_setImage(with: URL(string: data.profileImage), placeholderImage: UIImage(named: "logo.png"))
+        cell.tweetlabel.text=data.tweet
+        cell.likesLabel.text = data.like
+        cell.retweetLabel.text = data.reTweet
         return cell
     }
     
@@ -93,6 +85,7 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
+        getTwitterData()
     }
 
   func setupLayout(){
@@ -106,6 +99,39 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
         addSubview(tweetsCollectionView)
     _ = tweetsCollectionView.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 2, leftConstant: 16, bottomConstant: 0, rightConstant: 8)
      
+    }
+    
+    func getTwitterData(){
+        print("Getting Twitter links")
+        let urlString = "https://techtatvadata.herokuapp.com/tweets"
+        let url = URL(string: urlString)
+        guard url != nil else {
+            print("wrong url")
+            return
+        }
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: url!) { (data, response, error) in
+            
+            if error == nil && data != nil {
+                
+                let decoder = JSONDecoder()
+                
+                do{
+                    let twitterfeed = try decoder.decode(twitter.self, from: data!)
+                    self.tweetData=twitterfeed.data
+                    print(twitterfeed)
+                } catch{
+                    print(error)
+                    print("error in json parsing")
+                }
+                DispatchQueue.main.async {
+                    self.tweetsCollectionView.reloadData()
+                }
+                
+            }
+        }
+        dataTask.resume()
     }
     
     required init?(coder aDecoder: NSCoder) {

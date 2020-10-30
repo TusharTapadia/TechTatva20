@@ -82,16 +82,16 @@ class YoutubeCell: UICollectionViewCell {
         _ = thumbnailImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 4, leftConstant: 16, bottomConstant: 0, rightConstant:0,widthConstant: frame.width-32, heightConstant: 224)
 
         
-        thumbnailImageView.addSubview(durationLabel)
-        
-        thumbnailImageView.addSubview(viewslabel)
+//        thumbnailImageView.addSubview(durationLabel)
+//
+//        thumbnailImageView.addSubview(viewslabel)
         
         
         addSubview(descriptionlabel)
         
-        _ = durationLabel.anchor(top: thumbnailImageView.topAnchor, left: nil, bottom: nil, right: thumbnailImageView.rightAnchor, topConstant: 12, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: 42, heightConstant: 24)
-        
-        _ = viewslabel.anchor(top: nil, left: nil, bottom: thumbnailImageView.bottomAnchor, right: thumbnailImageView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 12, rightConstant: 16,widthConstant: 42, heightConstant: 24)
+//        _ = durationLabel.anchor(top: thumbnailImageView.topAnchor, left: nil, bottom: nil, right: thumbnailImageView.rightAnchor, topConstant: 12, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: 42, heightConstant: 24)
+//        
+//        _ = viewslabel.anchor(top: nil, left: nil, bottom: thumbnailImageView.bottomAnchor, right: thumbnailImageView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 12, rightConstant: 16,widthConstant: 42, heightConstant: 24)
         
         
         _ = descriptionlabel.anchor(top: thumbnailImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 4, leftConstant: 4, bottomConstant: 0, rightConstant: 8 ,heightConstant: 26)
