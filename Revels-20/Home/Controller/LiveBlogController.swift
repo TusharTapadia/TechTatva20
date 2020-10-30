@@ -73,19 +73,19 @@ class LiveBlogController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let blog = liveBlog?[indexPath.row] else { return UITableViewCell() }
-        if blog.imageURL == ""{
+        if blog.image == ""{
             let cell = tableView.dequeueReusableCell(withIdentifier: "NoImageBlogTableViewCell", for: indexPath) as! NoImageBlogTableViewCell
             cell.authorLabel.text = blog.author
             cell.contentLabel.text = blog.content
-            cell.timeStampLabel.text = blog.timestamp
+//            cell.timeStampLabel.text = blog.timestamp
             cell.selectionStyle = .none
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "ImageBlogTableViewCell", for: indexPath) as! ImageBlogTableViewCell
             cell.authorLabel.text = blog.author
             cell.contentLabel.text = blog.content
-            cell.timeStampLabel.text = blog.timestamp
-            if let url = NSURL(string: blog.imageURL){
+//            cell.timeStampLabel.text = blog.timestamp
+            if let url = NSURL(string: blog.image ?? ""){
                 cell.mainImageView.sd_setImage(with: url as URL, placeholderImage:nil)
             }
             cell.selectionStyle = .none
@@ -211,10 +211,10 @@ class ImageBlogTableViewCell: UITableViewCell{
         _ = mainImageView.anchor(top: contentLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 200)
         
         addSubview(authorLabel)
-        authorLabel.anchorWithConstants(top: mainImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
+        authorLabel.anchorWithConstants(top: mainImageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 16, rightConstant: 16)
         
-        addSubview(timeStampLabel)
-        timeStampLabel.anchorWithConstants(top: authorLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 4, leftConstant: 16, bottomConstant: 16, rightConstant: 16)
+//        addSubview(timeStampLabel)
+//        timeStampLabel.anchorWithConstants(top: authorLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 4, leftConstant: 16, bottomConstant: 16, rightConstant: 16)
     }
     
     required init?(coder aDecoder: NSCoder) {

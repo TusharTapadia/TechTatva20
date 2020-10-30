@@ -28,16 +28,17 @@ struct DelegateCard: Codable {
 }
 
 struct BlogData: Codable{
-    let numUpdates: Int
+    let success:Bool?
+    let msg:String?
     let data: [Blog]?
 }
 
 struct Blog: Codable{
-    let author: String
-    let content: String
-    let id: Int
-    let imageURL: String
-    let timestamp: String
+    let author: String?
+    let content: String?
+//    let id: Int
+    let image: String?
+//    let timestamp: String
 }
 
 

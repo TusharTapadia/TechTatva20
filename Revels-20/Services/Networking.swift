@@ -68,7 +68,7 @@ struct Networking {
     let joinTeamURL = "https://techtatva.in/app/jointeam"
 
     
-    let liveBlogURL = "http://revels.herokuapp.com/"
+    let liveBlogURL = "https://app.themitpost.com/liveblog"
     
     static let sharedInstance = Networking()
     
@@ -442,7 +442,7 @@ struct Networking {
             if let data = response.data{
                 do{
                     let resultsResponse = try JSONDecoder().decode(BlogData.self, from: data)
-                    if resultsResponse.numUpdates >= 0{
+                    if resultsResponse.success ?? false{
                         if let data = resultsResponse.data{
                             dataCompletion(data)
                         }

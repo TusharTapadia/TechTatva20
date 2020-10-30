@@ -103,9 +103,9 @@ class InstagramCell: UICollectionViewCell {
         addSubview(postImageView)
         _ = postImageView.anchor(top: usernameLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 8, bottomConstant: 0, rightConstant: 8, heightConstant: 370)
         
-        postImageView.addSubview(postCaption)
-        
-        _ = postCaption.anchor(top: postImageView.topAnchor, left: postImageView.leftAnchor, bottom: postImageView.bottomAnchor, right: postImageView.rightAnchor, topConstant: 290, leftConstant: 8, bottomConstant: 8, rightConstant: 8)
+//        postImageView.addSubview(postCaption)
+//
+//        _ = postCaption.anchor(top: postImageView.topAnchor, left: postImageView.leftAnchor, bottom: postImageView.bottomAnchor, right: postImageView.rightAnchor, topConstant: 290, leftConstant: 8, bottomConstant: 8, rightConstant: 8)
         
         addSubview(likeImageView)
     _ = likeImageView.anchor(top: postImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 4, leftConstant: 10, bottomConstant: 0, rightConstant: 0)
