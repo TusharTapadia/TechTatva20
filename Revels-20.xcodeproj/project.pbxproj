@@ -83,6 +83,7 @@
 		B2F5F32523E4025E0011E937 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F5F32423E4025E0011E937 /* DescriptionTableViewCell.swift */; };
 		BB7FB57325389A7900F1183B /* IndiaMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB57225389A7900F1183B /* IndiaMapController.swift */; };
 		BB7FB57525389AB600F1183B /* LaunchViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB57425389AB600F1183B /* LaunchViewcontroller.swift */; };
+		BB927E2D254C753A0070D947 /* TwitterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB927E2C254C753A0070D947 /* TwitterModel.swift */; };
 		C60DC9882535716100E7FFAF /* TwitterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60DC9872535716100E7FFAF /* TwitterCell.swift */; };
 		C62CC8DB2521085800066CB4 /* InstagramCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8DA2521085800066CB4 /* InstagramCollectionView.swift */; };
 		C62CC8DD2521086C00066CB4 /* InstagramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8DC2521086C00066CB4 /* InstagramCell.swift */; };
@@ -191,6 +192,7 @@
 		B2F5F32423E4025E0011E937 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		BB7FB57225389A7900F1183B /* IndiaMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndiaMapController.swift; sourceTree = "<group>"; };
 		BB7FB57425389AB600F1183B /* LaunchViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewcontroller.swift; sourceTree = "<group>"; };
+		BB927E2C254C753A0070D947 /* TwitterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterModel.swift; sourceTree = "<group>"; };
 		BBB46A4824630113008489D0 /* RevelsDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RevelsDebug.entitlements; sourceTree = "<group>"; };
 		C60DC9872535716100E7FFAF /* TwitterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCell.swift; sourceTree = "<group>"; };
 		C62CC8DA2521085800066CB4 /* InstagramCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramCollectionView.swift; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 			children = (
 				C60DC9872535716100E7FFAF /* TwitterCell.swift */,
 				C62CC8E12521093E00066CB4 /* TwitterCollectionView.swift */,
+				BB927E2C254C753A0070D947 /* TwitterModel.swift */,
 			);
 			path = Twitter;
 			sourceTree = "<group>";
@@ -857,6 +860,7 @@
 				B2DE58172313EA2400082EC1 /* ResultsModel.swift in Sources */,
 				B2D9450C233E398600DA14D1 /* InformationView.swift in Sources */,
 				B2D9451423406A0600DA14D1 /* RegisteredEventsViewController.swift in Sources */,
+				BB927E2D254C753A0070D947 /* TwitterModel.swift in Sources */,
 				B25D43C623125FB500920FDA /* MenuCell.swift in Sources */,
 				B2DE58212313EB8B00082EC1 /* ResultsViewController.swift in Sources */,
 				B2DE581F2313EB6900082EC1 /* PositionCell.swift in Sources */,

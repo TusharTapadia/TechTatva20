@@ -96,6 +96,14 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
 
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let data = instData[indexPath.item]
+        let url = ""
+        let webURL = NSURL(string: url)!
+        let application = UIApplication.shared
+        application.open(webURL as URL)
+    }
+    
     fileprivate func setupLayout(){
         
         addSubview(titleBackgroundText)
@@ -113,7 +121,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     
     func getInsData(){
         print("Getting Insta links")
-        let urlString = "https://3a8f4c428a03.ngrok.io/posts/mittechtatva"
+        let urlString = "http://159.65.146.229:5000/posts/mittechtatva"
         let url = URL(string: urlString)
         guard url != nil else {
             print("wrong url")

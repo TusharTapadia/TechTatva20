@@ -38,7 +38,7 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
             let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
             cv.delegate = self
             cv.dataSource = self
-            cv.isUserInteractionEnabled = true 
+            cv.isUserInteractionEnabled = true
             cv.register(YoutubeCell.self, forCellWithReuseIdentifier: cellId)
             return cv
         }()
@@ -59,7 +59,8 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
 //            cell.layer.cornerRadius = 10
             let data = youData[indexPath.item]
             cell.backgroundColor = .black
-            cell.thumbnailImageView.sd_setImage(with: URL(string: data.thumbnail), placeholderImage: UIImage(named: "logo.png"))
+            let dataVal = data.thumbnail.split(separator: "?")
+            cell.thumbnailImageView.sd_setImage(with: URL(string: String(dataVal[0])), placeholderImage: UIImage(named: "logo.png"))
             cell.descriptionlabel.text = data.title
             cell.durationLabel.text = data.time
             return cell
@@ -80,18 +81,14 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
           
         }
         
-    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //        if youtubeItems?.count == 0{
-    //            return
-    //        }
-    //        let youtubeId = youtubeItems![indexPath.item].id
-    //        if let videoId = youtubeId.videoId{
-    //            self.socialViewController?.openYoutubeVideo(id: videoId)
-    //        }
-    //        if let playlistId = youtubeId.playlistId{
-    //            self.socialViewController?.openYoutubePlaylist(id: playlistId)
-    //        }
-    //    }
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            let data = youData[indexPath.item]
+            let url = data.link
+            let webURL = NSURL(string: url)!
+            let application = UIApplication.shared
+            application.open(webURL as URL)
+            
+        }
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -133,7 +130,7 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
     
     func getYouData(){
         print("Getting Youtube links")
-        let urlString = "https://3a8f4c428a03.ngrok.io/youtube/TechTatva"
+        let urlString = "http://159.65.146.229:5000/youtube/TechTatva"
         let url = URL(string: urlString)
         guard url != nil else {
             print("wrong url")
