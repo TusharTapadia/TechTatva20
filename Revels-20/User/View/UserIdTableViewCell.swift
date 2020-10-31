@@ -17,10 +17,9 @@ class UserIDTableViewCell: UITableViewCell {
         didSet{
             guard let user = user else { return }
                 DispatchQueue.main.async {
-                
-                    self.nameLabel.text = user.name
-                    self.emailLabel.text = user.email
-                    self.collegeLabel.text = user.college
+                self.nameLabel.text = user.name
+                self.emailLabel.text = user.email
+                self.collegeLabel.text = user.college
             if let phoneno = user.phoneNo{
                 self.phoneLabel.text = String(phoneno)
             }
@@ -212,7 +211,7 @@ class UserIDTableViewCell: UITableViewCell {
         
         if UIViewController().isSmalliPhone(){
 
-            titleBackgroundText.font = UIFont.systemFont(ofSize: 48, weight: .bold)
+            titleBackgroundText.font = UIFont.systemFont(ofSize: 72, weight: .bold)
             addSubview(titleBackgroundText)
             _ = titleBackgroundText.anchor(top: safeAreaLayoutGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 128, leftConstant: -12, bottomConstant: 0, rightConstant: -12, widthConstant: 0, heightConstant: 0)
             

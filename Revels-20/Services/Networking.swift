@@ -390,8 +390,8 @@ struct Networking {
         Alamofire.request(leaveTeamURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
-                    let response = try JSONDecoder().decode(LeaveResponse.self, from: data)
-                    if response.succes{
+                    let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
+                    if response.success{
                         print(response.msg)
                         successCompletion(response.msg)
                     }else{

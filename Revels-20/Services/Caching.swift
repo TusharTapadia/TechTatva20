@@ -19,6 +19,7 @@ let tagsCache = "tags.json"
 let eventsCache = "events.json"
 let proshowCache = "proshow.json"
 let delegateCardsCache = "delegateCardsCache.json"
+let memberDictCache = "teamDetailsCache.json"
 
 let sponsorsCache = "sponsorsCache.json"
 
@@ -107,6 +108,14 @@ struct Caching{
         }
     }
     
+    func saveTeamDetailsToCache(dict: [Int: MemberInfo]?){
+        do{
+            try Disk.save(dict, to: .caches, as: memberDictCache)
+        }catch let error{
+            print(error)
+        }
+    }
+    
     func getUserDetailsFromCache() -> User? {
         do{
             let retrievedData = try Disk.retrieve(userDetailsCache, from: .caches, as: User.self)
@@ -151,6 +160,16 @@ struct Caching{
     func getEventsDataDictionary() -> [Int:Event]? {
         do{
             let retrievedData = try Disk.retrieve(eventsDictionaryCache, from: .caches, as: [Int:Event].self)
+            return retrievedData
+        }catch let err{
+            print(err)
+            return nil
+        }
+    }
+    
+    func getTeamDetails()->[Int:MemberInfo]?{
+        do{
+            let retrievedData = try Disk.retrieve(memberDictCache, from: .caches, as: [Int:MemberInfo].self)
             return retrievedData
         }catch let err{
             print(err)
