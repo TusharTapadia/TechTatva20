@@ -72,7 +72,6 @@ class TeamTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let memberArray = teamMemberDetails?.members{
             let memberCount = memberArray.count
-            print("Member array count", memberCount)
             return memberCount
         }else{
          return 0

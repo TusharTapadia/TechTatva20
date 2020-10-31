@@ -23,70 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9F451E3B-2DB4-434B-88B9-A8E0C006F1FC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Revels-20/Services/Networking.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "396"
-            endingLineNumber = "396"
-            landmarkName = "leaveTeamForEventWith(userID:teamID:eventID:successCompletion:errorCompletion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8A157A56-BE9F-48F8-8B2B-8F12D0199602"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Revels-20/User/Controller/RegisteredEventsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "leaveTeam(teamId:eventId:indexValue:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8A157A56-BE9F-48F8-8B2B-8F12D0199602 - e0d267537d5784c5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in Revels.RegisteredEventsViewController.leaveTeam(teamId: Swift.Int, eventId: Swift.Int, indexValue: Swift.Int) -&gt; ()"
-                  moduleName = "Revels"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rohitkuber/Desktop/TechTatva20/Revels-20/User/Controller/RegisteredEventsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "182"
-                  endingLineNumber = "182"
-                  offsetFromSymbolStart = "676">
-               </Location>
-               <Location
-                  uuid = "8A157A56-BE9F-48F8-8B2B-8F12D0199602 - 968e0110a69113cc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.String) -&gt; () in closure #1 (__C.UIAlertAction) -&gt; () in Revels.RegisteredEventsViewController.leaveTeam(teamId: Swift.Int, eventId: Swift.Int, indexValue: Swift.Int) -&gt; ()"
-                  moduleName = "Revels"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rohitkuber/Desktop/TechTatva20/Revels-20/User/Controller/RegisteredEventsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "183"
-                  endingLineNumber = "183"
-                  offsetFromSymbolStart = "88">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "094777A9-4FE5-441F-B78C-879E69379D98"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -126,10 +62,10 @@
             filePath = "Revels-20/User/Controller/TeamTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "TeamTableViewController"
-            landmarkType = "3">
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "removeMember(memberInfo:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -142,13 +78,13 @@
             filePath = "Revels-20/User/Controller/TeamTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
             landmarkName = "removeMember(memberInfo:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "0CCADF13-3BCF-47A6-8858-92C8DC4ACAC7 - ff804afcbc36af5c"
+                  uuid = "0CCADF13-3BCF-47A6-8858-92C8DC4ACAC7 - ff804afcbc36af7f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -158,12 +94,12 @@
                   urlString = "file:///Users/rohitkuber/Desktop/TechTatva20/Revels-20/User/Controller/TeamTableViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "172"
-                  endingLineNumber = "172"
+                  startingLineNumber = "171"
+                  endingLineNumber = "171"
                   offsetFromSymbolStart = "224">
                </Location>
                <Location
-                  uuid = "0CCADF13-3BCF-47A6-8858-92C8DC4ACAC7 - 88d30739d789055f"
+                  uuid = "0CCADF13-3BCF-47A6-8858-92C8DC4ACAC7 - 88d30739d789057c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -173,8 +109,8 @@
                   urlString = "file:///Users/rohitkuber/Desktop/TechTatva20/Revels-20/User/Controller/TeamTableViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "172"
-                  endingLineNumber = "172"
+                  startingLineNumber = "171"
+                  endingLineNumber = "171"
                   offsetFromSymbolStart = "0">
                </Location>
             </Locations>

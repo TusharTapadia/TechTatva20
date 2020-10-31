@@ -421,7 +421,7 @@ class EventsViewController: UITableViewController {
                 print("User id:",userID)
                 
                 if partyCodeValue.count != 6{
-            FloatingMessage().floatingMessage(Message: "Enter valid size party code", Color: .red, onPresentation: {
+            FloatingMessage().floatingMessage(Message: "Party code format is wrong", Color: .red, onPresentation: {
                 self.joinTeam.hideLoading()
             }) {}
             return
@@ -531,6 +531,8 @@ class EventsViewController: UITableViewController {
 //                })
 //                return
 //            }
+//        case 2:
+//            self.presentDelegateCardInfo(categoryName: event.category)
         case 3:
             let category = categoriesDictionary[event.category]
             if let number = category?.cc?[0].phoneNo{
@@ -563,6 +565,38 @@ class EventsViewController: UITableViewController {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
+    
+//    fileprivate func presentDelegateCardInfo(categoryName: String){
+//        if(categoryName == "Gaming"){
+//            DispatchQueue.main.async(execute: {
+//           //                    let alertController = UIAlertController(title: "\(card.name) Card", message: "\n\(card.description)\n\nMAHE PRICE : ₹\(card.MAHE_price)\nNON MAHE PRICE : ₹\(card.non_price)\n", preferredStyle: UIAlertController.Style.alert)
+//           //                    let purchaseOption = UIAlertAction(title: "Purchase", style: .default) { (_) in
+//           //                        self.buyDelegateCard(delegateCardID: card.id)
+//           //                    }
+//           //                    let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
+//           //                    })
+//           //                    alertController.addAction(okayAction)
+//           //                    alertController.addAction(purchaseOption)
+//           //                    self.present(alertController, animated: true, completion: nil)
+//           //                })
+//           //                return
+//
+//            },else{
+//            DispatchQueue.main.async(execute: {
+//           let alertController = UIAlertController(title: "\(card.name) Card", message: "\n\(card.description)\n\nMAHE PRICE : ₹\(card.MAHE_price)\nNON MAHE PRICE : ₹\(card.non_price)\n", preferredStyle: UIAlertController.Style.alert)
+//           let purchaseOption = UIAlertAction(title: "Purchase", style: .default) { (_) in
+//               self.buyDelegateCard(delegateCardID: card.id)
+//           }
+//           let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
+//           })
+//           alertController.addAction(okayAction)
+//           alertController.addAction(purchaseOption)
+//           self.present(alertController, animated: true, completion: nil)
+//       })
+//       return
+//        }
+//    }
+//
     
     func buyDelegateCard(delegateCardID: Int){
         if UserDefaults.standard.isLoggedIn(){

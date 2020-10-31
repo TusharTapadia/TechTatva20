@@ -21,18 +21,40 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
             tableView.showsVerticalScrollIndicator = false
         }
     }
+    
+    func updateView(){
+        
+    }
 
-  
+    private let refreshControl = UIRefreshControl()
     
     lazy var tableView : UITableView = {
         let tv = UITableView()
         tv.delegate = self
         tv.dataSource = self
+        tv.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshRegisteredData), for: .valueChanged)
         return tv
     }()
     
+    @objc func refreshRegisteredData(){
+        Networking.sharedInstance.getStatusUpdate { (userData) in
+            DispatchQueue.main.async {
+           self.user = userData
+          Caching.sharedInstance.saveUserDetailsToCache(user: userData)
+//        print(userData)
+          self.registeredEvents = userData.teamDetails
+          self.refreshControl.endRefreshing()
+//            self.updateView()
+            }
+        }
+}
+   
+    
+    
     var registeredEvents : [TeamDetails]!{
         didSet{
+            tableView.reloadData()
         }
     }
     
@@ -149,16 +171,7 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         return cell
     }
     
-    
-    func showTeamDetails(Cell: UITableViewCell, teamDetails: TeamDetails){
-        
-        Networking.sharedInstance.getTeamDetails(teamID: teamDetails.teamID) { (teamData) in
-            self.teamMemberDetails = teamData
-            self.handleTeamDetailsTap(teamID: teamDetails.teamID , eventID: teamDetails.eventID)
-        } errorCompletion: { (error) in
-            print("Error in getting team details", teamDetails)
-        }
-    }
+
 
     func showLeaveTeam(Cell: UITableViewCell, teamDetails: TeamDetails){
         if let indexPath = tableView.indexPath(for: Cell){
@@ -196,6 +209,18 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         actionSheet.addAction(sureAction)
         actionSheet.addAction(cancel)
         self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func showTeamDetails(Cell: UITableViewCell, teamDetails: TeamDetails){
+        
+        Networking.sharedInstance.getTeamDetails(teamID: teamDetails.teamID) { (teamData) in
+            self.teamMemberDetails = teamData
+            self.handleTeamDetailsTap(teamID: teamDetails.teamID , eventID: teamDetails.eventID)
+        } errorCompletion: { (error) in
+            FloatingMessage().floatingMessage(Message: "Decoder_error", Color: .red, onPresentation: {}) {}
+//        })
+            print("Error in getting team details", teamDetails)
+        }
     }
     
     
