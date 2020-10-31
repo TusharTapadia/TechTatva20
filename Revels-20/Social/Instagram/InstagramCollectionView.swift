@@ -134,7 +134,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
 
                     let mediaContent = parData.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges
                     
-                    print(mediaContent)
+//                    print(mediaContent)
                     
                     self.instData = mediaContent
                     
