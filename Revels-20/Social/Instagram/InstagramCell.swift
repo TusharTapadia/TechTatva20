@@ -67,7 +67,7 @@ class InstagramCell: UICollectionViewCell {
    
     lazy var postImageView: UIImageView = {
         let iv = UIImageView()
-            iv.contentMode = .scaleToFill
+        iv.contentMode = .scaleAspectFill
             iv.layer.cornerRadius = 25
             iv.layer.masksToBounds = true
             iv.backgroundColor = .gray

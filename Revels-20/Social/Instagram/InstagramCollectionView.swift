@@ -104,8 +104,8 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = instData[indexPath.item]
-        let url = ""
-        let webURL = NSURL(string: url)!
+        let redirectLink = "https://www.instagram.com/p/\(data.node.shortcode)"
+        let webURL = NSURL(string: redirectLink)!
         let application = UIApplication.shared
         application.open(webURL as URL)
     }
@@ -138,15 +138,14 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
         let dataTask = session.dataTask(with: url!) { (data, response, error) in
             
             if error == nil && data != nil {
-                
                 let decoder = JSONDecoder()
-                
                 do{
-                    let instafeed = try decoder.decode(Edges.self, from: data!)
-                    print(instafeed)
+                    let instafeed = try decoder.decode(entrydat.self, from: data!)
 //                    self.instData = instafeed.edges
-                    self.saveInstagramToCache(data: instafeed.edges)
-                    print(self.instData)
+                    
+                    let ins = instafeed.entry_data.ProfilePage[0].graphql.user.edge_felix_video_timeline.edges
+                    self.saveInstagramToCache(data: ins)
+//                    print(ins)
                 } catch{
                     print(error)
                     print("error in json parsing")
