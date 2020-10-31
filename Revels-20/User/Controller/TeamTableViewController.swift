@@ -11,6 +11,11 @@ import Disk
 import AudioToolbox
 import FirebaseMessaging
 
+protocol TeamDelegate {
+    func removeMember(memberInfo: MemberInfo)
+}
+
+
 class TeamTableViewController: UITableViewController {
     
     var event: Event! {
@@ -19,7 +24,13 @@ class TeamTableViewController: UITableViewController {
         }
     }
     
-   
+    var teamID: Int?
+    var eventID: Int?
+    var teamMemberDetails: TeamMemberDetails?{
+        didSet{
+            tableView.reloadData()
+        }
+    }
     
     var user: User?{
         didSet{
@@ -55,13 +66,24 @@ class TeamTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return 5
+        if let memberArray = teamMemberDetails?.members{
+            let memberCount = memberArray[0].count
+            return memberCount
+        }else{
+         return 0
+        }
     }
     
-//     This is shown when you tap on a schedule and event cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! TeamCell
         cell.contentView.isUserInteractionEnabled = false
+        cell.backgroundColor = UIColor.CustomColors.Black.background
+        if let memberArray = teamMemberDetails?.members{
+             let memberInfo = memberArray[indexPath.row][0]
+             cell.memberInfo = memberInfo
+//            cell.memberID = memberInfo.
+            }
+        cell.teamDelegate = self
         cell.selectionStyle = .none
         return cell
     }
@@ -69,7 +91,10 @@ class TeamTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = UIColor.CustomColors.Black.background
-        //Here team id and party code
+       
+        
+//        guard let partyCode = teamMemberDetails.partyCode else{return}
+    
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -89,6 +114,12 @@ class TeamTableViewController: UITableViewController {
         partyCodeValue.textAlignment = .center
         partyCodeValue.numberOfLines = 2
         partyCodeValue.text = "N/A"
+        
+        
+        if let partyVal = teamMemberDetails?.partyCode{
+            partyCodeValue.text = partyVal
+        }
+            
         
         if isSmalliPhone(){
             label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -114,24 +145,78 @@ class TeamTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension //60
+        return 100 //60
     }
-    
-    
-    
-
         
 }
+
+extension TeamTableViewController: TeamDelegate{
+    func removeMember(memberInfo: MemberInfo) {
+        let actionSheet = UIAlertController(title: "Are you Sure?", message: "The following member would be removed from your team", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let sureAction = UIAlertAction(title: "Yes", style: .destructive) { (_) in
+            guard let teamId = self.teamID else {return}
+            guard let userId = self.user?.userID else {return }
+            guard let eventId = self.eventID else {return}
+            guard let removeId = memberInfo.userID else {return}
+            
+            Networking.sharedInstance.removeTeammate(userID: userId, teamID: teamId, eventID: eventId, removeID: removeId,successCompletion:  { (message) in
+                print(message)
+                FloatingMessage().floatingMessage(Message: message, Color: .orange, onPresentation: {
+                    self.navigationController?.popViewController(animated: true)
+                }) {}
+            }, errorCompletion: { (message) in
+                FloatingMessage().floatingMessage(Message: message, Color: .red, onPresentation: {}) {}
+            })
+        }
+        actionSheet.addAction(sureAction)
+        actionSheet.addAction(cancel)
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+}
+
 
 
 class TeamCell: UITableViewCell{
     
+    var teamDelegate: TeamDelegate?
+   
+    var memberInfo: MemberInfo?{
+        didSet{
+            guard let memberInfo = self.memberInfo else {return}
+            DispatchQueue.main.async{
+                self.memberID.text = "\(memberInfo.userID ?? 0)"
+                print(memberInfo.id)
+            self.nameLabel.text = memberInfo.name
+            
+        }
+    }
+}
+    
     lazy var memberID: UILabel = {
         let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textAlignment = .center
+        label.textColor = .systemGray
+        if(UIViewController().isSmalliPhone()){
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        }else{
+            label.font = UIFont.boldSystemFont(ofSize: 15)
+        }
+        label.textAlignment = .left
         label.text = "Member id:"
+        return label
+    }()
+    
+    lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        if(UIViewController().isSmalliPhone()){
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        }else{
+            label.font = UIFont.boldSystemFont(ofSize: 16)
+        }
+        label.textAlignment = .left
+        label.text = "Name"
         return label
     }()
     
@@ -145,6 +230,7 @@ class TeamCell: UITableViewCell{
         button2.setTitleColor(.white, for: UIControl.State())
         button2.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         button2.layer.cornerRadius = 10
+        button2.addTarget(self, action: #selector(removeMember), for: .touchUpInside)
         return button2
     }()
 
@@ -155,15 +241,25 @@ class TeamCell: UITableViewCell{
     }
     
     func setupLayout(){
-        addSubview(memberID)
         
-        _ = memberID.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, topConstant: 16, leftConstant: 8, bottomConstant: 8, rightConstant: 0, widthConstant: frame.width/2 - 40, heightConstant: 0)
+        addSubview(nameLabel)
+        _ = _ = nameLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width/2 - 20, heightConstant: 0)
+        
+        addSubview(memberID)
+        _ = memberID.anchor(top: nameLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, topConstant:0, leftConstant: 8, bottomConstant: 8, rightConstant: 0, widthConstant: frame.width/2 - 20, heightConstant: 24)
         
         addSubview(removeButton)
-        
-        _ = removeButton.anchor(top: topAnchor, left: nil, bottom: bottomAnchor, right: rightAnchor, topConstant: 16, leftConstant: 0, bottomConstant: 8, rightConstant: 16, widthConstant: frame.width/2 - 40, heightConstant: 0)
+        _ = removeButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 32, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: frame.width/2 - 20, heightConstant: 36)
         
     }
+    
+    
+    @objc func removeMember(){
+        guard let memberData = memberInfo else {return}
+        self.teamDelegate?.removeMember(memberInfo: memberData)
+    }
+    
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

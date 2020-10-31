@@ -55,8 +55,10 @@ struct Networking {
     let userDetailsURL = "https://register.mitrevels.in/userProfile"
     let registerEventURL = "https://techtatva.in/app/createteam"
     let getRegisteredEventsURL = "https://techtatva.in/app/registeredevents"
-    let leaveTeamURL = "https://techtatva.in/app/leaveteam"
+    let leaveTeamURL = "https://techtatva.in/app/leaveTeam"
     let joinTeamURL = "https://techtatva.in/app/jointeam"
+    let removeTeammateURL = "https://techtatva.in/app/removeUser"
+    
     let teamDetailsURL = "https://techtatva.in/app/teamDetails"
 
     
@@ -380,13 +382,41 @@ struct Networking {
             "userID":userID,
             "teamID":teamID,
             "eventID": eventID,
-            "teamid": teamID,
             "email":emailCached,
             "password":passwordCached,
             "key":apiKey
             ] as [String : Any]
         
         Alamofire.request(leaveTeamURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
+            if let data = response.data{
+                do{
+                    let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
+                    if response.success{
+                        successCompletion(response.msg)
+                    }else{
+                        print(response)
+                        errorCompletion(response.msg)
+                    }
+                }catch let error{
+                    errorCompletion("decoder_error")
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func removeTeammate(userID: Int, teamID:Int, eventID:Int,removeID: Int, successCompletion: @escaping (_ SuccessMessage: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+        let parameters = [
+            "userID":userID,
+            "teamID":teamID,
+            "eventID": eventID,
+            "removeID": removeID,
+            "email":emailCached,
+            "password":passwordCached,
+            "key":apiKey
+            ] as [String : Any]
+        
+        Alamofire.request(removeTeammateURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
                     let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
@@ -434,11 +464,11 @@ struct Networking {
     }
     
     
-    func getTeamDetails(teamID:Int, dataCompletion: @escaping (_ Data: User) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+    func getTeamDetails(teamID:Int, dataCompletion: @escaping (_ Data: TeamMemberDetails) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         let parameters = [
             "teamID": teamID,
             "email": emailCached,
-            "userID": 5013,
+            "userID": userIDCached,
             "password": passwordCached,
             "key": apiKey
             ] as [String : Any]
@@ -446,9 +476,10 @@ struct Networking {
         Alamofire.request(teamDetailsURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
-                    let response = try JSONDecoder().decode(UserResponse.self, from: data)
+                    let response = try JSONDecoder().decode(TeamDetailsResponse.self, from: data)
                     if response.success{
                         if let data = response.data{
+                            print(data)
                             dataCompletion(data)
                         }
                     }else{

@@ -36,6 +36,15 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         }
     }
     
+    var teamMemberDetails: TeamMemberDetails?{
+        didSet{
+            
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     
     var scheduleDict : [String:Schedule]?{
@@ -123,18 +132,15 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.showMenuForEventAt(IndexPath: indexPath)
-//    }
-//
-//    func showMenuForCell(Cell: UITableViewCell){
-//        if let indexPath = tableView.indexPath(for: Cell){
-////           self.showMenuForEventAt(IndexPath: indexPath)
-//        }
-//    }
     
-    func showTeamDetails(Cell: UITableViewCell){
-        handleTeamDetailsTap()
+    func showTeamDetails(Cell: UITableViewCell, teamDetails: TeamDetails){
+        
+        Networking.sharedInstance.getTeamDetails(teamID: teamDetails.teamID) { (teamData) in
+            self.teamMemberDetails = teamData
+            self.handleTeamDetailsTap(teamID: teamDetails.teamID , eventID: teamDetails.eventID)
+        } errorCompletion: { (error) in
+            print("Error in getting team details", teamDetails)
+        }
     }
 
     func showLeaveTeam(Cell: UITableViewCell, teamDetails: TeamDetails){
@@ -142,26 +148,23 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
                 self.tableView.deselectRow(at: indexPath, animated: true)
             }
-//            guard let teamId = teamDetails.teamID else{return }
-//            guard let eventId = teamDetails.eventID else {return}
-            
             leaveTeam(teamId: teamDetails.teamID,eventId:teamDetails.eventID)
-            
         }
     }
-//    selectedEvent: RegisteredEvent, indexPath: IndexPath
+    
+    
     func leaveTeam(teamId: Int, eventId: Int){
         let actionSheet = UIAlertController(title: "Are you Sure?", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let sureAction = UIAlertAction(title: "Yes", style: .destructive) { (_) in
             guard  let userId = self.user?.userID else {return}
             Networking.sharedInstance.leaveTeamForEventWith(userID: userId, teamID: teamId, eventID: eventId, successCompletion: { (message) in
-                FloatingMessage().floatingMessage(Message: "Successfully left Team \(teamId)", Color: .orange, onPresentation: {
-//                    self.registeredEvents.remove(at: indexPath.row)
-//                    self.tableView.deleteRows(at: [indexPath], with: .left)
-//                    if self.registeredEvents.count == 0{
-//                        self.navigationController?.popViewController(animated: true)
-//                    }
+                print(message)
+                FloatingMessage().floatingMessage(Message: message, Color: .orange, onPresentation: {
+                    Networking.sharedInstance.getStatusUpdate { (user) in
+                        Caching.sharedInstance.saveUserDetailsToCache(user: user)
+                    }
+                    self.navigationController?.popViewController(animated: true)
                 }) {}
             }, errorCompletion: { (message) in
                 FloatingMessage().floatingMessage(Message: message, Color: .red, onPresentation: {}) {}
@@ -173,12 +176,15 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
     }
     
     
-    func handleTeamDetailsTap(){
+    func handleTeamDetailsTap(teamID: Int, eventID: Int){
         AudioServicesPlaySystemSound(1519)
         let teamTableViewController = TeamTableViewController()
         slideInTransitioningDelegate.categoryName = ""   //"\(event.description)"
         teamTableViewController.modalPresentationStyle = .custom
         teamTableViewController.transitioningDelegate = slideInTransitioningDelegate
+        teamTableViewController.teamMemberDetails = self.teamMemberDetails
+        teamTableViewController.teamID = teamID
+        teamTableViewController.eventID = eventID
         present(teamTableViewController, animated: true, completion: nil)
     }
     
@@ -291,7 +297,7 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         
         let button = UIButton()
         button.backgroundColor = UIColor.CustomColors.Purple.register
-        button.setTitle("Team Members", for: UIControl.State())
+        button.setTitle("Team Details", for: UIControl.State())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.startAnimatingPressActions()
         button.layer.cornerRadius = 10
@@ -380,7 +386,8 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
     }
     
     @objc func showTeamDetails(){
-        self.registeredEventsViewController?.showTeamDetails(Cell: self)
+        guard let teamDetails = teamDetails else {return}
+        self.registeredEventsViewController?.showTeamDetails(Cell: self, teamDetails: teamDetails)
     }
     
     

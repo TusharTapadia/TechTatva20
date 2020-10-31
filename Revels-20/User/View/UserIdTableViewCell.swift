@@ -17,20 +17,21 @@ class UserIDTableViewCell: UITableViewCell {
         didSet{
             guard let user = user else { return }
                 DispatchQueue.main.async {
-                }
-            nameLabel.text = user.name
-            emailLabel.text = user.email
-            collegeLabel.text = user.college
+                
+                    self.nameLabel.text = user.name
+                    self.emailLabel.text = user.email
+                    self.collegeLabel.text = user.college
             if let phoneno = user.phoneNo{
-                phoneLabel.text = String(phoneno)
+                self.phoneLabel.text = String(phoneno)
             }
             if let userid = user.userID{
-            userIDLabel.text = String(userid)
+                self.userIDLabel.text = String(userid)
         }
             if let userVerified = user.verified{
-                titleBackgroundText.text = userVerified
-            }
-    }
+                self.titleBackgroundText.text = userVerified
+                    }
+                }
+        }
 }
     
     lazy var titleBackgroundText: UILabel = {
@@ -244,11 +245,8 @@ class UserIDTableViewCell: UITableViewCell {
             addSubview(eventsButton)
             _ = eventsButton.anchor(top: userIDLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 20, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 40)
             
-            addSubview(delegateCardButton)
-            _ = delegateCardButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 40)
-            
             addSubview(logoutButton)
-            _ = logoutButton.anchor(top: delegateCardButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 32, rightConstant: 16, widthConstant: 0, heightConstant: 40)
+            _ = logoutButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 32, rightConstant: 16, widthConstant: 0, heightConstant: 40)
             
             eventsButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
             delegateCardButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
@@ -288,9 +286,7 @@ class UserIDTableViewCell: UITableViewCell {
             
             addSubview(eventsButton)
             _ = eventsButton.anchor(top: userIDLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 24, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 50)
-            
-//            addSubview(delegateCardButton)
-//            _ = delegateCardButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 14, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 50)
+        
             
             addSubview(logoutButton)
             _ = logoutButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 32, rightConstant: 16, widthConstant: 0, heightConstant: 50)

@@ -64,10 +64,11 @@ class UsersViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         if UserDefaults.standard.isLoggedIn() {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
+            
             self.updateStatusBar()
             if fromLogin {
                 if let user = Caching.sharedInstance.getUserDetailsFromCache() {
-                    print(user)
+//                    print(user)
                     self.user = user
                 }else{
                     self.logOutUser()

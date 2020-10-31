@@ -19,7 +19,7 @@ struct User: Codable{
     let branch:String?
     let verified:String?
     let regEvents:[Int]?
-    let teamList:[Int]
+    let teamList:[Int]?
     let userID: Int?
     let name: String
     let email: String
@@ -28,7 +28,7 @@ struct User: Codable{
     let state: String
     let isMahe: Bool?
     let driveLink: String?
-    let __v:Int?
+    let __v:Int
     let teamDetails:[TeamDetails]?
 }
 
