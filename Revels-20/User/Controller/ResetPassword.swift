@@ -155,7 +155,7 @@ extension AppDelegate{
             if let url = userActivity.webpageURL?.absoluteString {
                 print(url)
                 if let queryItems = URLComponents(string: url)?.queryItems{
-                    if let param1 = queryItems.filter({$0.name == "resetLink"}).first{
+                    if let param1 = queryItems.filter({$0.name == "changePass"}).first{
                         if let token = param1.value {
                             print(token)
                             resetPasswordToken = token

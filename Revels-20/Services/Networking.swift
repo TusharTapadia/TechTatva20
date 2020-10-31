@@ -48,10 +48,9 @@ struct NewsLetterApiRespone: Decodable{
 struct Networking {
     
     let userSignUpURL = "https://techtatva.in/app/signup"
-    let userPasswordForgotURL = "https://register.mitrevels.in/forgotPassword/"
+    let userPasswordForgotURL = "https://techtatva.in/app/forgotpassword"
     let userPasswordResetURL = "https://register.mitrevels.in/setPassword/"
     let userLoginURL = "https://techtatva.in/app/status"
-    let userLogoutURL = "https://categories.techtatva.in/app/logout"
     let userDetailsURL = "https://register.mitrevels.in/userProfile"
     let registerEventURL = "https://techtatva.in/app/createteam"
     let getRegisteredEventsURL = "https://techtatva.in/app/registeredevents"

@@ -145,10 +145,11 @@ class EventsViewController: UITableViewController {
 
                 imageName = "card"
                 if detailedTextLabel != "" {
-//                    cell.selectionStyle = .gray
+                    cell.selectionStyle = .gray
+                    cell.accessoryType = .disclosureIndicator
                 }
-            }
             break
+            }
         case 3:
             if let schedule = self.schedule{
                 textLabel = "Time"
@@ -516,23 +517,10 @@ class EventsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row{
-//        case 6:
-//            if let card = self.delegateDictionary[self.event.delCardType]{
-//                DispatchQueue.main.async(execute: {
-//                    let alertController = UIAlertController(title: "\(card.name) Card", message: "\n\(card.description)\n\nMAHE PRICE : ₹\(card.MAHE_price)\nNON MAHE PRICE : ₹\(card.non_price)\n", preferredStyle: UIAlertController.Style.alert)
-//                    let purchaseOption = UIAlertAction(title: "Purchase", style: .default) { (_) in
-//                        self.buyDelegateCard(delegateCardID: card.id)
-//                    }
-//                    let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
-//                    })
-//                    alertController.addAction(okayAction)
-//                    alertController.addAction(purchaseOption)
-//                    self.present(alertController, animated: true, completion: nil)
-//                })
-//                return
-//            }
-//        case 2:
-//            self.presentDelegateCardInfo(categoryName: event.category)
+
+        case 2:
+            self.presentDelegateCardInfo(categoryName: event.category)
+            break
         case 3:
             let category = categoriesDictionary[event.category]
             if let number = category?.cc?[0].phoneNo{
@@ -566,36 +554,28 @@ class EventsViewController: UITableViewController {
         }
     }
     
-//    fileprivate func presentDelegateCardInfo(categoryName: String){
-//        if(categoryName == "Gaming"){
-//            DispatchQueue.main.async(execute: {
-//           //                    let alertController = UIAlertController(title: "\(card.name) Card", message: "\n\(card.description)\n\nMAHE PRICE : ₹\(card.MAHE_price)\nNON MAHE PRICE : ₹\(card.non_price)\n", preferredStyle: UIAlertController.Style.alert)
-//           //                    let purchaseOption = UIAlertAction(title: "Purchase", style: .default) { (_) in
-//           //                        self.buyDelegateCard(delegateCardID: card.id)
-//           //                    }
-//           //                    let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
-//           //                    })
-//           //                    alertController.addAction(okayAction)
-//           //                    alertController.addAction(purchaseOption)
-//           //                    self.present(alertController, animated: true, completion: nil)
-//           //                })
-//           //                return
-//
-//            },else{
-//            DispatchQueue.main.async(execute: {
-//           let alertController = UIAlertController(title: "\(card.name) Card", message: "\n\(card.description)\n\nMAHE PRICE : ₹\(card.MAHE_price)\nNON MAHE PRICE : ₹\(card.non_price)\n", preferredStyle: UIAlertController.Style.alert)
-//           let purchaseOption = UIAlertAction(title: "Purchase", style: .default) { (_) in
-//               self.buyDelegateCard(delegateCardID: card.id)
-//           }
-//           let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
-//           })
-//           alertController.addAction(okayAction)
-//           alertController.addAction(purchaseOption)
-//           self.present(alertController, animated: true, completion: nil)
-//       })
-//       return
-//        }
-//    }
+    fileprivate func presentDelegateCardInfo(categoryName: String){
+        
+            DispatchQueue.main.async(execute: {
+                if(categoryName == "Gaming"){
+                    let alertController = UIAlertController(title: categoryName, message: "You need to contact the event CC for payment details and pay to register successfully for the event", preferredStyle: UIAlertController.Style.alert)
+                    
+                    let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
+                    })
+                    alertController.addAction(okayAction)
+                    self.present(alertController, animated: true, completion: nil)
+
+            }else{
+           let alertController = UIAlertController(title: categoryName, message: "No delegate card is required to participate in the event", preferredStyle: UIAlertController.Style.alert)
+           
+           let okayAction = UIAlertAction(title: "Dismiss", style: .destructive, handler: { (_) in
+           })
+           alertController.addAction(okayAction)
+           self.present(alertController, animated: true, completion: nil)
+       }
+     
+    })
+}
 //
     
     func buyDelegateCard(delegateCardID: Int){

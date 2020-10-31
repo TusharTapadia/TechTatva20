@@ -202,9 +202,9 @@ class TeamCell: UITableViewCell{
         let label = UILabel()
         label.textColor = .systemGray
         if(UIViewController().isSmalliPhone()){
-        label.font = UIFont.boldSystemFont(ofSize: 11)
+        label.font = UIFont.boldSystemFont(ofSize: 13)
         }else{
-            label.font = UIFont.boldSystemFont(ofSize: 13)
+            label.font = UIFont.boldSystemFont(ofSize: 15)
         }
         label.textAlignment = .left
         label.text = "Member id:"
@@ -215,9 +215,9 @@ class TeamCell: UITableViewCell{
         let label = UILabel()
         label.textColor = .white
         if(UIViewController().isSmalliPhone()){
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         }else{
-            label.font = UIFont.boldSystemFont(ofSize: 16)
+            label.font = UIFont.boldSystemFont(ofSize: 17)
         }
         label.textAlignment = .left
         label.text = "Name"
@@ -247,13 +247,13 @@ class TeamCell: UITableViewCell{
     func setupLayout(){
         
         addSubview(nameLabel)
-        _ = _ = nameLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width/2 - 20, heightConstant: 0)
+        _ = _ = nameLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width/2 - 20, heightConstant: 0)
         
         addSubview(memberID)
-        _ = memberID.anchor(top: nameLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, topConstant:0, leftConstant: 8, bottomConstant: 8, rightConstant: 0, widthConstant: frame.width/2 - 20, heightConstant: 24)
+        _ = memberID.anchor(top: nameLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, topConstant:0, leftConstant: 16, bottomConstant: 8, rightConstant: 0, widthConstant: frame.width/2 - 20, heightConstant: 24)
         
         addSubview(removeButton)
-        _ = removeButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 32, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: frame.width/2 - 20, heightConstant: 36)
+        _ = removeButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 36, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: frame.width/2 - 20, heightConstant: 36)
         
     }
     

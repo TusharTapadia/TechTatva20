@@ -30,8 +30,8 @@
             filePath = "Revels-20/Services/Networking.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
             landmarkName = "joinTeam(eventId:userID:category:partyCode:successCompletion:errorCompletion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "Revels-20/Services/Networking.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "454"
-            endingLineNumber = "454"
+            startingLineNumber = "453"
+            endingLineNumber = "453"
             landmarkName = "joinTeam(eventId:userID:category:partyCode:successCompletion:errorCompletion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "Revels-20/Services/Networking.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "leaveTeamForEventWith(userID:teamID:eventID:successCompletion:errorCompletion:)"
             landmarkType = "7">
          </BreakpointContent>
