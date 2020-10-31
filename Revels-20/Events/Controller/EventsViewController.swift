@@ -422,6 +422,7 @@ class EventsViewController: UITableViewController {
                 
                 if partyCodeValue.count != 6{
             FloatingMessage().floatingMessage(Message: "Enter valid size party code", Color: .red, onPresentation: {
+                self.joinTeam.hideLoading()
             }) {}
             return
         }

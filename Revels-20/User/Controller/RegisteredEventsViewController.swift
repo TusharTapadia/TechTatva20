@@ -42,9 +42,18 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         }
     }
     
+    var eventsDictionary:[Int:Event]?{
+        didSet{
+            tableView.reloadData()
+        }
+    }
+    
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.popViewController(animated: true)
-    }
+       
+}
     
     
     var scheduleDict : [String:Schedule]?{
@@ -58,6 +67,9 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         self.navigationItem.title = "Registered Events"
         if let user = Caching.sharedInstance.getUserDetailsFromCache() {
             self.user = user
+        }
+        if let eventsDictionary = Caching.sharedInstance.getEventsDataDictionary(){
+            self.eventsDictionary = eventsDictionary
         }
         updateStatusBar()
     }
@@ -122,10 +134,15 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! RegisteredEventTableViewCell
         let regEvent = self.registeredEvents[indexPath.row]
+
 //        guard let eventSchedule = self.scheduleDict?["\(regEvent.event)+\(regEvent.round)"] else {
 //            print("failed here")
 //            return cell
 //        cell.schedule = eventSchedule
+        if let event = eventsDictionary?[regEvent.eventID]{
+            cell.eventName = event.name
+        }
+       
         cell.contentView.isUserInteractionEnabled = false
         cell.teamDetails = regEvent
         cell.registeredEventsViewController = self
@@ -200,7 +217,7 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
 
 class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
     
-    
+    var eventName: String?
     var registeredEventsViewController: RegisteredEventsViewController?
     var teamDetails: TeamDetails?
     var schedule: Schedule?{
@@ -300,7 +317,8 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center
-        label.text = schedule?.eventName ?? ""
+        label.text = eventName
+//            schedule?.eventName ?? ""
         
         let button = UIButton()
         button.backgroundColor = UIColor.CustomColors.Purple.register

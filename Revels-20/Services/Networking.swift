@@ -55,9 +55,9 @@ struct Networking {
     let userDetailsURL = "https://register.mitrevels.in/userProfile"
     let registerEventURL = "https://techtatva.in/app/createteam"
     let getRegisteredEventsURL = "https://techtatva.in/app/registeredevents"
-    let leaveTeamURL = "https://techtatva.in/app/leaveTeam"
-    let joinTeamURL = "https://techtatva.in/app/joinTeam"
-    let removeTeammateURL = "https://techtatva.in/app/removeUser"
+    let leaveTeamURL = "https://techtatva.in/app/leaveteam"
+    let joinTeamURL = "https://techtatva.in/app/jointeam"
+    let removeTeammateURL = "https://techtatva.in/app/removeuser"
     
     let teamDetailsURL = "https://techtatva.in/app/teamDetails"
 
@@ -390,8 +390,8 @@ struct Networking {
         Alamofire.request(leaveTeamURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
-                    let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
-                    if response.success{
+                    let response = try JSONDecoder().decode(LeaveResponse.self, from: data)
+                    if response.succes{
                         print(response.msg)
                         successCompletion(response.msg)
                     }else{

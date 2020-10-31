@@ -13,6 +13,10 @@ struct RegisterResponse: Decodable{
     let success: Bool
     let msg: String
 }
+struct LeaveResponse: Decodable{
+    let succes: Bool
+    let msg: String
+}
 
 
 class SignUpViewController: UIViewController, UITextFieldDelegate{

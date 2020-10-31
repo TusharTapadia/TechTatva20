@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     }
     
     fileprivate func getEvents(){
-//        var events = [Event]()
+//        var eventsDictionary = [Int:Event]()
         var tags = [String]()
         tags.append("All")
         var eventsDictionary = [Int: Event]()
