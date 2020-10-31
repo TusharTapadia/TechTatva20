@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct Youtube: Decodable {
+struct Youtube: Codable {
     var count: Int
     var data: [DataYT]
 }
 
-struct DataYT: Decodable {
+struct DataYT: Codable {
     var title: String //description label
     var time: String //durationlabel
     var view:String//views

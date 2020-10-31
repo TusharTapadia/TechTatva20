@@ -52,13 +52,15 @@ class MapViewController: UIViewController{
         }()
     
     func setupViews(){
-        let url = URL(string: "mapbox://styles/tushartapadia/ckda3nr5u0u251iqax3a9f3eu")
+        let url = URL(string: "mapbox://styles/tushartapadia/ckgxxgog26fn719paxkcpt5z8")
                let mapView = MGLMapView(frame: view.bounds, styleURL: url)
                mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-               mapView.setCenter(CLLocationCoordinate2D(latitude: 20.59, longitude: 78.96), zoomLevel: 3, animated: false)
-               view.addSubview(mapView)
+        mapView.setCenter(CLLocationCoordinate2D(latitude: 20.59, longitude: 78.96), zoomLevel: 3, animated: false)
+        mapView.minimumZoomLevel = 3
+        mapView.maximumZoomLevel = 7.0
+        view.addSubview(mapView)
         mapView.addSubview(back)
-        back.anchor(top: mapView.topAnchor, left: nil, bottom: nil, right: mapView.rightAnchor, topConstant: 35, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: 160, heightConstant: 25)
+        back.anchor(top: mapView.topAnchor, left: nil, bottom: nil, right: mapView.rightAnchor, topConstant: 50, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: 160, heightConstant: 25)
         back.addSubview(titleLabel)
         titleLabel.anchorWithConstants(top: back.topAnchor, left: back.leftAnchor, bottom: back.bottomAnchor, right: back.rightAnchor, topConstant: 2, leftConstant: 10, bottomConstant: 2, rightConstant: 2)
         

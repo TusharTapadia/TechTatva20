@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Disk
+import SDWebImage
 
 class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
         
@@ -105,6 +107,7 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
             
             getYouData()
             setupLayout()
+            self.youData = self.getYoutubeItemsFromCache() ?? []
         }
         
         fileprivate func setupLayout(){
@@ -146,7 +149,8 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
                 
                 do{
                     let youtubefeed = try decoder.decode(Youtube.self, from: data!)
-                    self.youData = youtubefeed.data
+//                    self.youData = youtubefeed.data
+                    self.saveYoutubeToCache(data: youtubefeed.data)
                     print(self.youData)
                 } catch{
                     print(error)
@@ -159,6 +163,25 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
             }
         }
         dataTask.resume()
+    }
+    
+    func getYoutubeItemsFromCache() -> [DataYT]? {
+        do{
+            let retrievedData = try Disk.retrieve("youtube.json", from: .caches, as: [DataYT].self)
+            print("saved to cache")
+            return retrievedData
+        }catch{
+            return nil
+        }
+    }
+    
+    func saveYoutubeToCache(data: [DataYT]){
+        do{
+            try Disk.save(data, to: .caches, as: "youtube.json")
+            print("retrieved from cache")
+        }catch let error{
+            print(error)
+        }
     }
    
     }

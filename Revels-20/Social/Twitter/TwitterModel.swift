@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct twitter: Decodable {
+struct twitter: Codable {
     var data: [tweets]
 }
 
-struct tweets: Decodable {
+struct tweets: Codable {
     var tweet: String //description label
     var name: String //durationlabel
     var profileImage:String//views

@@ -18,6 +18,7 @@ class YoutubeCell: UICollectionViewCell {
         iv.backgroundColor = .gray
         iv.layer.masksToBounds = true
         iv.clipsToBounds = true
+        iv.layer.borderColor = UIColor.white.cgColor
         return iv
     }()
     

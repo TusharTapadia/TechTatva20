@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import Disk
 
 class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
@@ -116,6 +117,7 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
         super.init(frame: frame)
         setupLayout()
         getTwitterData()
+        self.tweetData = self.getTwitterItemsFromCache() ?? []
     }
 
   func setupLayout(){
@@ -149,7 +151,8 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
                 
                 do{
                     let twitterfeed = try decoder.decode(twitter.self, from: data!)
-                    self.tweetData=twitterfeed.data
+//                    self.tweetData=twitterfeed.data
+                    self.saveTwitterToCache(data: twitterfeed.data)
                     print(twitterfeed)
                 } catch{
                     print(error)
@@ -166,6 +169,25 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func getTwitterItemsFromCache() -> [tweets]? {
+        do{
+            let retrievedData = try Disk.retrieve("twitter.json", from: .caches, as: [tweets].self)
+            print("saved to cache twitter")
+            return retrievedData
+        }catch{
+            return nil
+        }
+    }
+    
+    func saveTwitterToCache(data: [tweets]){
+        do{
+            try Disk.save(data, to: .caches, as: "twitter.json")
+            print("retrieved from cache twitter")
+        }catch let error{
+            print(error)
+        }
     }
 
 }

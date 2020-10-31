@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Disk
+import SDWebImage
 
 class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
    
@@ -58,7 +60,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
 ////            print("\n\n")
 //        }
         
-       getInsData()
+       getInstaData()
         
         setupLayout()
     }
@@ -75,9 +77,13 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! InstagramCell
         let data = instData[indexPath.item]
+        print(data)
         print(data.node.display_url)
         cell.postImageView.sd_setImage(with: URL(string: data.node.display_url), placeholderImage: UIImage(named: "logo.png"))
         cell.profilePhotoImageview = UIImageView(image: UIImage(named: "logo_dark.png"))
+        
+        cell.likeLabel.text = String(data.node.edge_liked_by.count)
+        cell.commentsLabel.text = String(data.node.edge_media_to_comment.count)
         cell.backgroundColor = .black
         return cell
     }
@@ -119,38 +125,41 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
         
     }
     
-    func getInsData(){
-        print("Getting Insta links")
-        let urlString = "http://159.65.146.229:5000/posts/mittechtatva"
-        let url = URL(string: urlString)
-        guard url != nil else {
-            print("wrong url")
-            return
-        }
-        
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: url!) { (data, response, error) in
-            
-            if error == nil && data != nil {
-                
+    func getInstaData() {
+            let url = URL(string: "http://159.65.146.229:5000/insta/mittechtatva")!
+            let session = URLSession.shared.dataTask(with: url) { (data, res, err) in
                 let decoder = JSONDecoder()
-                
-                do{
-                    let instafeed = try decoder.decode(Edges.self, from: data!)
-                    self.instData = instafeed.edges
-                    print(self.instData)
-                } catch{
-                    print(error)
-                    print("error in json parsing")
+                do {
+                    let parData = try decoder.decode(Instagram.self, from: data!)
+
+                    let mediaContent = parData.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges
+                    
+                    print(mediaContent)
+                    
+                    self.instData = mediaContent
+                    
+                    for k in mediaContent {
+                        // display url
+//                        print(k.node.display_url)
+//                        // like count on post
+//                        print(k.node.edge_liked_by.count)
+//                        // comment count on post
+//                        print(k.node.edge_media_to_comment.count)
+                        
+                        
+                        // intsta post redirect link
+                        let redirectLink = "https://www.instagram.com/p/\(k.node.shortcode)"
+                        print(redirectLink)
+                        
+                        print("\n\n")
+                    }
+                } catch {
+                print(err?.localizedDescription)
                 }
-                DispatchQueue.main.async {
-                    self.instagramCollectionView.reloadData()
-                }
-                
             }
+            
+            session.resume()
         }
-        dataTask.resume()
-    }
     
     
 }
