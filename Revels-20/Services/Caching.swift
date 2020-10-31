@@ -147,6 +147,16 @@ struct Caching{
             return nil
         }
     }
+    
+    func getEventsDataDictionary() -> [Int:Event]? {
+        do{
+            let retrievedData = try Disk.retrieve(eventsDictionaryCache, from: .caches, as: [Int:Event].self)
+            return retrievedData
+        }catch let err{
+            print(err)
+            return nil
+        }
+    }
 
     
 }

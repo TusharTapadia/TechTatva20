@@ -44,8 +44,13 @@ class TeamTableViewController: UITableViewController {
             Caching.sharedInstance.saveUserDetailsToCache(user: userStatusUpdate)
         }
     }
-
     
+    var eventsDictionary:[Int:Event]?{
+        didSet{
+            tableView.reloadData()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = UIColor.CustomColors.Black.background
