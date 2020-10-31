@@ -89,7 +89,6 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
             let webURL = NSURL(string: url)!
             let application = UIApplication.shared
             application.open(webURL as URL)
-            
         }
         
         override init(frame: CGRect) {

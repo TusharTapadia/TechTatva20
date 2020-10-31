@@ -61,8 +61,8 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
 //        }
         
        getInstaData()
-        
         setupLayout()
+        self.instData = self.getInstagramItemsFromCache() ?? []
     }
     
     required init?(coder: NSCoder) {
@@ -79,8 +79,8 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
         let data = instData[indexPath.item]
         print(data)
         print(data.node.display_url)
-        cell.postImageView.sd_setImage(with: URL(string: data.node.display_url), placeholderImage: UIImage(named: "logo.png"))
-        cell.profilePhotoImageview = UIImageView(image: UIImage(named: "logo_dark.png"))
+        cell.postImageView.sd_setImage(with: URL(string: data.node.display_url), placeholderImage: UIImage(named: "logobg1.png"))
+        cell.profilePhotoImageview = UIImageView(image: UIImage(named: "logobg1.png"))
         
         cell.likeLabel.text = String(data.node.edge_liked_by.count)
         cell.commentsLabel.text = String(data.node.edge_media_to_comment.count)
@@ -126,40 +126,58 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     }
     
     func getInstaData() {
-            let url = URL(string: "http://159.65.146.229:5000/insta/mittechtatva")!
-            let session = URLSession.shared.dataTask(with: url) { (data, res, err) in
-                let decoder = JSONDecoder()
-                do {
-                    let parData = try decoder.decode(Instagram.self, from: data!)
-
-                    let mediaContent = parData.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges
-                    
-//                    print(mediaContent)
-                    
-                    self.instData = mediaContent
-                    
-                    for k in mediaContent {
-                        // display url
-//                        print(k.node.display_url)
-//                        // like count on post
-//                        print(k.node.edge_liked_by.count)
-//                        // comment count on post
-//                        print(k.node.edge_media_to_comment.count)
-                        
-                        
-                        // intsta post redirect link
-                        let redirectLink = "https://www.instagram.com/p/\(k.node.shortcode)"
-                        print(redirectLink)
-                        
-                        print("\n\n")
-                    }
-                } catch {
-                print(err?.localizedDescription)
-                }
-            }
-            
-            session.resume()
+        print("Getting Insta links")
+        let urlString = "http://159.65.146.229:5000/insta/mittechtatva"
+        let url = URL(string: urlString)
+        guard url != nil else {
+            print("wrong url")
+            return
         }
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: url!) { (data, response, error) in
+            
+            if error == nil && data != nil {
+                
+                let decoder = JSONDecoder()
+                
+                do{
+                    let instafeed = try decoder.decode(Edges.self, from: data!)
+                    print(instafeed)
+//                    self.instData = instafeed.edges
+                    self.saveInstagramToCache(data: instafeed.edges)
+                    print(self.instData)
+                } catch{
+                    print(error)
+                    print("error in json parsing")
+                }
+                DispatchQueue.main.async {
+                    self.instagramCollectionView.reloadData()
+                }
+                
+            }
+        }
+        dataTask.resume()
+    }
+    
+    func getInstagramItemsFromCache() -> [Node]? {
+        do{
+            let retrievedData = try Disk.retrieve("instagram.json", from: .caches, as: [Node].self)
+            print("saved to cache instagram")
+            return retrievedData
+        }catch{
+            return nil
+        }
+    }
+    
+    func saveInstagramToCache(data: [Node]){
+        do{
+            try Disk.save(data, to: .caches, as: "instagram.json")
+            print("retrieved from cache instagram")
+        }catch let error{
+            print(error)
+        }
+    }
     
     
 }

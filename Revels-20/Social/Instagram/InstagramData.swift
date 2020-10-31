@@ -1,43 +1,27 @@
+//
+//  InstagramData.swift
+//  Revels-20
+//
+//  Created by Rohit Kuber on 27/09/20.
+//  Copyright © 2020 Naman Jain. All rights reserved.
+//
+
 import Foundation
-struct Instagram: Decodable {
-    let entry_data: ProfilePage
-}
 
-struct ProfilePage: Decodable {
-    let ProfilePage: [Graphql1]
-}
-
-struct Graphql1: Decodable {
-    let graphql: User1
-}
-
-struct User1: Decodable {
-    let user: Edge_owner_to_timeline_media
-}
-
-struct Edge_owner_to_timeline_media: Decodable {
-    let edge_owner_to_timeline_media: Edges
-}
-
-struct Edges: Decodable {
+struct Edges: Codable {
     let edges: [Node]
 }
 
-struct Node: Decodable {
+struct Node: Codable {
     let node: Media
 }
 
-struct Media: Decodable {
+struct Media: Codable {
     let display_url: String
-    let shortcode: String
-    let edge_liked_by: Like
-    let edge_media_to_comment: Comment
+    let edge_media_to_comment:num
+    let edge_liked_by:num
 }
 
-struct Like: Decodable {
-   let count: Int
-}
-
-struct Comment: Decodable {
-    let count: Int
+struct num: Codable{
+    let count:Int
 }
