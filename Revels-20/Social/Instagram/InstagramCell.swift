@@ -45,6 +45,7 @@ class InstagramCell: UICollectionViewCell {
     
     lazy var profilePhotoImageview: UIImageView = {
         let iv = UIImageView()
+        iv.image = UIImage(named: "logobg1")
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true

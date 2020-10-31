@@ -80,7 +80,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
         print(data)
         print(data.node.display_url)
         cell.postImageView.sd_setImage(with: URL(string: data.node.display_url), placeholderImage: UIImage(named: "logobg1.png"))
-        cell.profilePhotoImageview = UIImageView(image: UIImage(named: "logobg1.png"))
+//        cell.profilePhotoImageview = UIImageView(image: UIImage(named: "logobg1.png"))
         
         cell.likeLabel.text = String(data.node.edge_liked_by.count)
         cell.commentsLabel.text = String(data.node.edge_media_to_comment.count)

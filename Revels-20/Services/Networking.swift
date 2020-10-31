@@ -62,7 +62,7 @@ struct Networking {
     let teamDetailsURL = "https://techtatva.in/app/teamDetails"
 
     
-    let liveBlogURL = "http://revels.herokuapp.com/"
+    let liveBlogURL = "https://app.themitpost.com/liveblog"
     
     static let sharedInstance = Networking()
     
@@ -500,23 +500,23 @@ struct Networking {
     
     func getLiveBlogData(dataCompletion: @escaping (_ Data: [Blog]) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         
-//        Alamofire.request(liveBlogURL, method: .get, parameters: nil, encoding: URLEncoding()).response { response in
-//            if let data = response.data{
-//                do{
-//                    let resultsResponse = try JSONDecoder().decode(BlogData.self, from: data)
-//                    if resultsResponse.numUpdates >= 0{
-//                        if let data = resultsResponse.data{
-//                            dataCompletion(data)
-//                        }
-//                    }else{
-//                        errorCompletion("Coudn't Fetch Registered Events")
-//                    }
-//                }catch let error{
-//                    print(error)
-//                    errorCompletion("Decoding Error")
-//                }
-//            }
-//        }
+        Alamofire.request(liveBlogURL, method: .get, parameters: nil, encoding: URLEncoding()).response { response in
+            if let data = response.data{
+                do{
+                    let resultsResponse = try JSONDecoder().decode(BlogData.self, from: data)
+                    if resultsResponse.success ?? false{
+                        if let data = resultsResponse.data{
+                            dataCompletion(data)
+                        }
+                    }else{
+                        errorCompletion("Coudn't Fetch Registered Events")
+                    }
+                }catch let error{
+                    print(error)
+                    errorCompletion("Decoding Error")
+                }
+            }
+        }
     }
     
     

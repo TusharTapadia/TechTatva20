@@ -1036,7 +1036,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Revels-20/RevelsDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6CPSMM6Y56;
+				DEVELOPMENT_TEAM = N7MCZ8UJRF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Revels-20/Schedule/Controller",
@@ -1066,7 +1066,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6CPSMM6Y56;
+				DEVELOPMENT_TEAM = N7MCZ8UJRF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Revels-20/Schedule/Controller",
