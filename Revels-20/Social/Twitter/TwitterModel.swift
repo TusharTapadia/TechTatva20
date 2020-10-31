@@ -18,4 +18,5 @@ struct tweets: Codable {
     var profileImage:String//views
     var like: String // yeet
     var reTweet: String // thumbnailImageView
+    var link: String
 }

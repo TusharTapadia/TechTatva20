@@ -113,6 +113,13 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
         return CGSize(width: frame.width, height: 172 )
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let url = tweetData[indexPath.item].link
+        let webURL = NSURL(string: url)!
+        let application = UIApplication.shared
+        application.open(webURL as URL)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
