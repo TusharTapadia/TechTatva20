@@ -18,9 +18,10 @@ protocol TeamDelegate {
 
 class TeamTableViewController: UITableViewController {
     
-    var event: Event! {
+    var event: [Event]! {
         didSet{
             tableView.reloadData()
+            
         }
     }
     
@@ -43,9 +44,7 @@ class TeamTableViewController: UITableViewController {
             Caching.sharedInstance.saveUserDetailsToCache(user: userStatusUpdate)
         }
     }
-    
-    var categoriesDictionary = [String: Category]()
-    var delegateDictionary = [Int: DelegateCard]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +66,8 @@ class TeamTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let memberArray = teamMemberDetails?.members{
-            let memberCount = memberArray[0].count
+            let memberCount = memberArray.count
+            print("Member array count", memberCount)
             return memberCount
         }else{
          return 0
@@ -81,7 +81,6 @@ class TeamTableViewController: UITableViewController {
         if let memberArray = teamMemberDetails?.members{
              let memberInfo = memberArray[indexPath.row][0]
              cell.memberInfo = memberInfo
-//            cell.memberID = memberInfo.
             }
         cell.teamDelegate = self
         cell.selectionStyle = .none
@@ -164,6 +163,7 @@ extension TeamTableViewController: TeamDelegate{
                 print(message)
                 FloatingMessage().floatingMessage(Message: message, Color: .orange, onPresentation: {
                     self.navigationController?.popViewController(animated: true)
+                    self.dismiss(animated: true, completion: nil)
                 }) {}
             }, errorCompletion: { (message) in
                 FloatingMessage().floatingMessage(Message: message, Color: .red, onPresentation: {}) {}
@@ -186,7 +186,7 @@ class TeamCell: UITableViewCell{
         didSet{
             guard let memberInfo = self.memberInfo else {return}
             DispatchQueue.main.async{
-                self.memberID.text = "\(memberInfo.userID ?? 0)"
+                self.memberID.text = "User id:\(memberInfo.userID ?? 0)"
                 print(memberInfo.id)
             self.nameLabel.text = memberInfo.name
             
@@ -198,9 +198,9 @@ class TeamCell: UITableViewCell{
         let label = UILabel()
         label.textColor = .systemGray
         if(UIViewController().isSmalliPhone()){
-        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.font = UIFont.boldSystemFont(ofSize: 11)
         }else{
-            label.font = UIFont.boldSystemFont(ofSize: 15)
+            label.font = UIFont.boldSystemFont(ofSize: 13)
         }
         label.textAlignment = .left
         label.text = "Member id:"

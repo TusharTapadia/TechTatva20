@@ -56,7 +56,7 @@ struct Networking {
     let registerEventURL = "https://techtatva.in/app/createteam"
     let getRegisteredEventsURL = "https://techtatva.in/app/registeredevents"
     let leaveTeamURL = "https://techtatva.in/app/leaveTeam"
-    let joinTeamURL = "https://techtatva.in/app/jointeam"
+    let joinTeamURL = "https://techtatva.in/app/joinTeam"
     let removeTeammateURL = "https://techtatva.in/app/removeUser"
     
     let teamDetailsURL = "https://techtatva.in/app/teamDetails"
@@ -392,6 +392,7 @@ struct Networking {
                 do{
                     let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
                     if response.success{
+                        print(response.msg)
                         successCompletion(response.msg)
                     }else{
                         print(response)
@@ -437,7 +438,7 @@ struct Networking {
     func joinTeam( eventId: Int,userID:Int,category :String,partyCode:String, successCompletion: @escaping (_ SuccessMessage: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         let parameters = [
             "userID":userID,
-            "eventid": eventId,
+            "eventID": eventId,
             "category":category,
             "partyCode": partyCode,
             "email":emailCached,
@@ -448,7 +449,7 @@ struct Networking {
         Alamofire.request(joinTeamURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
             if let data = response.data{
                 do{
-                    let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
+                    let response = try JSONDecoder().decode(JoinTeamResponse.self, from: data)
                     if response.success{
                         successCompletion(response.msg)
                     }else{
@@ -456,7 +457,7 @@ struct Networking {
                         errorCompletion(response.msg)
                     }
                 }catch let error{
-                    errorCompletion("decoder_error")
+                    errorCompletion("decoder_error in join team")
                     print(error)
                 }
             }

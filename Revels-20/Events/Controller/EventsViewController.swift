@@ -413,15 +413,24 @@ class EventsViewController: UITableViewController {
                 print("loggined")
                 self.joinTeam.showLoading()
                 self.joinTeam.activityIndicator.color = .white
-                guard let eventID = self.event.eventID else {return }
+                guard let eventInfo = self.event else { return  }
+                guard let eventID = eventInfo.eventID else {return }
                 guard let userID = self.user?.userID else {return}
                 guard let partyCodeValue = self.partyCode.text else{return}
-                print(partyCodeValue)
+                let categoryName = eventInfo.category
+                print("User id:",userID)
                 
-        Networking.sharedInstance.joinTeam(eventId: eventID, userID: userID, category: self.event.category, partyCode: partyCodeValue, successCompletion: { (message) in
+                if partyCodeValue.count != 6{
+            FloatingMessage().floatingMessage(Message: "Enter valid size party code", Color: .red, onPresentation: {
+            }) {}
+            return
+        }
+                
+                
+        Networking.sharedInstance.joinTeam(eventId: eventID, userID: userID, category: categoryName, partyCode: partyCodeValue, successCompletion: { (message) in
                     self.joinTeam.hideLoading()
                     print(message)
-            FloatingMessage().longFloatingMessage(Message: "Successfully joined the team for \(self.event.name). ", Color: UIColor.CustomColors.Purple.register, onPresentation: {
+            FloatingMessage().longFloatingMessage(Message: "Successfully joined the team for \(eventInfo.name). ", Color: UIColor.CustomColors.Purple.register, onPresentation: {
                 Networking.sharedInstance.getStatusUpdate { (user) in
                     print(user)
                     Caching.sharedInstance.saveUserDetailsToCache(user: user)
@@ -435,7 +444,7 @@ class EventsViewController: UITableViewController {
                         FloatingMessage().longFloatingMessage(Message: "You have already registered for \(self.event.name)", Color: .orange, onPresentation: {}) {}
                     }else{
                         self.joinTeam.hideLoading()
-                        FloatingMessage().longFloatingMessage(Message: message, Color: .orange, onPresentation: {
+                        FloatingMessage().longFloatingMessage(Message: message, Color: .red, onPresentation: {
 //                            self.joinTeam.hideLoading()
                         }) {}
                     }

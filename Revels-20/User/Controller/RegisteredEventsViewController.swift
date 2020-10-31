@@ -145,25 +145,31 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
 
     func showLeaveTeam(Cell: UITableViewCell, teamDetails: TeamDetails){
         if let indexPath = tableView.indexPath(for: Cell){
+            let indexValue = indexPath.row
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
                 self.tableView.deselectRow(at: indexPath, animated: true)
             }
-            leaveTeam(teamId: teamDetails.teamID,eventId:teamDetails.eventID)
+            leaveTeam(teamId: teamDetails.teamID,eventId:teamDetails.eventID, indexValue:indexValue)
         }
     }
     
     
-    func leaveTeam(teamId: Int, eventId: Int){
+    func leaveTeam(teamId: Int, eventId: Int, indexValue:Int){
         let actionSheet = UIAlertController(title: "Are you Sure?", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let sureAction = UIAlertAction(title: "Yes", style: .destructive) { (_) in
             guard  let userId = self.user?.userID else {return}
+            print("Team id:",teamId)
+            print("Event id:",eventId)
+            
             Networking.sharedInstance.leaveTeamForEventWith(userID: userId, teamID: teamId, eventID: eventId, successCompletion: { (message) in
                 print(message)
                 FloatingMessage().floatingMessage(Message: message, Color: .orange, onPresentation: {
                     Networking.sharedInstance.getStatusUpdate { (user) in
                         Caching.sharedInstance.saveUserDetailsToCache(user: user)
                     }
+                    self.registeredEvents.remove(at: indexValue)
+                    self.tableView.reloadData()
                     self.navigationController?.popViewController(animated: true)
                 }) {}
             }, errorCompletion: { (message) in
@@ -179,6 +185,7 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
     func handleTeamDetailsTap(teamID: Int, eventID: Int){
         AudioServicesPlaySystemSound(1519)
         let teamTableViewController = TeamTableViewController()
+//        let teamNav = MasterNavigationBarController(rootViewController: teamTableViewController)
         slideInTransitioningDelegate.categoryName = ""   //"\(event.description)"
         teamTableViewController.modalPresentationStyle = .custom
         teamTableViewController.transitioningDelegate = slideInTransitioningDelegate

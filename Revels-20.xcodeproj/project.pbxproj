@@ -94,6 +94,7 @@
 		C62CC8E725210B9F00066CB4 /* YoutubeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8E625210B9F00066CB4 /* YoutubeCollectionView.swift */; };
 		C62CC8E925210BE000066CB4 /* YoutubeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8E825210BE000066CB4 /* YoutubeCell.swift */; };
 		C62CC8EB25210C0700066CB4 /* YoutubeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */; };
+		C63239F3254D68D500055DA6 /* JoinTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63239F2254D68D500055DA6 /* JoinTeamModel.swift */; };
 		C633B6AC254B063800E4A8CB /* RegisteredTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C633B6AB254B063800E4A8CB /* RegisteredTeamModel.swift */; };
 		C6966A3B254B683F00AE8D75 /* TeamDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6966A3A254B683F00AE8D75 /* TeamDetailsModel.swift */; };
 		C6C2D09E2520F78900FC8B31 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C2D09D2520F78900FC8B31 /* SocialController.swift */; };
@@ -206,6 +207,7 @@
 		C62CC8E625210B9F00066CB4 /* YoutubeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeCollectionView.swift; sourceTree = "<group>"; };
 		C62CC8E825210BE000066CB4 /* YoutubeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeCell.swift; sourceTree = "<group>"; };
 		C62CC8EA25210C0700066CB4 /* YoutubeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeModel.swift; sourceTree = "<group>"; };
+		C63239F2254D68D500055DA6 /* JoinTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinTeamModel.swift; sourceTree = "<group>"; };
 		C633B6AB254B063800E4A8CB /* RegisteredTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredTeamModel.swift; sourceTree = "<group>"; };
 		C6966A3A254B683F00AE8D75 /* TeamDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsModel.swift; sourceTree = "<group>"; };
 		C6C2D09D2520F78900FC8B31 /* SocialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialController.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 			children = (
 				B2D94509233E377800DA14D1 /* UserModel.swift */,
 				C6966A3A254B683F00AE8D75 /* TeamDetailsModel.swift */,
+				C63239F2254D68D500055DA6 /* JoinTeamModel.swift */,
 				B2D94515234076BD00DA14D1 /* RegisteredEventModel.swift */,
 			);
 			path = Model;
@@ -836,6 +839,7 @@
 				B25FAEA423421C950065C763 /* HomeViewController.swift in Sources */,
 				B2D945232340E1C300DA14D1 /* QRViewController.swift in Sources */,
 				B2D94503233DF85500DA14D1 /* BackgroundStyles.swift in Sources */,
+				C63239F3254D68D500055DA6 /* JoinTeamModel.swift in Sources */,
 				B2DE581D2313EAD200082EC1 /* EventsModel.swift in Sources */,
 				B21C5D5D231242A9000DCF32 /* AppDelegate.swift in Sources */,
 				B2DE58192313EA7900082EC1 /* ResultsCell.swift in Sources */,
