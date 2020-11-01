@@ -106,14 +106,14 @@ class TeamTableViewController: UITableViewController {
         
         let partyCodeLabel = UILabel()
         partyCodeLabel.textColor = .white
-        partyCodeLabel.font = UIFont.systemFont(ofSize: 13)
+        partyCodeLabel.font = UIFont.systemFont(ofSize: 16)
         partyCodeLabel.textAlignment = .center
         partyCodeLabel.numberOfLines = 2
         partyCodeLabel.text = "Party Code"
         
         let partyCodeValue = UILabel()
         partyCodeValue.textColor = .red
-        partyCodeValue.font = UIFont.systemFont(ofSize: 13)
+        partyCodeValue.font = UIFont.systemFont(ofSize: 16)
         partyCodeValue.textAlignment = .center
         partyCodeValue.numberOfLines = 2
         partyCodeValue.text = "N/A"
@@ -148,14 +148,14 @@ class TeamTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100 //60
+        return 72 //60
     }
         
 }
 
 extension TeamTableViewController: TeamDelegate{
     func removeMember(memberInfo: MemberInfo) {
-        let actionSheet = UIAlertController(title: "Are you Sure?", message: "The following member would be removed from your team", preferredStyle: .alert)
+        let actionSheet = UIAlertController(title: "Are you sure?", message: "The following member would be removed from your team", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let sureAction = UIAlertAction(title: "Yes", style: .destructive) { (_) in
             guard let teamId = self.teamID else {return}
@@ -250,10 +250,10 @@ class TeamCell: UITableViewCell{
         _ = _ = nameLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width/2 - 20, heightConstant: 0)
         
         addSubview(memberID)
-        _ = memberID.anchor(top: nameLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, topConstant:0, leftConstant: 16, bottomConstant: 8, rightConstant: 0, widthConstant: frame.width/2 - 20, heightConstant: 24)
+        _ = memberID.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: nil, topConstant:0, leftConstant: 16, bottomConstant: 20, rightConstant: 0, widthConstant: frame.width/2 - 20, heightConstant: 0)
         
         addSubview(removeButton)
-        _ = removeButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 36, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: frame.width/2 - 20, heightConstant: 36)
+        _ = removeButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 10, leftConstant: 0, bottomConstant: 0, rightConstant: 16, widthConstant: frame.width/2 - 20, heightConstant: 36)
         
     }
     

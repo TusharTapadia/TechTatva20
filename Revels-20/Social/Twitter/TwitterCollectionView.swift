@@ -121,11 +121,26 @@ class TwitterCollectionView: UICollectionViewCell, UICollectionViewDelegateFlowL
     }
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupLayout()
-        getTwitterData()
-        self.tweetData = self.getTwitterItemsFromCache() ?? []
-    }
+            super.init(frame: frame)
+            setupLayout()
+            getTwitterData()
+            self.tweetData = self.getTwitterItemsFromCache() ?? []
+            
+            tweetsCollectionView.refreshControl = UIRefreshControl()
+            tweetsCollectionView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+
+        }
+        
+        @objc private func pullToRefresh(){
+            self.tweetData = []
+            getTwitterData()
+            self.tweetData = self.getTwitterItemsFromCache() ?? []
+            
+            DispatchQueue.main.async {
+                self.tweetsCollectionView.refreshControl?.endRefreshing()
+                self.tweetsCollectionView.reloadData()
+            }
+        }
 
   func setupLayout(){
     addSubview(titleBackgroundText)

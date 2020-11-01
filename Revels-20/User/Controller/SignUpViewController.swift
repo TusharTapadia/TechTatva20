@@ -125,23 +125,23 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
 
     // MARK: - Table view data source
     func setupColleges(){
-        let apiStruct = ApiStruct(url: collegeDataURL, method: .get, body: nil)
-        WSManager.shared.getJSONResponse(apiStruct: apiStruct, success: { (map: collegeDataResponse) in
-            if map.success{
-                for i in map.data{
-                    self.colleges.append(i.name)
-                    if(i.MAHE == 1)
-                    {
-                        self.maheColleges.append(i.name)
-                    }
-                }
-                self.colleges.sort()
-                self.maheColleges.sort()
-                self.filteredColleges = self.colleges
-            }
-        }) { (error) in
-            print(error)
-        }
+//        let apiStruct = ApiStruct(url: collegeDataURL, method: .get, body: nil)
+//        WSManager.shared.getJSONResponse(apiStruct: apiStruct, success: { (map: collegeDataResponse) in
+//            if map.success{
+//                for i in map.data{
+//                    self.colleges.append(i.name)
+//                    if(i.MAHE == 1)
+//                    {
+//                        self.maheColleges.append(i.name)
+//                    }
+//                }
+//                self.colleges.sort()
+//                self.maheColleges.sort()
+//                self.filteredColleges = self.colleges
+//            }
+//        }) { (error) in
+//            print(error)
+//        }
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

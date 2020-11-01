@@ -45,7 +45,7 @@ class MasterTabBarController: UITabBarController{
         let resultsNavigationController = MasterNavigationBarController(rootViewController: resultsViewController)
         resultsNavigationController.tabBarItem = UITabBarItem(title: "Results", image: UIImage(named: "assessment"), tag: 5)
 //        schedulePageNavigationController,resultsNavigationController
-        viewControllers = [homeViewNavController, mapViewController, usersViewNavigationController,resultsNavigationController ]
+        viewControllers = [homeViewNavController,schedulePageNavigationController, mapViewController, usersViewNavigationController,resultsNavigationController ]
         
     }
     

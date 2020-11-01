@@ -163,11 +163,11 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
 //        print(event.name)
     }
     
-    func performPaymentFor(delegateCardID: Int){
-        let vc = PaymentsWebViewController()
-        vc.delegateCardID = delegateCardID
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+//    func performPaymentFor(delegateCardID: Int){
+//        let vc = PaymentsWebViewController()
+//        vc.delegateCardID = delegateCardID
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
     
 }
 

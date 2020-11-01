@@ -22,14 +22,14 @@ struct UserKeys{
 let apiKey = "o92PqCYAstWGq1Mx0kou"
 let resultsURL = "https://api.mitrevels.in/results" //"https://api.techtatva.in/results"
 let eventsURL = "https://categories.techtatva.in/app/events"
-let scheduleURL = "https://techtatvadata.herokuapp.com/schedule" //"https://api.techtatva.in/schedule"
+let scheduleURL = "https://techtatvadata.herokuapp.com/schedule"
 //let categoriesURL = "https://api.mitrevels.in/categories"
 let categoriesURL = "https://categories.techtatva.in/app/category"
-let delegateCardsURL = "https://api.mitrevels.in/delegate_cards"
-let boughtDelegateCardsURL = "https://register.mitrevels.in/boughtCards"
-let paymentsURL = "https://register.mitrevels.in/buy?card="
-let mapsDataURL = "https://appdev.mitrevels.in/maps"
-let collegeDataURL = "http://api.mitrevels.in/colleges"
+//let delegateCardsURL = "https://api.mitrevels.in/delegate_cards"
+//let boughtDelegateCardsURL = "https://register.mitrevels.in/boughtCards"
+//let paymentsURL = "https://register.mitrevels.in/buy?card="
+//let mapsDataURL = "https://appdev.mitrevels.in/maps"
+//let collegeDataURL = "http://api.mitrevels.in/colleges"
 let defaults = UserDefaults.standard
 let emailCached = defaults.object(forKey: "Email") as? String ?? ""
 let passwordCached = defaults.object(forKey: "Password") as? String ?? ""
@@ -124,6 +124,27 @@ struct Networking {
                 }catch let error{
                     print(error)
                     errorCompletion("Decoding Error in getting Events(Networking)")
+                }
+            }
+        }
+    }
+    
+    
+    func getScheduleData(dataCompletion: @escaping (_ Data: [ScheduleDays]) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+        
+        Alamofire.request(scheduleURL, method: .get, parameters: nil, encoding: URLEncoding()).response { response in
+            if let data = response.data{
+                do{
+                    let resultsResponse = try JSONDecoder().decode(ScheduleResponse.self, from: data)
+                        if let data = resultsResponse.data{
+                            dataCompletion(data)
+                        }
+                    else{
+                        errorCompletion("Schedule Response Failed(Networking)")
+                    }
+                }catch let error{
+                    print(error)
+                    errorCompletion("Decoding Error in getting Schedule(Networking)")
                 }
             }
         }

@@ -131,8 +131,8 @@ class EventsViewController: UITableViewController {
             if let schedule = self.schedule{
                 textLabel = "Date"
                 formatter.dateFormat = "dd MMM yyyy"
-                let startDate = Date(dateString: schedule.start)
-                detailedTextLabel = formatter.string(from: startDate)
+//                let startDate = Date(dateString: schedule.start)
+//                detailedTextLabel = formatter.string(from: startDate)
             }else{
                 textLabel = "Delegate Card"
                 
@@ -152,17 +152,17 @@ class EventsViewController: UITableViewController {
             }
         case 3:
             if let schedule = self.schedule{
-                textLabel = "Time"
-                formatter.dateFormat = "h:mm a"
-                var startDate = Date(dateString: schedule.start)
-                startDate = Calendar.current.date(byAdding: .hour, value: -5, to: startDate)!
-                startDate = Calendar.current.date(byAdding: .minute, value: -30, to: startDate)!
-                var endDate = Date(dateString: schedule.end)
-                endDate = Calendar.current.date(byAdding: .hour, value: -5, to: endDate)!
-                endDate = Calendar.current.date(byAdding: .minute, value: -30, to: endDate)!
-                var dateString = formatter.string(from: startDate)
-                dateString.append(" - \(formatter.string(from: endDate))")
-                detailedTextLabel = dateString
+//                textLabel = "Time"
+//                formatter.dateFormat = "h:mm a"
+//                var startDate = Date(dateString: schedule.start)
+//                startDate = Calendar.current.date(byAdding: .hour, value: -5, to: startDate)!
+//                startDate = Calendar.current.date(byAdding: .minute, value: -30, to: startDate)!
+//                var endDate = Date(dateString: schedule.end)
+//                endDate = Calendar.current.date(byAdding: .hour, value: -5, to: endDate)!
+//                endDate = Calendar.current.date(byAdding: .minute, value: -30, to: endDate)!
+//                var dateString = formatter.string(from: startDate)
+//                dateString.append(" - \(formatter.string(from: endDate))")
+//                detailedTextLabel = dateString
                 imageName = "timer"
             }else{
                 textLabel = "Contact 1"
@@ -578,50 +578,50 @@ class EventsViewController: UITableViewController {
 }
 //
     
-    func buyDelegateCard(delegateCardID: Int){
-        if UserDefaults.standard.isLoggedIn(){
-            let popUp = SpinnerCardPopUp()
-             UIApplication.shared.keyWindow?.addSubview(popUp)
-             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                 popUp.animateOut()
-             }
-             self.dismiss(animated: true) {
-                 self.scheduleController?.performPaymentFor(delegateCardID: delegateCardID)
-                self.tagsEventController?.performPaymentFor(delegateCardID: delegateCardID)
+//    func buyDelegateCard(delegateCardID: Int){
+//        if UserDefaults.standard.isLoggedIn(){
+//            let popUp = SpinnerCardPopUp()
+//             UIApplication.shared.keyWindow?.addSubview(popUp)
+//             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                 popUp.animateOut()
+//             }
+//             self.dismiss(animated: true) {
+//                 self.scheduleController?.performPaymentFor(delegateCardID: delegateCardID)
+//                self.tagsEventController?.performPaymentFor(delegateCardID: delegateCardID)
 //                self.featuredEventController?.performPaymentFor(delegateCardID: delegateCardID)
-             }
-        }else{
-            DispatchQueue.main.async(execute: {
-                let alertController = UIAlertController(title: "Sign in to Register", message: "You need to be signed in to register for an event", preferredStyle: UIAlertController.Style.actionSheet)
-                let logInAction = UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
-                    let login = LoginViewController()
-                    let loginNav = MasterNavigationBarController(rootViewController: login)
-                    if #available(iOS 13.0, *) {
-                        loginNav.modalPresentationStyle = .fullScreen
-                        loginNav.isModalInPresentation = true
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                    fromLogin = true
-                    self.present(loginNav, animated: true)
-                })
-                let createNewAccountAction = UIAlertAction(title: "Create New Account", style: .default, handler: { (action) in
-                    let login = LoginViewController()
-                    let loginNav = MasterNavigationBarController(rootViewController: login)
-                    fromLogin = true
-                    self.present(loginNav, animated: true, completion: {
-                        login.handleRegister()
-                    })
-                })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                alertController.addAction(logInAction)
-                alertController.addAction(createNewAccountAction)
-                alertController.addAction(cancelAction)
-                self.present(alertController, animated: true, completion: nil)
-            })
-            return
-        }
-    }
+//             }
+//        }else{
+//            DispatchQueue.main.async(execute: {
+//                let alertController = UIAlertController(title: "Sign in to Register", message: "You need to be signed in to register for an event", preferredStyle: UIAlertController.Style.actionSheet)
+//                let logInAction = UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
+//                    let login = LoginViewController()
+//                    let loginNav = MasterNavigationBarController(rootViewController: login)
+//                    if #available(iOS 13.0, *) {
+//                        loginNav.modalPresentationStyle = .fullScreen
+//                        loginNav.isModalInPresentation = true
+//                    } else {
+//                        // Fallback on earlier versions
+//                    }
+//                    fromLogin = true
+//                    self.present(loginNav, animated: true)
+//                })
+//                let createNewAccountAction = UIAlertAction(title: "Create New Account", style: .default, handler: { (action) in
+//                    let login = LoginViewController()
+//                    let loginNav = MasterNavigationBarController(rootViewController: login)
+//                    fromLogin = true
+//                    self.present(loginNav, animated: true, completion: {
+//                        login.handleRegister()
+//                    })
+//                })
+//                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//                alertController.addAction(logInAction)
+//                alertController.addAction(createNewAccountAction)
+//                alertController.addAction(cancelAction)
+//                self.present(alertController, animated: true, completion: nil)
+//            })
+//            return
+//        }
+//    }
         
 }
 

@@ -91,24 +91,38 @@ class YoutubeCollectionView: UICollectionViewCell,UICollectionViewDelegateFlowLa
             application.open(webURL as URL)
         }
         
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            if #available(iOS 13.0, *) {
-                youtubeCollectionView.backgroundColor = .black
-    
-//            }
-//            Networking.sharedInstance.getYoutubeData { (data) in
-//                print("YT data recieved----------------------------\n")
-//                print(data)
-//                print("\n\n")
-//
-            }
-            
-            getYouData()
-            setupLayout()
-            self.youData = self.getYoutubeItemsFromCache() ?? []
-        }
+    override init(frame: CGRect) {
+                super.init(frame: frame)
+                if #available(iOS 13.0, *) {
+                    youtubeCollectionView.backgroundColor = .black
         
+    //            }
+    //            Networking.sharedInstance.getYoutubeData { (data) in
+    //                print("YT data recieved----------------------------\n")
+    //                print(data)
+    //                print("\n\n")
+    //
+                }
+                youtubeCollectionView.refreshControl = UIRefreshControl()
+                youtubeCollectionView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+                
+                getYouData()
+                setupLayout()
+                self.youData = self.getYoutubeItemsFromCache() ?? []
+            }
+        
+        @objc private func pullToRefresh(){
+            self.youData = []
+            getYouData()
+            self.youData = self.getYoutubeItemsFromCache() ?? []
+            
+            DispatchQueue.main.async {
+                self.youtubeCollectionView.refreshControl?.endRefreshing()
+                self.youtubeCollectionView.reloadData()
+            }
+        }
+    
+    
         fileprivate func setupLayout(){
             
             
