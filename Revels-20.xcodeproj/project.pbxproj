@@ -39,7 +39,6 @@
 		B2B73C1523EAE201002DE75F /* MITPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B73C1423EAE201002DE75F /* MITPostTableViewCell.swift */; };
 		B2B73C1723EAE542002DE75F /* SectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B73C1623EAE542002DE75F /* SectionTableViewCell.swift */; };
 		B2B7DC4523D87ABD00B6A3AA /* WSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7DC4423D87ABD00B6A3AA /* WSManager.swift */; };
-		B2C112C023D8C7380014B36D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2C112BF23D8C7380014B36D /* GoogleService-Info.plist */; };
 		B2C112C223D8D2150014B36D /* PopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C112C123D8D2150014B36D /* PopUp.swift */; };
 		B2C112C423D97A7C0014B36D /* DelegateCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C112C323D97A7C0014B36D /* DelegateCardTableViewCell.swift */; };
 		B2C23BB6231BF7D800C52B5F /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C23BB5231BF7D800C52B5F /* EventsViewController.swift */; };
@@ -97,6 +96,7 @@
 		C63239F3254D68D500055DA6 /* JoinTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63239F2254D68D500055DA6 /* JoinTeamModel.swift */; };
 		C633B6AC254B063800E4A8CB /* RegisteredTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C633B6AB254B063800E4A8CB /* RegisteredTeamModel.swift */; };
 		C6966A3B254B683F00AE8D75 /* TeamDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6966A3A254B683F00AE8D75 /* TeamDetailsModel.swift */; };
+		C6C12ABD254EC79600E7DEDC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6C12ABC254EC79600E7DEDC /* GoogleService-Info.plist */; };
 		C6C2D09E2520F78900FC8B31 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C2D09D2520F78900FC8B31 /* SocialController.swift */; };
 		C6DEE283254BFB33000DE896 /* DevelopersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DEE282254BFB33000DE896 /* DevelopersTableViewCell.swift */; };
 		C6E8E41E2548864500D9BCB2 /* StateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8E41D2548864500D9BCB2 /* StateTableViewController.swift */; };
@@ -151,7 +151,6 @@
 		B2B73C1423EAE201002DE75F /* MITPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MITPostTableViewCell.swift; sourceTree = "<group>"; };
 		B2B73C1623EAE542002DE75F /* SectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTableViewCell.swift; sourceTree = "<group>"; };
 		B2B7DC4423D87ABD00B6A3AA /* WSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSManager.swift; sourceTree = "<group>"; };
-		B2C112BF23D8C7380014B36D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2C112C123D8D2150014B36D /* PopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUp.swift; sourceTree = "<group>"; };
 		B2C112C323D97A7C0014B36D /* DelegateCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateCardTableViewCell.swift; sourceTree = "<group>"; };
 		B2C23BB5231BF7D800C52B5F /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +209,7 @@
 		C63239F2254D68D500055DA6 /* JoinTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinTeamModel.swift; sourceTree = "<group>"; };
 		C633B6AB254B063800E4A8CB /* RegisteredTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredTeamModel.swift; sourceTree = "<group>"; };
 		C6966A3A254B683F00AE8D75 /* TeamDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsModel.swift; sourceTree = "<group>"; };
+		C6C12ABC254EC79600E7DEDC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C6C2D09D2520F78900FC8B31 /* SocialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialController.swift; sourceTree = "<group>"; };
 		C6DEE282254BFB33000DE896 /* DevelopersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopersTableViewCell.swift; sourceTree = "<group>"; };
 		C6E8E41D2548864500D9BCB2 /* StateTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTableViewController.swift; sourceTree = "<group>"; };
@@ -289,8 +289,8 @@
 				B21C5D5C231242A9000DCF32 /* AppDelegate.swift */,
 				B2D9450D233F20CF00DA14D1 /* Secrets.swift */,
 				B21C5D63231242AB000DCF32 /* Assets.xcassets */,
+				C6C12ABC254EC79600E7DEDC /* GoogleService-Info.plist */,
 				B21C5D65231242AB000DCF32 /* LaunchScreen.storyboard */,
-				B2C112BF23D8C7380014B36D /* GoogleService-Info.plist */,
 				B21C5D68231242AB000DCF32 /* Info.plist */,
 				B25D43B923125C1900920FDA /* Master */,
 				B2D70B0B2341EB90003C9830 /* Home */,
@@ -726,8 +726,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2C112C023D8C7380014B36D /* GoogleService-Info.plist in Resources */,
 				B21C5D67231242AB000DCF32 /* LaunchScreen.storyboard in Resources */,
+				C6C12ABD254EC79600E7DEDC /* GoogleService-Info.plist in Resources */,
 				B239C50A23CF7F1B00438212 /* notification.wav in Resources */,
 				B21C5D64231242AB000DCF32 /* Assets.xcassets in Resources */,
 			);

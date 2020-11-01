@@ -10,6 +10,7 @@ import Disk
 
 
 let eventsDictionaryCache = "eventsDictionary.json"
+let eventResultDictionary = "eventResultDictionary"
 let scheduleCache = "schedule.json"
 let categoriesDictionaryCache = "categoriesDictionary.json"
 let userDetailsCache = "userDetails.json"
@@ -45,6 +46,14 @@ struct Caching{
         }
     }
     
+    func saveEventResultsCache(eventsDictionary: [Int: Event]){
+        do{
+            try Disk.save(eventsDictionary, to: .caches, as: eventsDictionaryCache)
+        }catch let error{
+            print(error)
+        }
+    }
+    
     func saveTagsToCache(tags: [String]){
         do{
             try Disk.save(tags, to: .caches, as: tagsCache)
@@ -61,16 +70,7 @@ struct Caching{
         }
     }
     
-//    func saveProshowToCache(proshow: ProResponse){
-//        do{
-//            try Disk.save(proshow, to: .caches, as: proshowCache)
-//        }catch let error{
-//            print(error)
-//        }
-//    }
-    
-   
-    
+
     func saveDelegateCardsDictionaryToCache(dict: [Int: DelegateCard]){
         do{
             try Disk.save(dict, to: .caches, as: delegateCardsDictionaryCache)
@@ -160,6 +160,16 @@ struct Caching{
     func getEventsDataDictionary() -> [Int:Event]? {
         do{
             let retrievedData = try Disk.retrieve(eventsDictionaryCache, from: .caches, as: [Int:Event].self)
+            return retrievedData
+        }catch let err{
+            print(err)
+            return nil
+        }
+    }
+    
+    func getEventsResultDictionary() -> [Int:Event]? {
+        do{
+            let retrievedData = try Disk.retrieve(eventResultDictionary, from: .caches, as: [Int:Event].self)
             return retrievedData
         }catch let err{
             print(err)

@@ -9,9 +9,14 @@
 import UIKit
 import SDWebImage
 
+protocol updateDriveDelegate{
+    func updateDrive(link:String, userId: Int)
+}
+
 class UserIDTableViewCell: UITableViewCell {
     
     var usersViewController: UsersViewController?
+    
 
     var user: User?{
         didSet{
@@ -156,7 +161,7 @@ class UserIDTableViewCell: UITableViewCell {
         button.setTitleColor(UIColor.CustomColors.Purple.logoDarkPink, for: UIControl.State())
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 10
-//        button.addTarget(self, action: #selector(showDelegateCards), for: .touchUpInside)
+        button.addTarget(self, action: #selector(updateDriveLink), for: .touchUpInside)
         return button
     }()
     
@@ -183,6 +188,20 @@ class UserIDTableViewCell: UITableViewCell {
         self.eventsButton.hideLoading()
         self.eventsButton.isEnabled = true
     }
+    
+    var driveLink: UITextField!
+    
+    @objc func updateDriveLink(){
+        updateDriveButton.animateDown(sender: self.updateDriveButton)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+            self.updateDriveButton.animateUp(sender: self.updateDriveButton)
+        }
+        
+        usersViewController?.updateDriveLink()
+    }
+
+        
+       
     
     
     lazy var logoutButton: LoadingButton = {
@@ -336,21 +355,6 @@ class UserIDTableViewCell: UITableViewCell {
             
             _ = stackView.anchor(top: containerView.topAnchor, left: stackInfoView.rightAnchor, bottom: containerView.bottomAnchor, right: containerView.rightAnchor, topConstant: 16, leftConstant:8, bottomConstant: 16, rightConstant: 16)
             
-            
-//            containerView.addSubview(collegeLabel)
-//            _ = collegeLabel.anchor(top: containerView.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
-//
-//            containerView.addSubview(phoneLabel)
-//            _ = phoneLabel.anchor(top: collegeLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
-//
-//            containerView.addSubview(emailLabel)
-//            _ = emailLabel.anchor(top: phoneLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
-//
-//            containerView.addSubview(userTitleLabel)
-//            _ = userTitleLabel.anchor(top: emailLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 32, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
-//
-//            containerView.addSubview(userIDLabel)
-//            _ = userIDLabel.anchor(top: userTitleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
             
             addSubview(eventsButton)
             _ = eventsButton.anchor(top: containerView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 24, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 50)

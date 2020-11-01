@@ -79,7 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     }
     
     fileprivate func getEvents(){
-//        var eventsDictionary = [Int:Event]()
         var tags = [String]()
         tags.append("All")
         var eventsDictionary = [Int: Event]()
@@ -90,9 +89,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
                         eventsDictionary[eventID] = event
                         if let guardedTags = event.tags{
                         let uncapitalizedArray = guardedTags.map { $0.lowercased()}
-//                            print(event.name)
-//                            print(event.eventID)
-//                            event.tags = uncapitalizedArray
                             for tag in uncapitalizedArray{
                                 if !tags.contains(tag){
                                     tags.append(tag)
@@ -101,11 +97,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
                         }
                     }
                 }
-                
                 Caching.sharedInstance.saveEventsToCache(events: data)
                 Caching.sharedInstance.saveEventsDictionaryToCache(eventsDictionary: eventsDictionary)
                 Caching.sharedInstance.saveTagsToCache(tags: tags)
-//                print("tags", tags)
              }) { (errorMessage) in
                 print("Event fetch problem(App Delegate):",errorMessage)
             }
