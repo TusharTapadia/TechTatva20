@@ -178,20 +178,25 @@ extension ResultsViewController: UISearchResultsUpdating {
     
     @objc func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         
-        filteredEventsWithResults = []
+//        filteredEventsWithResults = []
         
-        if searchText == ""{
-            filteredEventsWithResults = eventsWithResults
+//        if searchText == ""{
+//            filteredEventsWithResults = eventsWithResults
+//        }
+//        else{
+//        for event in eventsWithResults {
+//            if(event.name.lowercased().contains(searchText.lowercased())){
+//                filteredEventsWithResults.append(event)
+//            }
+//        }
+        
+        filteredEventsWithResults = eventsWithResults.filter({ (event: Event) -> Bool in
+            return event.name.lowercased().contains(searchText.lowercased())
+        })
+        collectionView.reloadData()
+//        self.collectionView.reloadData()
         }
-        else{
-        for event in eventsWithResults {
-            if(event.name.lowercased().contains(searchText.lowercased())){
-                filteredEventsWithResults.append(event)
-            }
-        }
-        self.collectionView.reloadData()
-        }
-    }
+    
     
     
     @objc func isFiltering() -> Bool {
@@ -207,11 +212,9 @@ extension ResultsViewController: UISearchResultsUpdating {
 extension ResultsViewController: UICollectionViewDelegateFlowLayout{
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-        return filteredEventsWithResults.count
+        
+        return isFiltering() ? filteredEventsWithResults.count : eventsWithResults.count
         }
-    
-        //isFiltering() ? filteredEventsWithResults.count : eventsWithResults.count
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if isEmpty{
@@ -233,7 +236,8 @@ extension ResultsViewController: UICollectionViewDelegateFlowLayout{
 //        }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ResultsCell
-        cell.event = self.filteredEventsWithResults[indexPath.item]
+        let selectedEvent = isFiltering() ? filteredEventsWithResults[indexPath.item]: eventsWithResults[indexPath.item]
+        cell.event = selectedEvent
         return cell
 }
     
