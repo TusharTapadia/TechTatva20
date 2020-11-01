@@ -48,7 +48,7 @@ struct NewsLetterApiRespone: Decodable{
 struct Networking {
     
     let userSignUpURL = "https://techtatva.in/app/signup"
-    let userPasswordForgotURL = "https://techtatva.in/app/forgotpassword"
+    let userPasswordForgotURL = "https://techtatva.in/api/forgotpass"
     let userPasswordResetURL = "https://register.mitrevels.in/setPassword/"
     let userLoginURL = "https://techtatva.in/app/status"
     let userDetailsURL = "https://register.mitrevels.in/userProfile"
@@ -190,9 +190,7 @@ struct Networking {
     
     func forgotPasswordFor(Email email: String, dataCompletion: @escaping (_ Data: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
         let parameters = [
-            "email": email,
-            "type": "invisible",
-            "g-recaptcha-response": serverToken,
+            "email": email
             ] as [String : Any]
         
         Alamofire.request(userPasswordForgotURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in

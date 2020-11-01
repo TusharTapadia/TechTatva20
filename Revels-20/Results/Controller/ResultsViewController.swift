@@ -16,7 +16,7 @@ class ResultsViewController: UICollectionViewController {
     fileprivate let reuseIdentifier = "reuseIdentifier"
     var isSearching = false
 
-    var resultsDictionary = [Int: [Result]]()
+    var eventsDictionary = [Int: Event]()
     
     var eventsWithResults = [Event](){
         didSet{
@@ -75,6 +75,9 @@ class ResultsViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         self.eventsWithResults = Caching.sharedInstance.getEventsFromCache()
         self.filteredEventsWithResults = Caching.sharedInstance.getEventsFromCache()
+        if let eventsDict = Caching.sharedInstance.getEventsDataDictionary(){
+            self.eventsDictionary = eventsDict
+        }
     }
     
     
@@ -130,9 +133,7 @@ class ResultsViewController: UICollectionViewController {
     // MARK: - Data Functions
     
     @objc func refreshResults(){
-        isEmpty = false
 //        self.eventsDictionary = [:]
-        self.resultsDictionary = [:]
         self.eventsWithResults = []
 //        self.filteredEventsWithResults = []
         collectionView.reloadData()
@@ -230,25 +231,25 @@ extension ResultsViewController: UICollectionViewDelegateFlowLayout{
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        if isEmpty{
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoResultsCell", for: indexPath) as! NoResultsCell
-//            return cell
-//        }
-        
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ResultsCell
-        let selectedEvent = isFiltering() ? filteredEventsWithResults[indexPath.item]: eventsWithResults[indexPath.item]
-        cell.event = selectedEvent
+        if  let selectedEventID = isFiltering() ? filteredEventsWithResults[indexPath.item].eventID: eventsWithResults[indexPath.item].eventID{
+            print(selectedEventID)
+        cell.event = eventsDictionary[selectedEventID]
+        }
         return cell
 }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let resultsDetailViewController = ResultsDetailViewController(collectionViewLayout: UICollectionViewFlowLayout())
-         let selectedEvent = eventsWithResults[indexPath.row]
-            print(selectedEvent.name)
+        if  let selectedEventID = isFiltering() ? filteredEventsWithResults[indexPath.item].eventID: eventsWithResults[indexPath.item].eventID{
+            print(selectedEventID)
+            guard   let selectedEvent = eventsDictionary[selectedEventID] else {return}
             resultsDetailViewController.event = selectedEvent
             resultsDetailViewController.firstRoundResults = selectedEvent.round1 ?? []
             resultsDetailViewController.secondRoundResults = selectedEvent.round2 ?? []
             resultsDetailViewController.thirdRoundResults = selectedEvent.round3 ?? []
+        }
         navigationController?.pushViewController(resultsDetailViewController, animated: true)
         
     }

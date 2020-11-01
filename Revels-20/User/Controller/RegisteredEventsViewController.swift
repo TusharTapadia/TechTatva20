@@ -301,7 +301,7 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
             imageName = "timer"
             break
         case 3:
-            textLabel = "Venue"
+            textLabel = "Mode"
             detailedTextLabel = "N/A"
 //                schedule!.location
             imageName = "location"
@@ -313,7 +313,7 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
             imageName = "assessment"
             break
         case 5:
-            textLabel = "Venue"
+            textLabel = "Mode"
             detailedTextLabel = "N/A"
 //                schedule!.location
             imageName = "location"
