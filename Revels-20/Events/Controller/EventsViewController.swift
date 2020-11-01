@@ -440,19 +440,15 @@ class EventsViewController: UITableViewController {
                 }
                     }){}
                 }) { (message) in
-                    self.joinTeam.hideLoading()
-                    print(message)
-                    if message == "User already registered for event" {
-                        FloatingMessage().longFloatingMessage(Message: "You have already registered for \(self.event.name)", Color: .orange, onPresentation: {}) {}
-                    }else{
                         self.joinTeam.hideLoading()
-                        FloatingMessage().longFloatingMessage(Message: message, Color: .red, onPresentation: {
-//                            self.joinTeam.hideLoading()
+            FloatingMessage().longFloatingMessage(Message: message, Color: .orange, onPresentation: {
+                            self.joinTeam.hideLoading()
                         }) {}
+                    
                     }
-                }
                 self.joinTeam.hideLoading()
-            }
+                }
+                
             else{
                 DispatchQueue.main.async(execute: {
                     let alertController = UIAlertController(title: "Sign in to Register", message: "You need to be signed in to register for any event.", preferredStyle: UIAlertController.Style.actionSheet)

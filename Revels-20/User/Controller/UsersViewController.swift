@@ -138,13 +138,44 @@ class UsersViewController: UITableViewController {
         vc.registeredEvents = RegisteredEvents
         navigationController?.pushViewController(vc, animated: true)
     }
+    var driveLink: UITextField!
+    
+    func updateDriveLink(){
+        //Do something
+        DispatchQueue.main.async(execute:{
+            let alertController = UIAlertController(title: "Update Drive Link", message: "\n Are you sure you want to update your google drive link?", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            let sureAction = UIAlertAction(title: "Continue", style: .destructive) { (_) in
+                    guard let userID = self.user?.userID else {return}
+                    guard let drivelink = self.driveLink.text else{return}
+                    print("User id:",userID)
+                
+                Networking.sharedInstance.toUpdateDriveLink(drivelink: drivelink) { (message) in
+                    print(message)
+                    FloatingMessage().longFloatingMessage(Message: message, Color: UIColor.CustomColors.Purple.register, onPresentation: {
+                        Networking.sharedInstance.getStatusUpdate { (user) in
+                            print(user)
+                            Caching.sharedInstance.saveUserDetailsToCache(user: user)
+                        }
+                            }){}
+                } errorCompletion: { (errorMessage) in
+                    print(errorMessage)
+                    FloatingMessage().longFloatingMessage(Message: errorMessage, Color: .red, onPresentation: {
+                            }){}
+                }
+            }
+            alertController.addAction(sureAction)
+            alertController.addAction(cancel)
+            alertController.addTextField(configurationHandler: {(textField: UITextField!) in
+                        textField.placeholder = "Enter Drive Link"
+                        self.driveLink = textField
+                    })
+            
+            self.present(alertController, animated: true, completion: nil)
+            })
 
-//    func showDelegateCards(BoughtCards: [Int]){
-//        let vc = DelegateCardsController()
-//        vc.Cards = Caching.sharedInstance.getDelegateCardsFromCache()
-//        vc.boughtCards = BoughtCards
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
+}
 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
