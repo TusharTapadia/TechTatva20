@@ -5,6 +5,8 @@ target 'Revels-20' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   # Pods for Revels-20
+	pod 'Firebase'
+	pod 'Firebase/InAppMessaging'
 	pod 'Alamofire'
 	pod 'Disk'
 	pod 'SDWebImage'

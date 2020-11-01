@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         return BLTNItemManager(rootItem: makePasswordTextFieldPage())
     }()
     
+    let gcmMessageIDKey = "com.tushartapadia"
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -157,6 +159,9 @@ extension AppDelegate{
             }
             UserDefaults.standard.set(success, forKey: "userHasEnabledFetch")
             UserDefaults.standard.synchronize()
+            let settings: UIUserNotificationSettings =
+              UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+              application.registerUserNotificationSettings(settings)
         }
         application.registerForRemoteNotifications()
     }
@@ -201,6 +206,15 @@ extension AppDelegate{
         Messaging.messaging().shouldEstablishDirectChannel = value
     }
     
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+      print("Firebase registration token: \(String(describing: fcmToken))")
+
+      let dataDict:[String: String] = ["token": fcmToken ?? ""]
+      NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+      // TODO: If necessary send token to application server.
+      // Note: This callback is fired at each app startup and whenever a new token is generated.
+    }
+
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
       // If you are receiving a notification message while your app is in the background,
       // this callback will not be fired till the user taps on the notification launching the application.
@@ -210,9 +224,9 @@ extension AppDelegate{
       // Messaging.messaging().appDidReceiveMessage(userInfo)
 
       // Print message ID.
-//      if let messageID = userInfo[gcmMessageIDKey] {
-//        print("Message ID: \(messageID)")
-//      }
+      if let messageID = userInfo[gcmMessageIDKey] {
+        print("Message ID: \(messageID)")
+      }
 
       // Print full message.
       print(userInfo)
@@ -228,20 +242,14 @@ extension AppDelegate{
       // Messaging.messaging().appDidReceiveMessage(userInfo)
 
       // Print message ID.
-//      if let messageID = userInfo[gcmMessageIDKey] {
-//        print("Message ID: \(messageID)")
-//      }
+      if let messageID = userInfo[gcmMessageIDKey] {
+        print("Message ID: \(messageID)")
+      }
 
       // Print full message.
       print(userInfo)
 
       completionHandler(UIBackgroundFetchResult.newData)
-    }
-    
-    
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let deviceTokenString = deviceToken.map { String(format: "%02x", $0) }.joined()
-        print(deviceTokenString)
     }
     
     // This method will be called when app received push notifications in foreground

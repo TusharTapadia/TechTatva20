@@ -17,7 +17,7 @@ struct user1:Codable{
 }
 
 struct edge_media:Codable {
-    let edge_felix_video_timeline:Edges
+    let edge_owner_to_timeline_media:Edges
 }
 
 struct Edges: Codable {

@@ -14,11 +14,22 @@ class ResultsViewController: UICollectionViewController {
     //MARK: - Properties
     
     fileprivate let reuseIdentifier = "reuseIdentifier"
-    
-    var eventsDictionary = [Int: Event]()
+    var isSearching = false
+
     var resultsDictionary = [Int: [Result]]()
     
-    var eventsWithResults = [Event]()
+    var eventsWithResults = [Event](){
+        didSet{
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+       
+        
+    
+    
+    
     var filteredEventsWithResults = [Event]()
     
     
@@ -38,6 +49,7 @@ class ResultsViewController: UICollectionViewController {
         setupCollectionView()
         setupSearchBar()
         refreshResults()
+        getEvents()
         
     }
     
@@ -57,6 +69,12 @@ class ResultsViewController: UICollectionViewController {
             startTime = Date().timeIntervalSince1970
         }
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.eventsWithResults = Caching.sharedInstance.getEventsFromCache()
+        self.filteredEventsWithResults = Caching.sharedInstance.getEventsFromCache()
     }
     
     
@@ -85,6 +103,8 @@ class ResultsViewController: UICollectionViewController {
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.register(ResultsCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(NoResultsCell.self, forCellWithReuseIdentifier: "NoResultsCell")
+        collectionView.isUserInteractionEnabled = true
+        collectionView.isScrollEnabled = true
     }
     
     fileprivate func setupSearchBar(){
@@ -101,7 +121,7 @@ class ResultsViewController: UICollectionViewController {
         let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
         searchController.searchBar.barStyle = UIBarStyle.black
         textFieldInsideSearchBar?.textColor = .white
-        searchController.searchBar.tintColor = UIColor.CustomColors.Blue.accent
+        searchController.searchBar.tintColor = UIColor.CustomColors.Purple.accent
         
         definesPresentationContext = true
     }
@@ -111,86 +131,38 @@ class ResultsViewController: UICollectionViewController {
     
     @objc func refreshResults(){
         isEmpty = false
-        self.eventsDictionary = [:]
+//        self.eventsDictionary = [:]
         self.resultsDictionary = [:]
         self.eventsWithResults = []
-        self.filteredEventsWithResults = []
+//        self.filteredEventsWithResults = []
         collectionView.reloadData()
 //        collectionView.addSubview(popUp)
-        view.addSubview(popUp)
+//        view.addSubview(popUp)
 //        UIApplication.shared.keyWindow?.addSubview(popUp)
-        getCachedEventsDictionary()
+        getCachedEventResult()
     }
     
-    func getCachedEventsDictionary(){
-        do{
-            let retrievedEventsDictionary = try Disk.retrieve("eventsDictionary.json", from: .caches, as: [Int: Event].self)
-            self.eventsDictionary = retrievedEventsDictionary
-            self.getResults()
-        }catch let error{
+    func getCachedEventResult(){
+        self.eventsWithResults  = Caching.sharedInstance.getEventsFromCache()
             self.getEvents()
-            print(error)
-        }
-    }
+                DispatchQueue.main.async {
+                    self.popUp.hideSpinner()
+                    self.collectionView.reloadData()
+                }
+            }
+        
     
-    fileprivate func getResults(){
-        Networking.sharedInstance.getResults(dataCompletion: { (data) in
-            if data.count == 0{
-                self.isEmpty = true
-            }
-            for result in data{
-                self.resultsDictionary[result.event] = []
-            }
-            
-            for key in self.resultsDictionary.keys{
-                if let event = self.eventsDictionary[key]{
-                    self.eventsWithResults.append(event)
-                }
-                //                self.eventsWithResults.append(self.eventsDictionary[key]!)
-            }
-            
-            for event in self.eventsWithResults{
-                for result in data{
-                    if result.event == event.eventID{
-                        self.resultsDictionary[event.eventID!]?.append(result)
-                    }
-                }
-            }
-            
-            self.eventsWithResults.sort(by: { (event1, event2) -> Bool in
-                event1.name < event2.name
-            })
-            
+    
+    fileprivate func getEvents(){
+        Networking.sharedInstance.getEvents { (data) in
+            self.eventsWithResults = data
+            Caching.sharedInstance.saveEventsToCache(events: data)
             DispatchQueue.main.async {
                 self.popUp.hideSpinner()
                 self.collectionView.reloadData()
             }
-            
-        }) { (errorMessage) in
-            print(errorMessage)
-        }
-    }
-    
-    fileprivate func getEvents(){
-        Networking.sharedInstance.getData(url: eventsURL, decode: Event(), dataCompletion: { (data) in
-            for event in data{
-                if let eventID = event.eventID{
-                self.eventsDictionary[eventID] = event
-            }
-        }
-            self.saveEventsDictionaryToCache()
-            self.getResults()
-        
-            }) { (errorMessage) in
-            print(errorMessage)
-        }
-    }
-    
-    func saveEventsDictionaryToCache(){
-        do{
-            try Disk.save(self.eventsDictionary, to: .caches, as: "eventsDictionary.json")
-        }catch let error{
-            print(error)
+        } errorCompletion: { (errorMessage) in
+            print("Error getting results",errorMessage)
         }
     }
     
@@ -201,17 +173,26 @@ class ResultsViewController: UICollectionViewController {
 extension ResultsViewController: UISearchResultsUpdating {
     
     @objc func searchBarIsEmpty() -> Bool {
-        // Returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
     @objc func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         
-        filteredEventsWithResults = eventsWithResults.filter({ (event: Event) -> Bool in
-            return event.name.lowercased().contains(searchText.lowercased())
-        })
-        collectionView.reloadData()
+        filteredEventsWithResults = []
+        
+        if searchText == ""{
+            filteredEventsWithResults = eventsWithResults
+        }
+        else{
+        for event in eventsWithResults {
+            if(event.name.lowercased().contains(searchText.lowercased())){
+                filteredEventsWithResults.append(event)
+            }
+        }
+        self.collectionView.reloadData()
+        }
     }
+    
     
     @objc func isFiltering() -> Bool {
         return searchController.isActive && !searchBarIsEmpty()
@@ -226,11 +207,11 @@ extension ResultsViewController: UISearchResultsUpdating {
 extension ResultsViewController: UICollectionViewDelegateFlowLayout{
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isEmpty{
-            return 1
+
+        return filteredEventsWithResults.count
         }
-        return isFiltering() ? filteredEventsWithResults.count : eventsWithResults.count
-    }
+    
+        //isFiltering() ? filteredEventsWithResults.count : eventsWithResults.count
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if isEmpty{
@@ -246,28 +227,24 @@ extension ResultsViewController: UICollectionViewDelegateFlowLayout{
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if isEmpty{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoResultsCell", for: indexPath) as! NoResultsCell
-            return cell
-        }
+//        if isEmpty{
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoResultsCell", for: indexPath) as! NoResultsCell
+//            return cell
+//        }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ResultsCell
-        if let selectedEventId = isFiltering() ? filteredEventsWithResults[indexPath.item].eventID : eventsWithResults[indexPath.item].eventID{
-        cell.event = self.eventsDictionary[selectedEventId]
-    }
+        cell.event = self.filteredEventsWithResults[indexPath.item]
         return cell
 }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if eventsWithResults.count == 0{
-            return
-        }
-        let selectedEvent = isFiltering() ? filteredEventsWithResults[indexPath.item] : eventsWithResults[indexPath.item]
-        
         let resultsDetailViewController = ResultsDetailViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        print(selectedEvent.name)
-        resultsDetailViewController.event = selectedEvent
-//        resultsDetailViewController.results = self.resultsDictionary[selectedEvent.id]
+         let selectedEvent = eventsWithResults[indexPath.row]
+            print(selectedEvent.name)
+            resultsDetailViewController.event = selectedEvent
+            resultsDetailViewController.firstRoundResults = selectedEvent.round1 ?? []
+            resultsDetailViewController.secondRoundResults = selectedEvent.round2 ?? []
+            resultsDetailViewController.thirdRoundResults = selectedEvent.round3 ?? []
         navigationController?.pushViewController(resultsDetailViewController, animated: true)
         
     }

@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>174732233254-0nl28eqcq68e5gv9gn037o0l5tj4f4h4.apps.googleusercontent.com</string>
+	<string>643884163460-bs7nmkcpnt48m9ettg6catrrqurjoo1q.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.174732233254-0nl28eqcq68e5gv9gn037o0l5tj4f4h4</string>
+	<string>com.googleusercontent.apps.643884163460-bs7nmkcpnt48m9ettg6catrrqurjoo1q</string>
 	<key>API_KEY</key>
-	<string>AIzaSyD-LjxkC-jbTYRpXtelyC21FDvWoChAQ8Y</string>
+	<string>AIzaSyBkP_sfy_dvn8YEZYSIelH6bqO3aGp_n6M</string>
 	<key>GCM_SENDER_ID</key>
-	<string>174732233254</string>
+	<string>643884163460</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>me.namanjain.Revels20</string>
+	<string>com.tushartapadia.TechTatva20</string>
 	<key>PROJECT_ID</key>
-	<string>revels-20</string>
+	<string>techtatva20</string>
 	<key>STORAGE_BUCKET</key>
-	<string>revels-20.appspot.com</string>
+	<string>techtatva20.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:174732233254:ios:2ffd7554112128582ff4e7</string>
+	<string>1:643884163460:ios:9eeb27a3a455ca57957dd1</string>
 	<key>DATABASE_URL</key>
-	<string>https://revels-20.firebaseio.com</string>
+	<string>https://techtatva20.firebaseio.com</string>
 </dict>
 </plist>

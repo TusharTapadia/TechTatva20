@@ -39,7 +39,6 @@
 		B2B73C1523EAE201002DE75F /* MITPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B73C1423EAE201002DE75F /* MITPostTableViewCell.swift */; };
 		B2B73C1723EAE542002DE75F /* SectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B73C1623EAE542002DE75F /* SectionTableViewCell.swift */; };
 		B2B7DC4523D87ABD00B6A3AA /* WSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B7DC4423D87ABD00B6A3AA /* WSManager.swift */; };
-		B2C112C023D8C7380014B36D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2C112BF23D8C7380014B36D /* GoogleService-Info.plist */; };
 		B2C112C223D8D2150014B36D /* PopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C112C123D8D2150014B36D /* PopUp.swift */; };
 		B2C112C423D97A7C0014B36D /* DelegateCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C112C323D97A7C0014B36D /* DelegateCardTableViewCell.swift */; };
 		B2C23BB6231BF7D800C52B5F /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C23BB5231BF7D800C52B5F /* EventsViewController.swift */; };
@@ -81,6 +80,7 @@
 		B2EDA16B23436A23009D5613 /* LiveBlogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EDA16A23436A23009D5613 /* LiveBlogController.swift */; };
 		B2EDA16D234431D3009D5613 /* DeveloperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EDA16C234431D3009D5613 /* DeveloperViewController.swift */; };
 		B2F5F32523E4025E0011E937 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F5F32423E4025E0011E937 /* DescriptionTableViewCell.swift */; };
+		BB00F505254EBC8B00D66909 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB00F504254EBC8B00D66909 /* GoogleService-Info.plist */; };
 		BB7FB57325389A7900F1183B /* IndiaMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB57225389A7900F1183B /* IndiaMapController.swift */; };
 		BB7FB57525389AB600F1183B /* LaunchViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB57425389AB600F1183B /* LaunchViewcontroller.swift */; };
 		BB927E2D254C753A0070D947 /* TwitterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB927E2C254C753A0070D947 /* TwitterModel.swift */; };
@@ -151,7 +151,6 @@
 		B2B73C1423EAE201002DE75F /* MITPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MITPostTableViewCell.swift; sourceTree = "<group>"; };
 		B2B73C1623EAE542002DE75F /* SectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTableViewCell.swift; sourceTree = "<group>"; };
 		B2B7DC4423D87ABD00B6A3AA /* WSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSManager.swift; sourceTree = "<group>"; };
-		B2C112BF23D8C7380014B36D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2C112C123D8D2150014B36D /* PopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUp.swift; sourceTree = "<group>"; };
 		B2C112C323D97A7C0014B36D /* DelegateCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateCardTableViewCell.swift; sourceTree = "<group>"; };
 		B2C23BB5231BF7D800C52B5F /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +192,7 @@
 		B2EDA16A23436A23009D5613 /* LiveBlogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBlogController.swift; sourceTree = "<group>"; };
 		B2EDA16C234431D3009D5613 /* DeveloperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperViewController.swift; sourceTree = "<group>"; };
 		B2F5F32423E4025E0011E937 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		BB00F504254EBC8B00D66909 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BB7FB57225389A7900F1183B /* IndiaMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndiaMapController.swift; sourceTree = "<group>"; };
 		BB7FB57425389AB600F1183B /* LaunchViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewcontroller.swift; sourceTree = "<group>"; };
 		BB927E2C254C753A0070D947 /* TwitterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterModel.swift; sourceTree = "<group>"; };
@@ -290,7 +290,7 @@
 				B2D9450D233F20CF00DA14D1 /* Secrets.swift */,
 				B21C5D63231242AB000DCF32 /* Assets.xcassets */,
 				B21C5D65231242AB000DCF32 /* LaunchScreen.storyboard */,
-				B2C112BF23D8C7380014B36D /* GoogleService-Info.plist */,
+				BB00F504254EBC8B00D66909 /* GoogleService-Info.plist */,
 				B21C5D68231242AB000DCF32 /* Info.plist */,
 				B25D43B923125C1900920FDA /* Master */,
 				B2D70B0B2341EB90003C9830 /* Home */,
@@ -726,10 +726,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2C112C023D8C7380014B36D /* GoogleService-Info.plist in Resources */,
 				B21C5D67231242AB000DCF32 /* LaunchScreen.storyboard in Resources */,
 				B239C50A23CF7F1B00438212 /* notification.wav in Resources */,
 				B21C5D64231242AB000DCF32 /* Assets.xcassets in Resources */,
+				BB00F505254EBC8B00D66909 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1036,7 +1036,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Revels-20/RevelsDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N7MCZ8UJRF;
+				DEVELOPMENT_TEAM = YQEC2ZY373;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Revels-20/Schedule/Controller",
@@ -1050,7 +1050,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = me.rohitkuber.TechTatva;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tushartapadia.TechTatva20;
 				PRODUCT_NAME = Revels;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1066,7 +1066,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N7MCZ8UJRF;
+				DEVELOPMENT_TEAM = YQEC2ZY373;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Revels-20/Schedule/Controller",
@@ -1079,7 +1079,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = me.rohitkuber.TechTatva;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tushartapadia.TechTatva20;
 				PRODUCT_NAME = Revels;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

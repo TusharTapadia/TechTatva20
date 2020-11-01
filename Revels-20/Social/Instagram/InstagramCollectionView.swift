@@ -143,7 +143,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
                     let instafeed = try decoder.decode(entrydat.self, from: data!)
 //                    self.instData = instafeed.edges
                     
-                    let ins = instafeed.entry_data.ProfilePage[0].graphql.user.edge_felix_video_timeline.edges
+                    let ins = instafeed.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges
                     self.saveInstagramToCache(data: ins)
 //                    print(ins)
                 } catch{

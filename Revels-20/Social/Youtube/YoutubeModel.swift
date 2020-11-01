@@ -20,3 +20,5 @@ struct DataYT: Codable {
     var link: String // yeet
     var thumbnail: String // thumbnailImageView
 }
+
+

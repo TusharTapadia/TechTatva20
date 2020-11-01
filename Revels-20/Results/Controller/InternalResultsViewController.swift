@@ -18,33 +18,51 @@ class ResultsDetailViewController: UICollectionViewController, UICollectionViewD
         }
     }
     
-    var results: [Result]?{
+//    var results: [Result]?{
+//        didSet{
+//            guard let results = results else { return }
+//            for result in results{
+//                if result.round == 1{
+//                    firstRoundResults.append(result)
+//                }else if result.round == 2{
+//                    secondRoundResults.append(result)
+//                }else if result.round == 3{
+//                    thirdRoundResults.append(result)
+//                }
+//            }
+//            menuController.menuItems = ["Round 1"]
+//            if secondRoundResults.count > 0{
+//                menuController.menuItems.append("Round 2")
+//            }
+//            if thirdRoundResults.count > 0{
+//                menuController.menuItems.append("Round 3")
+//            }
+//            print(results.count)
+//        }
+//
+//    }
+    
+    var firstRoundResults = [String](){
         didSet{
-            guard let results = results else { return }
-            for result in results{
-                if result.round == 1{
-                    firstRoundResults.append(result)
-                }else if result.round == 2{
-                    secondRoundResults.append(result)
-                }else if result.round == 3{
-                    thirdRoundResults.append(result)
-                }
-            }
-            menuController.menuItems = ["Round 1"]
-            if secondRoundResults.count > 0{
+            
+        }
+    }
+    var secondRoundResults :[String]?{
+        didSet{
+            guard let result2 = secondRoundResults else {return }
+            if(result2.count>0){
                 menuController.menuItems.append("Round 2")
             }
-            if thirdRoundResults.count > 0{
+        }
+    }
+    var thirdRoundResults :[String]?{
+        didSet{
+            guard let result3 = thirdRoundResults else {return }
+            if(result3.count>0){
                 menuController.menuItems.append("Round 3")
             }
-            print(results.count)
         }
-        
     }
-    
-    var firstRoundResults = [Result]()
-    var secondRoundResults = [Result]()
-    var thirdRoundResults = [Result]()
     
     
     func didTapMenuItem(indexPath: IndexPath) {
@@ -52,13 +70,14 @@ class ResultsDetailViewController: UICollectionViewController, UICollectionViewD
     }
     
     fileprivate let menuController = MenuController(collectionViewLayout: UICollectionViewFlowLayout())
+    
     fileprivate let cellId = "cellId"
     fileprivate let menuCellId = "menuCellId"
     
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let x = scrollView.contentOffset.x
-        let offset = x / CGFloat(menuController.menuItems.count)
+        let offset = x / CGFloat(3)//menuController.menuItems.count)
         menuController.menuBar.transform = CGAffineTransform(translationX: offset, y: 0)
     }
     
@@ -74,8 +93,9 @@ class ResultsDetailViewController: UICollectionViewController, UICollectionViewD
         navigationItem.largeTitleDisplayMode = .never
         
         menuController.delegate = self
-        menuController.markerBar.backgroundColor = UIColor.CustomColors.Blue.accent
-        menuController.specialColor = UIColor.CustomColors.Blue.accent
+        menuController.markerBar.backgroundColor = UIColor.CustomColors.Purple.accent
+        menuController.menuItems = ["Round 1"]
+        menuController.specialColor = UIColor.CustomColors.Purple.accent
         menuController.menuBar.backgroundColor = UIColor.CustomColors.Black.background
         menuController.collectionView.backgroundColor = UIColor.CustomColors.Black.background
         menuController.shadowBar.backgroundColor = UIColor.CustomColors.Black.background
@@ -113,20 +133,20 @@ class ResultsDetailViewController: UICollectionViewController, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DetailContactCell
         switch indexPath.item {
         case 0:
-            firstRoundResults.sort(by: { (res1, res2) -> Bool in
-                res1.position < res2.position
-            })
+//            firstRoundResults.sort(by: { (res1, res2) -> Bool in
+//                res1.position < res2.position
+//            })
             cell.results = firstRoundResults
         case 1:
-            secondRoundResults.sort(by: { (res1, res2) -> Bool in
-                res1.position < res2.position
-            })
-            cell.results = secondRoundResults
+//            secondRoundResults.sort(by: { (res1, res2) -> Bool in
+//                res1.position < res2.position
+//            })
+            cell.results = secondRoundResults ?? []
         case 2:
-            thirdRoundResults.sort(by: { (res1, res2) -> Bool in
-                res1.position < res2.position
-            })
-            cell.results = thirdRoundResults
+//            thirdRoundResults.sort(by: { (res1, res2) -> Bool in
+//                res1.position < res2.position
+//            })
+            cell.results = thirdRoundResults ?? []
         default:
             cell.results = []
         }
@@ -143,7 +163,7 @@ class DetailContactCell: UICollectionViewCell, UITableViewDelegate, UITableViewD
     
     // MARK: - Properties
     
-    var results = [Result]()
+    var results = [String]()
     
     fileprivate let cellId = "cellId"
     
@@ -187,9 +207,9 @@ class DetailContactCell: UICollectionViewCell, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PositionCell
-        cell.teamIdLabel.text = "\(results[indexPath.row].teamid)"
-        cell.positionLabel.text = "\(results[indexPath.row].position)"
-        cell.medalImageView.image = UIImage(named: "medal_\(results[indexPath.row].position)")
+        cell.teamIdLabel.text = results[indexPath.row]
+        cell.positionLabel.text = "\(indexPath.row+1)"
+        cell.medalImageView.image = UIImage(named: "medal_\(indexPath.row+1)")
         return cell
     }
 }
