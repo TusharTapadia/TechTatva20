@@ -7,26 +7,22 @@
 //
     
 struct ScheduleResponse: Codable{
-    let success: Bool
-    let data: [Schedule]?
+    let data: [ScheduleDays]?
 }
 
+struct ScheduleDays: Codable{
+    let day1: [Schedule]?
+    let day2: [Schedule]?
+    let day3: [Schedule]?
+    let day4: [Schedule]?
+}
+
+
 struct Schedule: Codable{
-    let id: Int
-    let eventId: Int
-    let round: Int
-    let start: String
-    let end: String
-    let location: String
     let eventName: String
-    
-    init() {
-        id = 0
-        eventId = 0
-        round = 0
-        start = ""
-        end = ""
-        location = ""
-        eventName = ""
-    }
+    let eventID: String
+    let round: String
+    let time: String
+    let location: String
+    let category: String
 }

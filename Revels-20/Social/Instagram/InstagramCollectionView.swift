@@ -53,17 +53,33 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     }()
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
-//        Networking.sharedInstance.getInstaPosts { (res) in
-////            print("insta data recieved: ------------------------")
-////            print(res)
-////            print("\n\n")
-//        }
+            super.init(frame: frame)
+    //        Networking.sharedInstance.getInstaPosts { (res) in
+    ////            print("insta data recieved: ------------------------")
+    ////            print(res)
+    ////            print("\n\n")
+    //        }
+            
+           getInstaData()
+            setupLayout()
+            self.instData = self.getInstagramItemsFromCache() ?? []
+            
+            instagramCollectionView.refreshControl = UIRefreshControl()
+            instagramCollectionView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+        }
         
-       getInstaData()
-        setupLayout()
-        self.instData = self.getInstagramItemsFromCache() ?? []
-    }
+        
+        @objc private func pullToRefresh(){
+            self.instData = []
+            getInstaData()
+            self.instData = self.getInstagramItemsFromCache() ?? []
+            
+            DispatchQueue.main.async {
+                self.instagramCollectionView.refreshControl?.endRefreshing()
+                self.instagramCollectionView.reloadData()
+            }
+        }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

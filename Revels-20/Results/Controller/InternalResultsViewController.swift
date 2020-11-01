@@ -47,22 +47,16 @@ class ResultsDetailViewController: UICollectionViewController, UICollectionViewD
             
         }
     }
-    var secondRoundResults :[String]?{
+    var secondRoundResults = [String](){
         didSet{
-            guard let result2 = secondRoundResults else {return }
-            if(result2.count>0){
-                menuController.menuItems.append("Round 2")
-            }
+            
         }
-    }
-    var thirdRoundResults :[String]?{
-        didSet{
-            guard let result3 = thirdRoundResults else {return }
-            if(result3.count>0){
-                menuController.menuItems.append("Round 3")
-            }
         }
-    }
+    
+    var thirdRoundResults = [String]()
+    
+        
+    
     
     
     func didTapMenuItem(indexPath: IndexPath) {
@@ -94,7 +88,7 @@ class ResultsDetailViewController: UICollectionViewController, UICollectionViewD
         
         menuController.delegate = self
         menuController.markerBar.backgroundColor = UIColor.CustomColors.Purple.accent
-        menuController.menuItems = ["Round 1"]
+        menuController.menuItems = ["Round 1","Round 2","Round 3"]
         menuController.specialColor = UIColor.CustomColors.Purple.accent
         menuController.menuBar.backgroundColor = UIColor.CustomColors.Black.background
         menuController.collectionView.backgroundColor = UIColor.CustomColors.Black.background

@@ -87,13 +87,13 @@ struct Caching{
         }
     }
     
-    func saveSchedulesToCache(schedule: [Schedule]){
-        var scheduleDictionary : [String: Schedule] = [:]
-        for sc in schedule{
-            scheduleDictionary["\(sc.eventId)+\(sc.round)"] = sc
-        }
+    func saveSchedulesToCache(schedule: [ScheduleDays]){
+//        var scheduleDictionary : [String: Schedule] = [:]
+//        for sc in schedule{
+//            scheduleDictionary[sc.day1.] = sc
+//        }
         do{
-            try Disk.save(scheduleDictionary, to: .caches, as: scheduleDictCache)
+//            try Disk.save(scheduleDictionary, to: .caches, as: scheduleDictCache)
             try Disk.save(schedule, to: .caches, as: scheduleCache)
         }catch let error{
             print(error)

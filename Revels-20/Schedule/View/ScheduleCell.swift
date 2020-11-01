@@ -31,18 +31,19 @@ class ScheduleCell: UITableViewCell{
     var schedule: Schedule?{
         didSet{
             guard let schedule = schedule else { return }
-            var startDate = Date(dateString: schedule.start)
-            startDate = Calendar.current.date(byAdding: .hour, value: -5, to: startDate)!
-            startDate = Calendar.current.date(byAdding: .minute, value: -30, to: startDate)!
-            var endDate = Date(dateString: schedule.end)
-            endDate = Calendar.current.date(byAdding: .hour, value: -5, to: endDate)!
-            endDate = Calendar.current.date(byAdding: .minute, value: -30, to: endDate)!
+//            var startDate = Date(dateString: schedule.start)
+//            startDate = Calendar.current.date(byAdding: .hour, value: -5, to: startDate)!
+//            startDate = Calendar.current.date(byAdding: .minute, value: -30, to: startDate)!
+//            var endDate = Date(dateString: schedule.end)
+//            endDate = Calendar.current.date(byAdding: .hour, value: -5, to: endDate)!
+//            endDate = Calendar.current.date(byAdding: .minute, value: -30, to: endDate)!
             let formatter = DateFormatter()
             formatter.dateFormat = "h:mm a"
-            var dateString = formatter.string(from: startDate)
-            dateString.append(" - \(formatter.string(from: endDate))")
-            eventTimeLabel.text = dateString
+//            var dateString = formatter.string(from: startDate)
+//            dateString.append(" - \(formatter.string(from: endDate))")
+//            eventTimeLabel.text = dateString
             eventVenueLabel.text = schedule.location
+            eventNameLabel.text = schedule.eventName
         }
     }
     
@@ -164,7 +165,7 @@ class ScheduleCell: UITableViewCell{
     lazy var favStarButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "star_unfilled")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.tintColor = UIColor.CustomColors.Skin.accent
+        button.tintColor = UIColor.CustomColors.Purple.logoLightPink
         button.addTarget(self, action: #selector(didTapFavButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentEdgeInsets = .init(top: 0, left: 32, bottom: 0, right: 0)

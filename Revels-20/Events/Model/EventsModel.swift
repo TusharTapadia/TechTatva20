@@ -20,9 +20,9 @@ struct Event: Codable{
     let description: String
     let teamSize: String?
     let eventID : Int?
-    let round1:[String]?
-    let round2: [String]?
-    let round3: [String]?
+    let round1:[String]
+    let round2: [String]
+    let round3: [String]
 
     init() {
         category = ""

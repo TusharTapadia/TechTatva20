@@ -48,25 +48,25 @@ class collegeSearchTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     func setupColleges(){
-        let apiStruct = ApiStruct(url: collegeDataURL, method: .get, body: nil)
-        WSManager.shared.getJSONResponse(apiStruct: apiStruct, success: { (map: collegeDataResponse) in
-            if map.success{
-                for i in map.data{
-                    self.colleges.append(i.name)
-                    if(i.MAHE == 1)
-                    {
-                        self.maheColleges.append(i.name)
-                    }
-                }
-                self.colleges.sort()
-                self.maheColleges.sort()
-                self.filteredColleges = self.colleges
-               
-                self.tableView.reloadData(with: .automatic)
-            }
-        }) { (error) in
-            print(error)
-        }
+//        let apiStruct = ApiStruct(url: collegeDataURL, method: .get, body: nil)
+//        WSManager.shared.getJSONResponse(apiStruct: apiStruct, success: { (map: collegeDataResponse) in
+//            if map.success{
+//                for i in map.data{
+//                    self.colleges.append(i.name)
+//                    if(i.MAHE == 1)
+//                    {
+//                        self.maheColleges.append(i.name)
+//                    }
+//                }
+//                self.colleges.sort()
+//                self.maheColleges.sort()
+//                self.filteredColleges = self.colleges
+//               
+//                self.tableView.reloadData(with: .automatic)
+//            }
+//        }) { (error) in
+//            print(error)
+//        }
     }
   
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

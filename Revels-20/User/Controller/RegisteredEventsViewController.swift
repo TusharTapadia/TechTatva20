@@ -115,22 +115,22 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
     
     
     fileprivate func getSchedule(){
-        
-        Caching.sharedInstance.getCachedData(dataType: [String:Schedule](), cacheLocation: scheduleDictCache, dataCompletion: { (data) in
-            self.scheduleDict = data
-        }) { (errorMessage) in
-            Networking.sharedInstance.getData(url: scheduleURL, decode: Schedule(), dataCompletion: { (data) in
-                Caching.sharedInstance.saveSchedulesToCache(schedule: data)
-                var scheduleDictionary : [String: Schedule] = [:]
-                for sc in data{
-                    scheduleDictionary["\(sc.eventId)+\(sc.round)"] = sc
-                }
-                self.scheduleDict = scheduleDictionary
-            }) { (errorMessage) in
-                self.navigationController?.popViewController(animated: true)
-                print(errorMessage)
-            }
-        }
+//        
+//        Caching.sharedInstance.getCachedData(dataType: [String:Schedule](), cacheLocation: scheduleDictCache, dataCompletion: { (data) in
+//            self.scheduleDict = data
+//        }) { (errorMessage) in
+//            Networking.sharedInstance.getData(url: scheduleURL, decode: Schedule(from: <#Decoder#>), dataCompletion: { (data) in
+//                Caching.sharedInstance.saveSchedulesToCache(schedule: data)
+//                var scheduleDictionary : [String: Schedule] = [:]
+//                for sc in data{
+//                    scheduleDictionary["\(sc.eventId)+\(sc.round)"] = sc
+//                }
+//                self.scheduleDict = scheduleDictionary
+//            }) { (errorMessage) in
+//                self.navigationController?.popViewController(animated: true)
+//                print(errorMessage)
+//            }
+//        }
     }
     
     
@@ -256,7 +256,7 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if schedule == nil{
-            return 5
+            return 4
         }
         return 0
     }
@@ -306,13 +306,8 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
 //                schedule!.location
             imageName = "location"
             break
+     
         case 4:
-            textLabel = "Round"
-            detailedTextLabel = "N/A"
-//                "\(String(describing: schedule!.round))"
-            imageName = "assessment"
-            break
-        case 5:
             textLabel = "Mode"
             detailedTextLabel = "N/A"
 //                schedule!.location

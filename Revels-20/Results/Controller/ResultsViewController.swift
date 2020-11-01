@@ -234,7 +234,7 @@ extension ResultsViewController: UICollectionViewDelegateFlowLayout{
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ResultsCell
         if  let selectedEventID = isFiltering() ? filteredEventsWithResults[indexPath.item].eventID: eventsWithResults[indexPath.item].eventID{
-            print(selectedEventID)
+//            print(selectedEventID)
         cell.event = eventsDictionary[selectedEventID]
         }
         return cell
@@ -246,9 +246,9 @@ extension ResultsViewController: UICollectionViewDelegateFlowLayout{
             print(selectedEventID)
             guard   let selectedEvent = eventsDictionary[selectedEventID] else {return}
             resultsDetailViewController.event = selectedEvent
-            resultsDetailViewController.firstRoundResults = selectedEvent.round1 ?? []
-            resultsDetailViewController.secondRoundResults = selectedEvent.round2 ?? []
-            resultsDetailViewController.thirdRoundResults = selectedEvent.round3 ?? []
+            resultsDetailViewController.firstRoundResults = selectedEvent.round1
+            resultsDetailViewController.secondRoundResults = selectedEvent.round2
+            resultsDetailViewController.thirdRoundResults = selectedEvent.round3 
         }
         navigationController?.pushViewController(resultsDetailViewController, animated: true)
         

@@ -32,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         getEvents()
         getSchedule()
         getCategories()
-        getDelegateCards()
         getNewsletterURL()
         
         
@@ -57,18 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
 
     // MARK: - Data Functions
     
-    fileprivate func getDelegateCards(){
-        var delegateCardsDictionary = [Int: DelegateCard]()
-        Networking.sharedInstance.getData(url: delegateCardsURL, decode: DelegateCard(), dataCompletion: { (data) in
-            for card in data{
-                delegateCardsDictionary[card.id] = card
-            }
-            Caching.sharedInstance.saveDelegateCardsToCache(cards: data)
-            Caching.sharedInstance.saveDelegateCardsDictionaryToCache(dict: delegateCardsDictionary)
-        }) { (errorMessage) in
-            print(errorMessage)
-        }
-    }
     
     func getNewsletterURL(){
         Networking.sharedInstance.getNewsLetterUrl(dataCompletion: { (url) in
@@ -115,14 +102,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     }
     
     fileprivate func getSchedule(){
-        Networking.sharedInstance.getData(url: scheduleURL, decode: Schedule(), dataCompletion: { (data) in
-            let revelsData = data.filter { (schedule) -> Bool in
-                schedule.start > "2020-03-04T00:00:00.000Z"
-            }
-            Caching.sharedInstance.saveSchedulesToCache(schedule: revelsData)
-        }) { (errorMessage) in
-            print(errorMessage)
+        var schedule = [ScheduleDays]()
+        Networking.sharedInstance.getScheduleData { (data) in
+           schedule = data
+            Caching.sharedInstance.saveSchedulesToCache(schedule: data)
+            print(data)
+        } errorCompletion: { (error) in
+            print("Getting Schedule error in Appdelegate:",error)
         }
+
     }
     
     fileprivate func getCategories() {
