@@ -9,6 +9,10 @@
 import UIKit
 import SDWebImage
 
+protocol updateDriveDelegate{
+    func updateDrive(link:String, userId: Int)
+}
+
 class UserIDTableViewCell: UITableViewCell {
     
     var usersViewController: UsersViewController?
@@ -156,7 +160,7 @@ class UserIDTableViewCell: UITableViewCell {
         button.setTitleColor(UIColor.CustomColors.Purple.logoDarkPink, for: UIControl.State())
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.layer.cornerRadius = 10
-//        button.addTarget(self, action: #selector(showDelegateCards), for: .touchUpInside)
+        button.addTarget(self, action: #selector(updateDriveLink), for: .touchUpInside)
         return button
     }()
     
@@ -205,6 +209,16 @@ class UserIDTableViewCell: UITableViewCell {
         
         usersViewController?.logOutUser()
     }
+    
+    
+    @objc func updateDriveLink(){
+            updateDriveButton.animateDown(sender: self.updateDriveButton)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+                self.updateDriveButton.animateUp(sender: self.updateDriveButton)
+            }
+            
+            usersViewController?.updateDriveLink()
+        }
     
     lazy var userLabel: UILabel = {
         let label = UILabel()

@@ -57,6 +57,7 @@ struct Networking {
     let leaveTeamURL = "https://techtatva.in/app/leaveteam"
     let joinTeamURL = "https://techtatva.in/app/jointeam"
     let removeTeammateURL = "https://techtatva.in/app/removeuser"
+    let updateDriveLinkURL = "https://techtatva.in/app/updatedrive"
     
     let teamDetailsURL = "https://techtatva.in/app/teamDetails"
 
@@ -266,7 +267,32 @@ struct Networking {
             }
         }
     }
-    
+    func toUpdateDriveLink(drivelink: String ,successCompletion: @escaping (_ SuccessMessage: String) -> (),  errorCompletion: @escaping (_ ErrorMessage: String) -> ()){
+            let parameters = [
+                "userID": userIDCached,
+                "driveLink": drivelink,
+                "email": emailCached,
+                "password": passwordCached,
+                "key": apiKey
+                ] as [String : Any]
+
+            Alamofire.request(updateDriveLinkURL, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
+                if let data = response.data{
+                    do{
+                        let response = try JSONDecoder().decode(RegisterResponse.self, from: data)
+                        if response.success{
+                            successCompletion(response.msg)
+                            }
+                        else{
+                            print(response)
+                            errorCompletion(response.msg)
+                        }
+                    }catch let error{
+                        print("Error in getting status update after registering" ,error)
+                    }
+                }
+            }
+        }
     
     func getStatusUpdate(dataCompletion: @escaping (_ Data: User) -> ()){
         let parameters = [
