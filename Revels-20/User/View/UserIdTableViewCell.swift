@@ -309,10 +309,10 @@ class UserIDTableViewCell: UITableViewCell {
             _ = eventsButton.anchor(top: containerView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 40)
             
             addSubview(updateDriveButton)
-            _ = updateDriveButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 40)
+            _ = updateDriveButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 12, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 40)
             
             addSubview(logoutButton)
-            _ = logoutButton.anchor(top: updateDriveButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 32, rightConstant: 16, widthConstant: 0, heightConstant: 40)
+            _ = logoutButton.anchor(top: updateDriveButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 12, leftConstant: 16, bottomConstant: 32, rightConstant: 16, widthConstant: 0, heightConstant: 40)
             
             eventsButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
 
@@ -350,27 +350,12 @@ class UserIDTableViewCell: UITableViewCell {
             
             _ = stackView.anchor(top: containerView.topAnchor, left: stackInfoView.rightAnchor, bottom: containerView.bottomAnchor, right: containerView.rightAnchor, topConstant: 16, leftConstant:8, bottomConstant: 16, rightConstant: 16)
             
-            
-//            containerView.addSubview(collegeLabel)
-//            _ = collegeLabel.anchor(top: containerView.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
-//
-//            containerView.addSubview(phoneLabel)
-//            _ = phoneLabel.anchor(top: collegeLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
-//
-//            containerView.addSubview(emailLabel)
-//            _ = emailLabel.anchor(top: phoneLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
-//
-//            containerView.addSubview(userTitleLabel)
-//            _ = userTitleLabel.anchor(top: emailLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 32, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
-//
-//            containerView.addSubview(userIDLabel)
-//            _ = userIDLabel.anchor(top: userTitleLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 16, bottomConstant: 0, rightConstant: 16, widthConstant: 0, heightConstant: 0)
-            
+ 
             addSubview(eventsButton)
             _ = eventsButton.anchor(top: containerView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 24, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 50)
             
             addSubview(updateDriveButton)
-            _ = updateDriveButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 24, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 50)
+            _ = updateDriveButton.anchor(top: eventsButton.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 32, bottomConstant: 0, rightConstant: 32, widthConstant: 0, heightConstant: 50)
             
             addSubview(logoutButton)
             _ = logoutButton.anchor(top: updateDriveButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 8, leftConstant: 16, bottomConstant: 32, rightConstant: 16, widthConstant: 0, heightConstant: 50)
