@@ -21,7 +21,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
         let label = UILabel()
         label.text = "POSTS"
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textColor = UIColor(white: 1, alpha: 0.7)
         label.textColor = .white
         return label
@@ -93,12 +93,12 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 45
     }
 //
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return CGSize(width: UIViewController().view.frame.width-48 , height: UIViewController().view.frame.height/2)
+        return CGSize(width: UIViewController().view.frame.width-48 , height: UIViewController().view.frame.height/2 + 15)
 
     }
     
@@ -121,7 +121,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
       
     
        addSubview(instagramCollectionView)
-       instagramCollectionView.anchorWithConstants(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 2, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
+       instagramCollectionView.anchorWithConstants(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 2, leftConstant: 8, bottomConstant: 0, rightConstant: 8)
         
     }
     

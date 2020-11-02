@@ -211,17 +211,17 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         self.present(actionSheet, animated: true, completion: nil)
     }
     
-    func showTeamDetails(Cell: UITableViewCell, teamDetails: TeamDetails){
-        
-        Networking.sharedInstance.getTeamDetails(teamID: teamDetails.teamID) { (teamData) in
-            self.teamMemberDetails = teamData
-            self.handleTeamDetailsTap(teamID: teamDetails.teamID , eventID: teamDetails.eventID)
-        } errorCompletion: { (error) in
-            FloatingMessage().floatingMessage(Message: "Decoder_error", Color: .red, onPresentation: {}) {}
-//        })
-            print("Error in getting team details", teamDetails)
-        }
-    }
+//    func showTeamDetails(Cell: UITableViewCell, teamDetails: TeamDetails){
+//        
+//        Networking.sharedInstance.getTeamDetails(teamID: teamDetails.teamID) { (teamData) in
+//            self.teamMemberDetails = teamData
+//            self.handleTeamDetailsTap(teamID: teamDetails.teamID , eventID: teamDetails.eventID)
+//        } errorCompletion: { (error) in
+//            FloatingMessage().floatingMessage(Message: "Decoder_error", Color: .red, onPresentation: {}) {}
+////        })
+//            print("Error in getting team details", teamDetails)
+//        }
+//    }
     
     
     func handleTeamDetailsTap(teamID: Int, eventID: Int){
@@ -437,7 +437,7 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
     
     @objc func showTeamDetails(){
         guard let teamDetails = teamDetails else {return}
-        self.registeredEventsViewController?.showTeamDetails(Cell: self, teamDetails: teamDetails)
+//        self.registeredEventsViewController?.showTeamDetails(Cell: self, teamDetails: teamDetails)
     }
     
     

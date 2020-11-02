@@ -49,7 +49,7 @@ class ResultsViewController: UICollectionViewController {
         setupCollectionView()
         setupSearchBar()
         refreshResults()
-        getEvents()
+//        getEvents()
         
     }
     
@@ -144,7 +144,7 @@ class ResultsViewController: UICollectionViewController {
     
     func getCachedEventResult(){
         self.eventsWithResults  = Caching.sharedInstance.getEventsFromCache()
-            self.getEvents()
+//            self.getEvents()
                 DispatchQueue.main.async {
                     self.popUp.hideSpinner()
                     self.collectionView.reloadData()
@@ -153,18 +153,18 @@ class ResultsViewController: UICollectionViewController {
         
     
     
-    fileprivate func getEvents(){
-        Networking.sharedInstance.getEvents { (data) in
-            self.eventsWithResults = data
-            Caching.sharedInstance.saveEventsToCache(events: data)
-            DispatchQueue.main.async {
-                self.popUp.hideSpinner()
-                self.collectionView.reloadData()
-            }
-        } errorCompletion: { (errorMessage) in
-            print("Error getting results",errorMessage)
-        }
-    }
+//    fileprivate func getEvents(){
+//        Networking.sharedInstance.getEvents { (data) in
+//            self.eventsWithResults = data
+//            Caching.sharedInstance.saveEventsToCache(events: data)
+//            DispatchQueue.main.async {
+//                self.popUp.hideSpinner()
+//                self.collectionView.reloadData()
+//            }
+//        } errorCompletion: { (errorMessage) in
+//            print("Error getting results",errorMessage)
+//        }
+//    }
     
     
     //MARK: - Selector Handlers
