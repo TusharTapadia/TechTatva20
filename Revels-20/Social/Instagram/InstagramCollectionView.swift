@@ -19,7 +19,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     
     lazy var titleLabel:UILabel = {
         let label = UILabel()
-        label.text = "POSTS"
+        label.text = "TechTatva20'"
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textColor = UIColor(white: 1, alpha: 0.7)
@@ -29,8 +29,8 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     
     lazy var titleBackgroundText: UILabel = {
         let label = UILabel()
-        label.text = "POSTS"
-        label.font = UIFont.systemFont(ofSize: 90, weight: .bold)
+        label.text = "Instagram"
+        label.font = UIFont.systemFont(ofSize: 80, weight: .bold)
         label.textColor = UIColor(white: 0.4, alpha: 0.3)
         label.textAlignment = .center
         return label
@@ -137,7 +137,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
       
     
        addSubview(instagramCollectionView)
-       instagramCollectionView.anchorWithConstants(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 2, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
+       instagramCollectionView.anchorWithConstants(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 2, leftConstant: 8, bottomConstant: 0, rightConstant: 8)
         
     }
     

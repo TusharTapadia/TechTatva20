@@ -186,7 +186,7 @@ class SocialController: UICollectionViewController, UICollectionViewDelegateFlow
         let dim = (wid-96)/5
         
         let containerSubView = UIView()
-        containerSubView.backgroundColor = UIColor.CustomColors.Purple.logoLightPink
+        containerSubView.backgroundColor = UIColor.CustomColors.Purple.logoDarkPink
         containerSubView.layer.cornerRadius = 10
         containerSubView.isUserInteractionEnabled = true
         

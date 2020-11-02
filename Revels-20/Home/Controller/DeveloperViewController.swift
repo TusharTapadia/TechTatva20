@@ -38,17 +38,17 @@ class DeveloperViewController: UICollectionViewController, UICollectionViewDeleg
     fileprivate let cellID = "cellID"
     var homeViewController: HomeViewController?
     let developersData = [
-      Developer(name: "Akhilesh", domain: "iOS", imageURL: "https://i.ibb.co/W6yHcCC/Whats-App-Image-2020-02-21-at-5-57-57-PM.jpg", post: "Category Head", instaURL: "https://www.instagram.com/akhileshxxenoy/", linkdinURL: "https://www.linkedin.com/in/akhilesh-shenoy-a2255a15a"),
-      Developer(name: "Naman", domain: "iOS", imageURL: "https://i.ibb.co/3smxM9H/3ca88642-d267-4d7a-b501-68cab846e839.jpg", post: "Category Head", instaURL: "https://www.instagram.com/nxmxnjxxn/", linkdinURL: "https://www.linkedin.com/in/naman-jain-3252aa147/"),
-      Developer(name: "Akshit", domain: "Android", imageURL: "https://res.cloudinary.com/nxmxnjxxn/image/upload/v1569992349/akshit.jpg", post: "Category Head", instaURL: "https://www.instagram.com/akshit.saxenamide/", linkdinURL: "https://www.linkedin.com/in/akshit-saxena-b6b613184/"),
-      Developer(name: "Arihant", domain: "Android", imageURL: "https://i.ibb.co/c6T8BXN/Whats-App-Image-2020-02-21-at-11-44-08-PM.jpg", post: "Category Head", instaURL: "https://www.instagram.com/ajarihantjain54/", linkdinURL: "https://www.linkedin.com/in/arihantjain54/"),
-      Developer(name: "Ayush", domain: "Android", imageURL: "https://i.ibb.co/F3wh15X/Whats-App-Image-2020-02-22-at-11-50-02-PM.jpg", post: "Category Head", instaURL: "https://www.instagram.com/ayush.m.s.1_9/", linkdinURL: "https://www.linkedin.com/in/ayush-srivastava19777"),
-      Developer(name: "Rohit", domain: "iOS", imageURL: "https://i.ibb.co/zhg3zqW/Whats-App-Image-2020-02-22-at-12-02-57-AM.jpg", post: "Organiser", instaURL: "https://www.instagram.com/rohitkuber/", linkdinURL: "https://www.linkedin.com/in/rohit-kuber-b55280164/"),
-      Developer(name: "Tushar", domain: "iOS", imageURL: "https://i.ibb.co/wQMTFcy/Whats-App-Image-2020-02-21-at-5-31-37-PM.jpg", post: "Organiser", instaURL: "https://www.instagram.com/tushar_tapadia/", linkdinURL: "https://www.linkedin.com/in/tushar-tapadia"),
-      Developer(name: "Chakshu", domain: "Android", imageURL: "https://i.ibb.co/7j6BhXL/ch.jpg", post: "Organiser", instaURL: "https://www.instagram.com/chakshusaraswat/", linkdinURL: "https://www.linkedin.com/in/chakshu-saraswat-836160171/"),
-      Developer(name: "Anant", domain: "Android", imageURL: "https://i.ibb.co/rxgN4qx/Whats-App-Image-2020-02-21-at-5-31-30-PM.jpg", post: "Organiser", instaURL: "https://www.instagram.com/infinite_verma/", linkdinURL: "https://www.linkedin.com/in/anant-verma/"),
-      Developer(name: "Hardik", domain: "Android", imageURL: "https://i.ibb.co/PgfJXWL/Whats-App-Image-2020-02-21-at-6-17-49-PM.jpg", post: "Organiser", instaURL: "https://www.instagram.com/hardik.bharunt/", linkdinURL: "https://www.linkedin.com/in/hardik-bharunt/")
-    ]
+          Developer(name: "Tushar", domain: "iOS", imageURL: "https://i.ibb.co/wQMTFcy/Whats-App-Image-2020-02-21-at-5-31-37-PM.jpg", post: "Category Head", instaURL: "https://www.instagram.com/tushar_tapadia/", linkdinURL: "https://www.linkedin.com/in/tushar-tapadia"),
+          Developer(name: "Rohit", domain: "iOS", imageURL: "https://i.ibb.co/pPdXWMD/IMG-0530.jpg", post: "Category Head", instaURL: "https://www.instagram.com/rohitkuber/", linkdinURL: "https://www.linkedin.com/in/rohit-kuber-b55280164/"),
+          Developer(name: "Hardik", domain: "Android", imageURL: "https://i.ibb.co/PgfJXWL/Whats-App-Image-2020-02-21-at-6-17-49-PM.jpg", post: "Category Head", instaURL: "https://www.instagram.com/hardik.bharunt/", linkdinURL: "https://www.linkedin.com/in/hardik-bharunt/"),
+          Developer(name: "Chakshu", domain: "Android", imageURL: "https://i.ibb.co/G5K0V9F/DSC8136.jpg", post: "Category Head", instaURL: "https://www.instagram.com/chakshusaraswat/", linkdinURL: "https://www.linkedin.com/in/chakshu-saraswat-836160171/"),
+            Developer(name: "Anant", domain: "Android", imageURL: "https://i.ibb.co/rxgN4qx/Whats-App-Image-2020-02-21-at-5-31-30-PM.jpg", post: "Category Head", instaURL: "https://www.instagram.com/infinite_verma/", linkdinURL: "https://www.linkedin.com/in/anant-verma/"),
+            Developer(name: "Sarthak", domain: "iOS", imageURL: "https://i.ibb.co/4gK6pz2/Whats-App-Image-2020-11-02-at-6-51-41-PM.jpg", post: "Oraganiser", instaURL: "https://instagram.com/ssarthakj?igshid=10qkoxeniyrvm", linkdinURL: "http://linkedin.com/in/sarthak-jha-a665941a2"),
+            Developer(name: "Tushar", domain: "iOS", imageURL: "https://i.ibb.co/JqwcRDY/Whats-App-Image-2020-10-28-at-10-40-28-AM.jpg", post: "Organiser", instaURL: "https://www.instagram.com/tushar_elangovan/", linkdinURL: "https://www.linkedin.com/in/tushar-elangovan-3622391a5/"),
+            Developer(name: "Pranshul", domain: "Android", imageURL: "https://i.ibb.co/rwc7dDc/Whats-App-Image-2020-11-02-at-6-24-06-PM.jpg", post: "Organiser", instaURL: "https://www.instagram.com/pranshul_2002/", linkdinURL: "https://www.linkedin.com/in/pranshul-goyal"),
+            Developer(name: "Sanya", domain: "Android", imageURL: "https://i.ibb.co/8dVSnr5/Whats-App-Image-2020-11-02-at-6-46-23-PM.jpg", post: "Organiser", instaURL: "https://www.instagram.com/saannya_/", linkdinURL: "https://www.linkedin.com/in/sanya-gupta-5a2a06185/"),
+            Developer(name: "Sonalika", domain: "Android", imageURL: "https://i.ibb.co/7rSS2GF/Sonalika.jpg", post: "Organiser", instaURL: "https://www.instagram.com/aureate_halcyon/", linkdinURL: "https://www.linkedin.com/in/sonalika-sahoo")
+        ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
