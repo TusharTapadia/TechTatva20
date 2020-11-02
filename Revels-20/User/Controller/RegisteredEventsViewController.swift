@@ -158,6 +158,10 @@ class RegisteredEventsViewController: UIViewController, UITableViewDataSource, U
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 220
+    }
+    
 
 
     func showLeaveTeam(Cell: UITableViewCell, teamDetails: TeamDetails){
@@ -243,9 +247,11 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         }
     }
     
+    var eventDict = Caching.sharedInstance.getEventsDataDictionary()
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if schedule == nil{
-            return 4
+            return 3
         }
         return 0
     }
@@ -256,7 +262,7 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         var textLabel = "N/A"
         var detailedTextLabel = "N/A"
         var imageName = "calendar"
-        let formatter = DateFormatter()
+//        let formatter = DateFormatter()
         
 //        let category = categoriesDictionary[event.category]
         
@@ -268,38 +274,15 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
             detailedTextLabel = "\(teamDetails?.teamID ?? 0)"
             break
         case 1:
-            textLabel = "Date"
-            formatter.dateFormat = "dd MMM yyyy"
-//            let startDate = Date(dateString: schedule!.start)
-            detailedTextLabel = "N/A"
-//                formatter.string(from: startDate)
-            break
-        case 2:
-//            textLabel = "Time"
-//            formatter.dateFormat = "h:mm a"
-//            var startDate = Date(dateString: schedule!.start)
-//            startDate = Calendar.current.date(byAdding: .hour, value: -5, to: startDate)!
-//            startDate = Calendar.current.date(byAdding: .minute, value: -30, to: startDate)!
-//            var endDate = Date(dateString: schedule!.end)
-//            endDate = Calendar.current.date(byAdding: .hour, value: -5, to: endDate)!
-//            endDate = Calendar.current.date(byAdding: .minute, value: -30, to: endDate)!
-//            var dateString = formatter.string(from: startDate)
-//            dateString.append(" - \(formatter.string(from: endDate))")
-            detailedTextLabel = "N/A"
-//                dateString
+            textLabel = "Category"
+            let event = eventDict?[teamDetails?.eventID ?? 0]
+            detailedTextLabel = event?.category ?? ""
             imageName = "timer"
             break
-        case 3:
+        case 2:
             textLabel = "Mode"
-            detailedTextLabel = "N/A"
-//                schedule!.location
-            imageName = "location"
-            break
-     
-        case 4:
-            textLabel = "Mode"
-            detailedTextLabel = "N/A"
-//                schedule!.location
+            let event = eventDict?[teamDetails?.eventID ?? 0]
+            detailedTextLabel = event?.mode ?? ""
             imageName = "location"
             break
       
@@ -347,22 +330,7 @@ class RegisteredEventTableViewCell: UITableViewCell, UITableViewDelegate, UITabl
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center
         label.text = eventName
-//            schedule?.eventName ?? ""
-        
-//        let button = UIButton()
-//        button.backgroundColor = UIColor.CustomColors.Purple.register
-//        button.setTitle("Team Details", for: UIControl.State())
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.startAnimatingPressActions()
-//        button.layer.cornerRadius = 10
-//        button.setTitleColor(.white, for: UIControl.State())
-//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
-//        button.layer.cornerRadius = 10
-//        button.addTarget(self, action: #selector(showTeamDetails), for: .touchUpInside)
-        
-        
        
-            
         let button2 = UIButton()
         button2.backgroundColor = #colorLiteral(red: 0.7536286485, green: 0.1785056603, blue: 0.07220073951, alpha: 1)
         button2.setTitle("Leave Team", for: UIControl.State())
