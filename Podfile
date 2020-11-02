@@ -6,7 +6,7 @@ target 'Revels-20' do
   use_frameworks!
   # Pods for Revels-20
 	pod 'Firebase'
-	pod 'Firebase/InAppMessaging'
+	pod 'Firebase/Database'
 	pod 'Alamofire'
 	pod 'Disk'
 	pod 'SDWebImage'

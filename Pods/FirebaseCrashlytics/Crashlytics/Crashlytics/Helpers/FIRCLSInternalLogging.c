@@ -12,30 +12,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "FIRCLSInternalLogging.h"
-#include "FIRCLSContext.h"
-#include "FIRCLSGlobals.h"
-#include "FIRCLSUtility.h"
+#include <dispatch/dispatch.h>
+
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSInternalLogging.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSContext.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSGlobals.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSUtility.h"
 
 void FIRCLSSDKFileLog(FIRCLSInternalLogLevel level, const char* format, ...) {
-  if (!_clsContext.readonly || !_clsContext.writable) {
+  if (!_firclsContext.readonly || !_firclsContext.writable) {
     return;
   }
 
-  const char* path = _clsContext.readonly->logPath;
+  const char* path = _firclsContext.readonly->logPath;
   if (!FIRCLSIsValidPointer(path)) {
     return;
   }
 
-  if (_clsContext.writable->internalLogging.logLevel > level) {
+  if (_firclsContext.writable->internalLogging.logLevel > level) {
     return;
   }
 
-  if (_clsContext.writable->internalLogging.logFd == -1) {
-    _clsContext.writable->internalLogging.logFd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
-  }
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    if (_firclsContext.writable->internalLogging.logFd == -1) {
+      _firclsContext.writable->internalLogging.logFd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
+    }
+  });
 
-  const int fd = _clsContext.writable->internalLogging.logFd;
+  const int fd = _firclsContext.writable->internalLogging.logFd;
   if (fd < 0) {
     return;
   }

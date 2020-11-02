@@ -16,7 +16,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <FirebaseCore/FIRLogger.h>
+#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
 
 extern FIRLoggerService kFIRLoggerInstallations;
 
@@ -46,3 +46,6 @@ extern NSString *const kFIRInstallationsMessageCodeAuthTokenCoderVersionMismatch
 // FIRInstallationsStoredIIDCheckin.m
 extern NSString *const kFIRInstallationsMessageCodeIIDCheckinCoderVersionMismatch;
 extern NSString *const kFIRInstallationsMessageCodeIIDCheckinFailedToDecode;
+
+// FIRInstallations.m
+extern NSString *const kFIRInstallationsMessageCodeInvalidFirebaseAppOptions;

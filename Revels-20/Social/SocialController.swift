@@ -32,7 +32,7 @@ class SocialController: UICollectionViewController, UICollectionViewDelegateFlow
         button.startAnimatingPressActions()
         button.tag = 0
         button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 12
         return button
     }()
     
@@ -48,7 +48,7 @@ class SocialController: UICollectionViewController, UICollectionViewDelegateFlow
         button.startAnimatingPressActions()
         button.tag = 2
         button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 12
         return button
     }()
     
@@ -64,7 +64,7 @@ class SocialController: UICollectionViewController, UICollectionViewDelegateFlow
         button.startAnimatingPressActions()
         button.tag = 1
         button.addTarget(self, action: #selector(handleSocial(button:)), for: .touchUpInside)
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 12
         return button
     }()
     
@@ -186,8 +186,8 @@ class SocialController: UICollectionViewController, UICollectionViewDelegateFlow
         let dim = (wid-96)/5
         
         let containerSubView = UIView()
-        containerSubView.backgroundColor = UIColor.CustomColors.Purple.logoDarkPink
-        containerSubView.layer.cornerRadius = 10
+        containerSubView.backgroundColor = UIColor.darkGray
+        containerSubView.layer.cornerRadius = 16
         containerSubView.isUserInteractionEnabled = true
         
         view.addSubview(containerSubView)

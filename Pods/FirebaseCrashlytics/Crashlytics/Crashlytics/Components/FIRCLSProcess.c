@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "FIRCLSProcess.h"
-#include "FIRCLSDefines.h"
-#include "FIRCLSFeatures.h"
-#include "FIRCLSGlobals.h"
-#include "FIRCLSProfiling.h"
-#include "FIRCLSThreadState.h"
-#include "FIRCLSUnwind.h"
-#include "FIRCLSUtility.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSProcess.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSDefines.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSFeatures.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSGlobals.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSProfiling.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSThreadState.h"
+#include "Crashlytics/Crashlytics/Unwind/FIRCLSUnwind.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSUtility.h"
 
 #include <dispatch/dispatch.h>
 #include <objc/message.h>
@@ -418,7 +418,7 @@ static bool FIRCLSProcessRecordThread(FIRCLSProcess *process, thread_t thread, F
 
   uint32_t repeatedPCCount = 0;
   uint64_t repeatedPC = 0;
-  const FIRCLSInternalLogLevel level = _clsContext.writable->internalLogging.logLevel;
+  const FIRCLSInternalLogLevel level = _firclsContext.writable->internalLogging.logLevel;
 
   while (FIRCLSUnwindNextFrame(&unwindContext)) {
     const uintptr_t pc = FIRCLSUnwindGetPC(&unwindContext);
@@ -433,14 +433,14 @@ static bool FIRCLSProcessRecordThread(FIRCLSProcess *process, thread_t thread, F
     if (frameCount >= FIRCLSUnwindInfiniteRecursionCountThreshold && repeatedPC == 0) {
       repeatedPC = pc;
       FIRCLSSDKLogWarn("Possible infinite recursion - suppressing logging\n");
-      _clsContext.writable->internalLogging.logLevel = FIRCLSInternalLogLevelWarn;
+      _firclsContext.writable->internalLogging.logLevel = FIRCLSInternalLogLevelWarn;
       continue;
     }
 
     if (repeatedPC != 0) {
       // at this point, we've recorded a repeated PC, but it is now no longer
       // repeating, so we can restore the logging
-      _clsContext.writable->internalLogging.logLevel = level;
+      _firclsContext.writable->internalLogging.logLevel = level;
     }
 
     FIRCLSFileWriteArrayEntryUint64(file, pc);
@@ -460,7 +460,7 @@ static bool FIRCLSProcessRecordThread(FIRCLSProcess *process, thread_t thread, F
 
   // Just for extra safety, restore the logging level again. The logic
   // above is fairly tricky, this is cheap, and no logging is a real pain.
-  _clsContext.writable->internalLogging.logLevel = level;
+  _firclsContext.writable->internalLogging.logLevel = level;
 
   // end thread info
   FIRCLSFileWriteHashEnd(file);
@@ -485,6 +485,11 @@ bool FIRCLSProcessRecordAllThreads(FIRCLSProcess *process, FIRCLSFile *file) {
 
     FIRCLSSDKLogInfo("recording thread %d data\n", i);
     if (!FIRCLSProcessRecordThread(process, thread, file)) {
+      FIRCLSSDKLogError("Failed to record thread state. Closing threads JSON to prevent malformed crash report.");
+
+      FIRCLSFileWriteArrayEnd(file);
+
+      FIRCLSFileWriteSectionEnd(file);
       return false;
     }
   }
@@ -562,7 +567,7 @@ bool FIRCLSProcessGetMemoryUsage(uint64_t *active,
 
   hostSize = sizeof(vm_statistics_data_t) / sizeof(integer_t);
 
-  pageSize = _clsContext.readonly->host.pageSize;
+  pageSize = _firclsContext.readonly->host.pageSize;
 
   if (host_statistics(hostPort, HOST_VM_INFO, (host_info_t)&vmStat, &hostSize) != KERN_SUCCESS) {
     FIRCLSSDKLog("Failed to get vm statistics\n");
@@ -750,7 +755,7 @@ typedef struct {
 
 static void FIRCLSProcessRecordCrashInfo(FIRCLSFile *file) {
   // TODO: this should be abstracted into binary images, if possible
-  FIRCLSBinaryImageRuntimeNode *nodes = _clsContext.writable->binaryImage.nodes;
+  FIRCLSBinaryImageRuntimeNode *nodes = _firclsContext.writable->binaryImage.nodes;
   if (!nodes) {
     FIRCLSSDKLogError("The node structure is NULL\n");
     return;
@@ -794,6 +799,12 @@ static void FIRCLSProcessRecordCrashInfo(FIRCLSFile *file) {
       FIRCLSSDKLogError("Failed to copy crash info string\n");
       continue;
     }
+
+    // The crash_info_t's message may contain the device's UDID, in this case,
+    // make sure that we do our best to redact that information before writing the
+    // rest of the message to disk. This also has the effect of not uploading that
+    // information in the subsequent crash report.
+    FIRCLSRedactUUID(string);
 
     FIRCLSFileWriteArrayEntryHexEncodedString(file, string);
   }

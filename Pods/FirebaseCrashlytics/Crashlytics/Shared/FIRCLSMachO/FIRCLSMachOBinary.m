@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import "FIRCLSMachOBinary.h"
+#import "Crashlytics/Shared/FIRCLSMachO/FIRCLSMachOBinary.h"
 
-#import "FIRCLSMachOSlice.h"
+#import "Crashlytics/Shared/FIRCLSMachO/FIRCLSMachOSlice.h"
 
 #import <CommonCrypto/CommonHMAC.h>
 
@@ -145,6 +145,10 @@ static NSString* FIRCLSNSDataToNSString(NSData* data) {
   length = [data length];
   size = (length * 2) + 1;
   buffer = malloc(sizeof(char) * size);
+
+  if (!buffer) {
+    return nil;
+  }
 
   FIRCLSSafeHexToString([data bytes], length, buffer);
 

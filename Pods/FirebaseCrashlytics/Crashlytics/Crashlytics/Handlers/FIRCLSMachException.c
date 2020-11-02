@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "FIRCLSDefines.h"
-#include "FIRCLSFeatures.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSDefines.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSFeatures.h"
 
 #if CLS_MACH_EXCEPTION_SUPPORTED
 
-#include "FIRCLSGlobals.h"
-#include "FIRCLSHandler.h"
-#include "FIRCLSMachException.h"
-#include "FIRCLSProcess.h"
-#include "FIRCLSSignal.h"
-#include "FIRCLSUtility.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSGlobals.h"
+#include "Crashlytics/Crashlytics/Handlers/FIRCLSHandler.h"
+#include "Crashlytics/Crashlytics/Handlers/FIRCLSMachException.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSProcess.h"
+#include "Crashlytics/Crashlytics/Handlers/FIRCLSSignal.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSUtility.h"
 
 #include <errno.h>
 #include <mach/mach.h>
@@ -65,7 +65,7 @@ void FIRCLSMachExceptionInit(FIRCLSMachExceptionReadContext* context, exception_
 }
 
 void FIRCLSMachExceptionCheckHandlers(void) {
-  if (_clsContext.readonly->debuggerAttached) {
+  if (_firclsContext.readonly->debuggerAttached) {
     return;
   }
 
@@ -120,7 +120,7 @@ static bool FIRCLSMachExceptionThreadStart(FIRCLSMachExceptionReadContext* conte
 
   // Use to pre-allocate a stack for this thread
   // The stack must be page-aligned
-  if (pthread_attr_setstack(&attr, _clsContext.readonly->machStack,
+  if (pthread_attr_setstack(&attr, _firclsContext.readonly->machStack,
                             CLS_MACH_EXCEPTION_HANDLER_STACK_SIZE) != 0) {
     FIRCLSSDKLog("pthread_attr_setstack %s\n", strerror(errno));
     return false;
@@ -223,7 +223,7 @@ static kern_return_t FIRCLSMachExceptionDispatchMessage(FIRCLSMachExceptionReadC
   }
 
   FIRCLSSDKLog("Restoring original signal handlers\n");
-  if (!FIRCLSSignalSafeInstallPreexistingHandlers(&_clsContext.readonly->signal)) {
+  if (!FIRCLSSignalSafeInstallPreexistingHandlers(&_firclsContext.readonly->signal)) {
     FIRCLSSDKLog("Failed to restore signal handlers\n");
     return KERN_FAILURE;
   }

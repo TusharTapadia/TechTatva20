@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "FIRCLSUserLogging.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSUserLogging.h"
 
 #include <sys/time.h>
 
-#include "FIRCLSGlobals.h"
-#include "FIRCLSUtility.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSGlobals.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSUtility.h"
 
-#import "FIRCLSReportManager_Private.h"
+#import "Crashlytics/Crashlytics/Controllers/FIRCLSReportManager_Private.h"
 
 NSString *const FIRCLSStartTimeKey = @"com.crashlytics.kit-start-time";
 NSString *const FIRCLSFirstRunloopTurnTimeKey = @"com.crashlytics.first-run-loop-time";
@@ -34,8 +34,6 @@ NSString *const FIRCLSDevelopmentPlatformVersionKey =
     @"com.crashlytics.development-platform-version";
 
 const uint32_t FIRCLSUserLoggingMaxKVEntries = 64;
-
-static bool clsDisableUninitializedKitMessaging = false;
 
 #pragma mark - Prototypes
 static void FIRCLSUserLoggingWriteKeyValue(NSString *key,
@@ -62,25 +60,21 @@ void FIRCLSUserLoggingInit(FIRCLSUserLoggingReadOnlyContext *roContext,
   roContext->internalKVStorage.maxIncrementalCount = roContext->userKVStorage.maxIncrementalCount;
 }
 
-void CLSLogDisableUninitializedKitMessaging(void) {
-  clsDisableUninitializedKitMessaging = true;
-}
-
 #pragma mark - KV Logging
 void FIRCLSUserLoggingRecordInternalKeyValue(NSString *key, id value) {
-  FIRCLSUserLoggingRecordKeyValue(key, value, &_clsContext.readonly->logging.internalKVStorage,
-                                  &_clsContext.writable->logging.internalKVCount);
+  FIRCLSUserLoggingRecordKeyValue(key, value, &_firclsContext.readonly->logging.internalKVStorage,
+                                  &_firclsContext.writable->logging.internalKVCount);
 }
 
 void FIRCLSUserLoggingWriteInternalKeyValue(NSString *key, NSString *value) {
   // Unsynchronized - must be run on the correct queue
-  FIRCLSUserLoggingWriteKeyValue(key, value, &_clsContext.readonly->logging.internalKVStorage,
-                                 &_clsContext.writable->logging.internalKVCount);
+  FIRCLSUserLoggingWriteKeyValue(key, value, &_firclsContext.readonly->logging.internalKVStorage,
+                                 &_firclsContext.writable->logging.internalKVCount);
 }
 
 void FIRCLSUserLoggingRecordUserKeyValue(NSString *key, id value) {
-  FIRCLSUserLoggingRecordKeyValue(key, value, &_clsContext.readonly->logging.userKVStorage,
-                                  &_clsContext.writable->logging.userKVCount);
+  FIRCLSUserLoggingRecordKeyValue(key, value, &_firclsContext.readonly->logging.userKVStorage,
+                                  &_firclsContext.writable->logging.userKVCount);
 }
 
 static id FIRCLSUserLoggingGetComponent(NSDictionary *entry,
@@ -344,8 +338,8 @@ void FIRCLSUserLoggingRecordError(NSError *error,
   uint64_t timestamp = time(NULL);
 
   FIRCLSUserLoggingWriteAndCheckABFiles(
-      &_clsContext.readonly->logging.errorStorage,
-      &_clsContext.writable->logging.activeErrorLogPath, ^(FIRCLSFile *file) {
+      &_firclsContext.readonly->logging.errorStorage,
+      &_firclsContext.writable->logging.activeErrorLogPath, ^(FIRCLSFile *file) {
         FIRCLSUserLoggingWriteError(file, error, additionalUserInfo, addresses, timestamp);
       });
 }
@@ -496,17 +490,15 @@ void FIRCLSLogInternal(NSString *message) {
   }
 
   if (!FIRCLSContextIsInitialized()) {
-    if (!clsDisableUninitializedKitMessaging) {
-      FIRCLSWarningLog(@"WARNING: FIRCLSLog has been used before (or concurrently with) "
-                       @"Crashlytics initialization and cannot be recorded. The message was: \n%@",
-                       message);
-    }
+    FIRCLSWarningLog(@"WARNING: FIRCLSLog has been used before (or concurrently with) "
+                     @"Crashlytics initialization and cannot be recorded. The message was: \n%@",
+                     message);
     return;
   }
   struct timeval te;
 
   NSUInteger messageLength = [message length];
-  int maxLogSize = _clsContext.readonly->logging.logStorage.maxSize;
+  int maxLogSize = _firclsContext.readonly->logging.logStorage.maxSize;
 
   if (messageLength > maxLogSize) {
     FIRCLSWarningLog(
@@ -523,8 +515,8 @@ void FIRCLSLogInternal(NSString *message) {
 
   const uint64_t time = te.tv_sec * 1000LL + te.tv_usec / 1000;
 
-  FIRCLSUserLoggingWriteAndCheckABFiles(&_clsContext.readonly->logging.logStorage,
-                                        &_clsContext.writable->logging.activeUserLogPath,
+  FIRCLSUserLoggingWriteAndCheckABFiles(&_firclsContext.readonly->logging.logStorage,
+                                        &_firclsContext.writable->logging.activeUserLogPath,
                                         ^(FIRCLSFile *file) {
                                           FIRCLSLogInternalWrite(file, message, time);
                                         });

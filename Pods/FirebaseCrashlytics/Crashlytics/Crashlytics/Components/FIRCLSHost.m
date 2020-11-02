@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "FIRCLSHost.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSHost.h"
 
 #include <mach/mach.h>
 #include <sys/mount.h>
 #include <sys/sysctl.h>
 
-#import "FIRCLSApplication.h"
-#include "FIRCLSDefines.h"
-#import "FIRCLSFABHost.h"
-#include "FIRCLSFile.h"
-#include "FIRCLSGlobals.h"
-#include "FIRCLSUtility.h"
+#import "Crashlytics/Crashlytics/Components/FIRCLSApplication.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSGlobals.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSDefines.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSFile.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSUtility.h"
+#import "Crashlytics/Shared/FIRCLSFABHost.h"
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -49,13 +49,13 @@ static void FIRCLSHostWriteOSVersionInfo(FIRCLSFile* file);
 
 #pragma mark - API
 void FIRCLSHostInitialize(FIRCLSHostReadOnlyContext* roContext) {
-  _clsContext.readonly->host.pageSize = FIRCLSHostGetPageSize();
-  _clsContext.readonly->host.documentDirectoryPath = NULL;
+  _firclsContext.readonly->host.pageSize = FIRCLSHostGetPageSize();
+  _firclsContext.readonly->host.documentDirectoryPath = NULL;
 
   // determine where the document directory is mounted, so we can get file system statistics later
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   if ([paths count]) {
-    _clsContext.readonly->host.documentDirectoryPath =
+    _firclsContext.readonly->host.documentDirectoryPath =
         FIRCLSDupString([[paths objectAtIndex:0] fileSystemRepresentation]);
   }
 }
@@ -150,7 +150,7 @@ void FIRCLSHostWriteDiskUsage(FIRCLSFile* file) {
 
   FIRCLSFileWriteHashStart(file);
 
-  if (statfs(_clsContext.readonly->host.documentDirectoryPath, &tStats) == 0) {
+  if (statfs(_firclsContext.readonly->host.documentDirectoryPath, &tStats) == 0) {
     FIRCLSFileWriteHashEntryUint64(file, "free", tStats.f_bavail * tStats.f_bsize);
     FIRCLSFileWriteHashEntryUint64(file, "total", tStats.f_blocks * tStats.f_bsize);
   }

@@ -19,7 +19,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     
     lazy var titleLabel:UILabel = {
         let label = UILabel()
-        label.text = "TechTatva20'"
+        label.text = "TechTatva'20"
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textColor = UIColor(white: 1, alpha: 0.7)
@@ -109,7 +109,7 @@ class InstagramCollectionView: UICollectionViewCell,UICollectionViewDelegateFlow
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 16
     }
 //
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "FIRCLSContext.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSContext.h"
 
 __BEGIN_DECLS
 
-extern FIRCLSContext _clsContext;
-extern dispatch_queue_t _clsLoggingQueue;
-extern dispatch_queue_t _clsBinaryImageQueue;
-extern dispatch_queue_t _clsExceptionQueue;
+extern FIRCLSContext _firclsContext;
+extern dispatch_queue_t _firclsLoggingQueue;
+extern dispatch_queue_t _firclsBinaryImageQueue;
+extern dispatch_queue_t _firclsExceptionQueue;
 
-#define FIRCLSGetLoggingQueue() (_clsLoggingQueue)
-#define FIRCLSGetBinaryImageQueue() (_clsBinaryImageQueue)
-#define FIRCLSGetExceptionQueue() (_clsExceptionQueue)
+#define FIRCLSGetLoggingQueue() (_firclsLoggingQueue)
+#define FIRCLSGetBinaryImageQueue() (_firclsBinaryImageQueue)
+#define FIRCLSGetExceptionQueue() (_firclsExceptionQueue)
 
 __END_DECLS

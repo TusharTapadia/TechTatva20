@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import "FIRCLSByteUtility.h"
+#import "Crashlytics/Shared/FIRCLSByteUtility.h"
 
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
@@ -59,6 +59,10 @@ NSString *FIRCLSNSDataPrettyDescription(NSData *data) {
   length = data.length;
   size = (length * 2) + 1;
   buffer = malloc(sizeof(char) * size);
+
+  if (!buffer) {
+    return nil;
+  }
 
   FIRCLSSafeHexToString(data.bytes, length, buffer);
 

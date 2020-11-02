@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import "FIRCLSContext.h"
-#import "FIRCLSFile.h"
-#import "FIRCLSGlobals.h"
-#import "FIRCLSInternalReport.h"
-#import "FIRCLSReport_Private.h"
-#import "FIRCLSUserLogging.h"
+#import "Crashlytics/Crashlytics/Components/FIRCLSContext.h"
+#import "Crashlytics/Crashlytics/Components/FIRCLSGlobals.h"
+#import "Crashlytics/Crashlytics/Components/FIRCLSUserLogging.h"
+#import "Crashlytics/Crashlytics/Helpers/FIRCLSFile.h"
+#import "Crashlytics/Crashlytics/Models/FIRCLSInternalReport.h"
+#import "Crashlytics/Crashlytics/Models/FIRCLSReport_Private.h"
 
 @interface FIRCLSReport () {
   FIRCLSInternalReport *_internalReport;
@@ -66,11 +66,12 @@
   _userKVCounter = 0;
 
   _internalCompactedKVFile =
-      [self.internalReport pathForContentFile:CLSReportInternalCompactedKVFile];
+      [self.internalReport pathForContentFile:FIRCLSReportInternalCompactedKVFile];
   _internalIncrementalKVFile =
-      [self.internalReport pathForContentFile:CLSReportInternalIncrementalKVFile];
-  _userCompactedKVFile = [self.internalReport pathForContentFile:CLSReportUserCompactedKVFile];
-  _userIncrementalKVFile = [self.internalReport pathForContentFile:CLSReportUserIncrementalKVFile];
+      [self.internalReport pathForContentFile:FIRCLSReportInternalIncrementalKVFile];
+  _userCompactedKVFile = [self.internalReport pathForContentFile:FIRCLSReportUserCompactedKVFile];
+  _userIncrementalKVFile =
+      [self.internalReport pathForContentFile:FIRCLSReportUserIncrementalKVFile];
 
   _readOnly = shouldPrefetch;
 
@@ -98,8 +99,9 @@
 - (FIRCLSUserLoggingKVStorage)internalKVStorage {
   FIRCLSUserLoggingKVStorage storage;
 
-  storage.maxCount = _clsContext.readonly->logging.internalKVStorage.maxCount;
-  storage.maxIncrementalCount = _clsContext.readonly->logging.internalKVStorage.maxIncrementalCount;
+  storage.maxCount = _firclsContext.readonly->logging.internalKVStorage.maxCount;
+  storage.maxIncrementalCount =
+      _firclsContext.readonly->logging.internalKVStorage.maxIncrementalCount;
   storage.compactedPath = [_internalCompactedKVFile fileSystemRepresentation];
   storage.incrementalPath = [_internalIncrementalKVFile fileSystemRepresentation];
 
@@ -109,8 +111,8 @@
 - (FIRCLSUserLoggingKVStorage)userKVStorage {
   FIRCLSUserLoggingKVStorage storage;
 
-  storage.maxCount = _clsContext.readonly->logging.userKVStorage.maxCount;
-  storage.maxIncrementalCount = _clsContext.readonly->logging.userKVStorage.maxIncrementalCount;
+  storage.maxCount = _firclsContext.readonly->logging.userKVStorage.maxCount;
+  storage.maxIncrementalCount = _firclsContext.readonly->logging.userKVStorage.maxIncrementalCount;
   storage.compactedPath = [_userCompactedKVFile fileSystemRepresentation];
   storage.incrementalPath = [_userIncrementalKVFile fileSystemRepresentation];
 

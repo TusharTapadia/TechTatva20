@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include "FIRCLSFile.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSFile.h"
 
 __BEGIN_DECLS
 
@@ -72,8 +72,6 @@ typedef struct {
 
 void FIRCLSUserLoggingInit(FIRCLSUserLoggingReadOnlyContext* roContext,
                            FIRCLSUserLoggingWritableContext* rwContext);
-
-void CLSLogDisableUninitializedKitMessaging(void);
 
 #ifdef __OBJC__
 void FIRCLSUserLoggingRecordUserKeyValue(NSString* key, id value);
