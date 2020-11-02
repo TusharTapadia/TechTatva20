@@ -40,7 +40,8 @@ struct NetworkResponse <T: Decodable>: Decodable{
     let data: [T]?
 }
 
-let newsLetterURL = "http://newsletter-revels.herokuapp.com/pdf"
+let newsLetterURL = "https://app.themitpost.com/newsletter"
+    //"http://newsletter-revels.herokuapp.com/pdf"
 
 struct NewsLetterApiRespone: Decodable{
     let data: String?
