@@ -501,7 +501,7 @@ struct Networking {
                         errorCompletion(response.msg)
                     }
                 }catch let error{
-                    errorCompletion("decoder_error in join team")
+                    errorCompletion("decoder_error")
                     print(error)
                 }
             }

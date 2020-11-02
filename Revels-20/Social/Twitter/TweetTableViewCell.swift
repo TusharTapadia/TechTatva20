@@ -32,7 +32,7 @@ class TweetTableViewCell: UITableViewCell {
     lazy var usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "MITTechtatva"
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.numberOfLines = 1
         label.textAlignment = .left
         label.textColor = .white
@@ -119,37 +119,43 @@ class TweetTableViewCell: UITableViewCell {
     }
     
     func setupLayout(){
+        
+        self.backgroundColor = .clear
+        self.selectedBackgroundView = UIView()
+        
+        
         addSubview(tweetView)
         
-        _ = tweetView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: 16, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width-120 , heightConstant: 144)
+        addSubview(profileImageView)
+        _ = profileImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 16, bottomConstant: 0, rightConstant: 0)
         
-        tweetView.addSubview(profileImageView)
-        tweetView.addSubview(usernameLabel)
+        addSubview(usernameLabel)
+        _ = usernameLabel.anchor(top: topAnchor, left: profileImageView.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 13, leftConstant: 8, bottomConstant: 0, rightConstant: 8, heightConstant: 0)
         
-        _ = profileImageView.anchor(top: tweetView.topAnchor, left: tweetView.leftAnchor, bottom: nil, right: nil, topConstant: 6, leftConstant: 8, bottomConstant: 0, rightConstant: 0)
+        print("Framewidth:",frame.width-30)
         
-        
-        _ = usernameLabel.anchor(top: tweetView.topAnchor, left: profileImageView.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 10, leftConstant: 8, bottomConstant: 0, rightConstant: 8, heightConstant: 14)
-        
-        addSubview(tweetlabel)
-        
-        _ = tweetlabel.anchor(top: profileImageView.bottomAnchor, left: tweetView.leftAnchor, bottom: tweetView.bottomAnchor, right: tweetView.rightAnchor, topConstant: 2, leftConstant: 18, bottomConstant: -8, rightConstant: 8)
-        
-        let stackView = UIStackView(arrangedSubviews: [likesLabel,retweetLabel,commentsLabel])
+        let stackView = UIStackView(arrangedSubviews: [likesLabel,retweetLabel])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.backgroundColor = .black
         addSubview(stackView)
-        _ = stackView.anchor(top: topAnchor, left: nil, bottom: bottomAnchor, right: rightAnchor, topConstant: 16, leftConstant: 0, bottomConstant: 16, rightConstant: 8, widthConstant: 64, heightConstant: 0)
+        _ = stackView.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 8, widthConstant: 32, heightConstant: 64)
         
         
-        let logoStackView = UIStackView(arrangedSubviews: [likesImageView,retweetImageView,commentImageView])
+        let logoStackView = UIStackView(arrangedSubviews: [likesImageView,retweetImageView])
         logoStackView.axis = .vertical
         logoStackView.distribution = .fillEqually
         logoStackView.backgroundColor = .black
         
         addSubview(logoStackView)
-       _ = logoStackView.anchor(top: topAnchor, left: tweetView.rightAnchor, bottom: bottomAnchor, right: stackView.leftAnchor, topConstant: 16, leftConstant: 8, bottomConstant: 16, rightConstant: 2, widthConstant: 0, heightConstant: 0)
+       _ = logoStackView.anchor(top: topAnchor, left: nil, bottom: nil, right: stackView.leftAnchor, topConstant: 16, leftConstant: 0, bottomConstant: 0, rightConstant: 2, widthConstant: 32, heightConstant: 64)
+        
+        addSubview(tweetlabel)
+        _ = tweetlabel.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: logoStackView.leftAnchor, topConstant: 10, leftConstant: 18, bottomConstant: 20, rightConstant: 12, widthConstant: frame.width-130)
+        
+        
+        _ = tweetView.anchor(top: profileImageView.topAnchor, left: leftAnchor, bottom: tweetlabel.bottomAnchor, right: logoStackView.leftAnchor, topConstant: -8, leftConstant: 10, bottomConstant: -10, rightConstant: 4, widthConstant: 0, heightConstant: 0)
+        
     }
 
 }

@@ -43,9 +43,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let suffledQoutes = thoughts.shuffled()
         DispatchQueue.main.async(execute: {
             let alertController = UIAlertController(title: suffledQoutes[0], message: nil, preferredStyle: .actionSheet)
-            let developerOption = UIAlertAction(title: "👩🏻‍💻 App Developers 👨🏻‍💻", style: .default) { (_) in
-                self.showDeveloper()
-            }
             
             let sponsorOption = UIAlertAction(title: "💛 Give Review 🌟", style: .default) { (_) in
                 guard let writeReviewURL = URL(string: "https://itunes.apple.com/app/id1500173604?action=write-review")
@@ -58,8 +55,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             })
             
-            
-            alertController.addAction(developerOption)
             alertController.addAction(sponsorOption)
             alertController.addAction(okayAction)
             self.present(alertController, animated: true, completion: nil)
