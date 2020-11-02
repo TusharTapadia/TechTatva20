@@ -25,6 +25,9 @@ class TeamTableViewController: UITableViewController {
         }
     }
     
+    
+    var regEventViewCell: RegisteredEventTableViewCell?
+    
     var teamID: Int?
     var eventID: Int?
     var teamMemberDetails: TeamMemberDetails?{
@@ -61,6 +64,18 @@ class TeamTableViewController: UITableViewController {
         getCachedUserDetails()
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.regEventViewCell?.teamDetailsButton.hideLoading()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        self.regEventViewCell?.teamDetailsButton.hideLoading()
+    }
+    
+    
     func getCachedUserDetails(){
         self.user =  Caching.sharedInstance.getUserDetailsFromCache()
     }

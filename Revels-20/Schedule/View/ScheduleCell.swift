@@ -41,7 +41,7 @@ class ScheduleCell: UITableViewCell{
             formatter.dateFormat = "h:mm a"
 //            var dateString = formatter.string(from: startDate)
 //            dateString.append(" - \(formatter.string(from: endDate))")
-//            eventTimeLabel.text = dateString
+            eventTimeLabel.text = schedule.time
             eventVenueLabel.text = schedule.location
             eventNameLabel.text = schedule.eventName
         }

@@ -104,9 +104,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     fileprivate func getSchedule(){
         var schedule = [ScheduleDays]()
         Networking.sharedInstance.getScheduleData { (data) in
-           schedule = data
+            schedule = data
             Caching.sharedInstance.saveSchedulesToCache(schedule: data)
-            print(data)
+//            print(data)
         } errorCompletion: { (error) in
             print("Getting Schedule error in Appdelegate:",error)
         }

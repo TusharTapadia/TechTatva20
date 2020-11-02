@@ -280,7 +280,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate{
         stateField.clipsToBounds = true
         stateField.delegate = self
         stateField.tag = 5
-        stateField.attributedPlaceholder = NSAttributedString(string: "State Name", attributes: [
+        stateField.attributedPlaceholder = NSAttributedString(string: "Enter your home state", attributes: [
             .foregroundColor: UIColor.lightGray,
             .font: isSmalliPhone() ? UIFont.systemFont(ofSize: 15) : UIFont.systemFont(ofSize: 18)
             ])
