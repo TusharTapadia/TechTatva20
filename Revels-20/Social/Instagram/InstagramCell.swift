@@ -106,7 +106,7 @@ class InstagramCell: UICollectionViewCell {
 //        contentView.backgroundColor = UIColor(red: 255/255, green: 192/255, blue: 203/255, alpha: 0.6)
         contentView.backgroundColor = .black
         contentView.layer.borderColor = UIColor(white: 1, alpha: 1).cgColor
-        contentView.layer.borderWidth = 3
+        contentView.layer.borderWidth = 2
         
         contentView.layer.cornerRadius = 28
         addSubview(profilePhotoImageview)

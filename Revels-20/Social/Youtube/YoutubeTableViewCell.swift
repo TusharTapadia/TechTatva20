@@ -38,7 +38,7 @@ class YoutubeTableViewCell: UITableViewCell {
     
     lazy var backgroundCard : UIView = {
         let view = UIView()
-        view.layer.borderWidth = 1
+        view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.cornerRadius = 20
         return view

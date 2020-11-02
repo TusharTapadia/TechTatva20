@@ -185,6 +185,7 @@ class DetailContactCell: UICollectionViewCell, UITableViewDelegate, UITableViewD
     fileprivate func setupTableView(){
         tableView.backgroundColor = UIColor.CustomColors.Black.background
         tableView.register(PositionCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(NoResultsCell.self, forCellReuseIdentifier: "NoResultsCell")
         tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         tableView.allowsSelection = false
@@ -196,15 +197,63 @@ class DetailContactCell: UICollectionViewCell, UITableViewDelegate, UITableViewD
     // MARK: - TableView Functions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(results.count==0){
+            return 1
+        }else{
         return results.count
     }
-    
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (results.count == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NoResultsCell", for: indexPath) as! NoResultsCell
+            return cell
+        }else{
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PositionCell
         cell.teamIdLabel.text = results[indexPath.row]
         cell.positionLabel.text = "\(indexPath.row+1)"
         cell.medalImageView.image = UIImage(named: "medal_\(indexPath.row+1)")
         return cell
+        }
+    }
+    
+}
+
+class NoResultsCell: UITableViewCell{
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        if UIViewController().isSmalliPhone(){
+            label.font = UIFont.boldSystemFont(ofSize: 20)
+        }else{
+           label.font = UIFont.boldSystemFont(ofSize: 25)
+        }
+        
+        label.textColor = UIColor(white: 1, alpha: 0.3)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "The results have not been uploaded yet."
+        return label
+    }()
+    
+    // MARK: - Init
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupLayout()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    
+    // MARK: - Setup Functions
+    
+    func setupLayout(){
+        backgroundColor = .clear
+        
+        addSubview(titleLabel)
+        titleLabel.anchorWithConstants(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 100, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
     }
 }
 

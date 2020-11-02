@@ -105,7 +105,7 @@ class ResultsViewController: UICollectionViewController {
         collectionView.backgroundColor = UIColor.CustomColors.Black.background
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.register(ResultsCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        collectionView.register(NoResultsCell.self, forCellWithReuseIdentifier: "NoResultsCell")
+//        collectionView.register(NoResultsCell.self, forCellWithReuseIdentifier: "NoResultsCell")
         collectionView.isUserInteractionEnabled = true
         collectionView.isScrollEnabled = true
     }
