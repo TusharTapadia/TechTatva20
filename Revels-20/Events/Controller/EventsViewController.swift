@@ -130,9 +130,16 @@ class EventsViewController: UITableViewController {
         case 2:
             if let schedule = self.schedule{
                 textLabel = "Date"
-                formatter.dateFormat = "dd MMM yyyy"
-//                let startDate = Date(dateString: schedule.start)
-//                detailedTextLabel = formatter.string(from: startDate)
+
+                if(schedule.day==1){
+                    detailedTextLabel = "05 Nov 2020"
+                }else if(schedule.day==2){
+                    detailedTextLabel = "06 Nov 2020"
+                }else if(schedule.day==3){
+                    detailedTextLabel = "07 Nov 2020"
+                }else{
+                    detailedTextLabel = "08 Nov 2020"
+                }
             }else{
                 textLabel = "Delegate Card"
                 
@@ -152,7 +159,7 @@ class EventsViewController: UITableViewController {
             }
         case 3:
             if let schedule = self.schedule{
-//                textLabel = "Time"
+                textLabel = "Time"
 //                formatter.dateFormat = "h:mm a"
 //                var startDate = Date(dateString: schedule.start)
 //                startDate = Calendar.current.date(byAdding: .hour, value: -5, to: startDate)!
@@ -162,7 +169,7 @@ class EventsViewController: UITableViewController {
 //                endDate = Calendar.current.date(byAdding: .minute, value: -30, to: endDate)!
 //                var dateString = formatter.string(from: startDate)
 //                dateString.append(" - \(formatter.string(from: endDate))")
-//                detailedTextLabel = dateString
+                detailedTextLabel = schedule.time
                 imageName = "timer"
             }else{
                 textLabel = "Contact 1"
@@ -190,11 +197,7 @@ class EventsViewController: UITableViewController {
         case 5:
             if let _ = self.schedule{
                 textLabel = "Team Size"
-                //Make changes here
-//                if let tsize = event.teamSize {
-//                    print("Team size",tsize)
-//                    detailedTextLabel = tsize
-//                }
+                detailedTextLabel = "\(event.teamSize ?? "N/A")"
                 imageName = "group"
             }else{
                 textLabel = "Contact 2"
@@ -207,12 +210,6 @@ class EventsViewController: UITableViewController {
             break
         case 6:
             textLabel = "Delegate Card"
-            //Make changes here
-//            if let card = self.delegateDictionary[event.delCardType]{
-//                detailedTextLabel = "\(card.name)"
-//            }else{
-//               detailedTextLabel = "\(event.delCardType)"
-//            }
             if(event.category == "Gaming"){
                 detailedTextLabel = "Gaming"
             }
@@ -533,6 +530,10 @@ class EventsViewController: UITableViewController {
                 self.callNumber(number: number)
             }
             
+        case 6:
+            self.presentDelegateCardInfo(categoryName: event.category)
+            break
+            
         case 7:
             let category = categoriesDictionary[event.category]
             if let number = category?.cc?[0].phoneNo{
@@ -574,56 +575,10 @@ class EventsViewController: UITableViewController {
            self.present(alertController, animated: true, completion: nil)
        }
      
-    })
+            })
+    }
 }
-//
-    
-//    func buyDelegateCard(delegateCardID: Int){
-//        if UserDefaults.standard.isLoggedIn(){
-//            let popUp = SpinnerCardPopUp()
-//             UIApplication.shared.keyWindow?.addSubview(popUp)
-//             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                 popUp.animateOut()
-//             }
-//             self.dismiss(animated: true) {
-//                 self.scheduleController?.performPaymentFor(delegateCardID: delegateCardID)
-//                self.tagsEventController?.performPaymentFor(delegateCardID: delegateCardID)
-//                self.featuredEventController?.performPaymentFor(delegateCardID: delegateCardID)
-//             }
-//        }else{
-//            DispatchQueue.main.async(execute: {
-//                let alertController = UIAlertController(title: "Sign in to Register", message: "You need to be signed in to register for an event", preferredStyle: UIAlertController.Style.actionSheet)
-//                let logInAction = UIAlertAction(title: "Sign In", style: .default, handler: { (action) in
-//                    let login = LoginViewController()
-//                    let loginNav = MasterNavigationBarController(rootViewController: login)
-//                    if #available(iOS 13.0, *) {
-//                        loginNav.modalPresentationStyle = .fullScreen
-//                        loginNav.isModalInPresentation = true
-//                    } else {
-//                        // Fallback on earlier versions
-//                    }
-//                    fromLogin = true
-//                    self.present(loginNav, animated: true)
-//                })
-//                let createNewAccountAction = UIAlertAction(title: "Create New Account", style: .default, handler: { (action) in
-//                    let login = LoginViewController()
-//                    let loginNav = MasterNavigationBarController(rootViewController: login)
-//                    fromLogin = true
-//                    self.present(loginNav, animated: true, completion: {
-//                        login.handleRegister()
-//                    })
-//                })
-//                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//                alertController.addAction(logInAction)
-//                alertController.addAction(createNewAccountAction)
-//                alertController.addAction(cancelAction)
-//                self.present(alertController, animated: true, completion: nil)
-//            })
-//            return
-//        }
-//    }
-        
-}
+
 
 
 class EventCell: UITableViewCell{

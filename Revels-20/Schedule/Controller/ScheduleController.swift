@@ -69,7 +69,7 @@ class ScheduleController: UICollectionViewController, UICollectionViewDelegateFl
             self.navigationItem.title = category?.name
         }else if fromFavorite{
             self.navigationItem.title = "Favourites"
-            self.navigationController?.navigationBar.tintColor = UIColor.CustomColors.Skin.accent
+            self.navigationController?.navigationBar.tintColor = UIColor.CustomColors.Purple.accent
         }else{
             setupNavigationBar()
             setupFavouritesBarButton()
@@ -112,7 +112,7 @@ class ScheduleController: UICollectionViewController, UICollectionViewDelegateFl
             if favsDict.count > 0{
                 print(favsDict)
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "star_filled")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(toggleFavourites))//UIBarButtonItem(title: "Favourites", style: .plain, target: self, action: #selector(toggleFavourites))
-                self.navigationItem.rightBarButtonItem?.tintColor = UIColor.CustomColors.Skin.accent
+                self.navigationItem.rightBarButtonItem?.tintColor = UIColor.CustomColors.Purple.logoLightPink
                 return
             }
         }
@@ -201,7 +201,7 @@ class ScheduleController: UICollectionViewController, UICollectionViewDelegateFl
         case 1:
             if fromCategory{
                 cell.schedule = dayTwoSchedule.filter({ (scheduleItem) -> Bool in
-                    guard let eventId = Int(scheduleItem.eventID) else {return false}
+//                    guard let eventId = Int(scheduleItem.eventID) else {return false}
                     if let category = eventsDictionary[Int(scheduleItem.eventID)!]?.category{
                         if category == self.categoryID{
                             return true
@@ -426,6 +426,7 @@ class DayWiseScheduleCell: UICollectionViewCell, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if isEmpty{
             let cell = tableView.dequeueReusableCell(withIdentifier: noEventCellId, for: indexPath) as! NoEventCell
+            cell.contentView.isUserInteractionEnabled = false
             if fromFavourite ?? false{
                 cell.label.text = "No Favourite Events"
             }else{
@@ -434,6 +435,7 @@ class DayWiseScheduleCell: UICollectionViewCell, UITableViewDelegate, UITableVie
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ScheduleCell
+            cell.contentView.isUserInteractionEnabled = false
             cell.favourite = false
             if let selectedSchedule = self.schedule?[indexPath.row]{
                 cell.schedule = selectedSchedule
@@ -447,7 +449,8 @@ class DayWiseScheduleCell: UICollectionViewCell, UITableViewDelegate, UITableVie
             cell.delegate = self
             guard let fav = fromFavourite else { return cell}
             if fav{
-                cell.lineSeperator.backgroundColor = UIColor.CustomColors.Skin.accent
+                cell.lineSeperator.backgroundColor = UIColor.CustomColors.Purple.logoLightPink
+                
             }else{
                 cell.lineSeperator.backgroundColor = UIColor.CustomColors.Purple.accent
             }

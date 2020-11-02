@@ -88,9 +88,11 @@ struct Caching{
     }
     
     func saveSchedulesToCache(schedule: [ScheduleDays]){
-//        var scheduleDictionary : [String: Schedule] = [:]
+        var scheduleDictionary : [Int: Schedule] = [:]
 //        for sc in schedule{
-//            scheduleDictionary[sc.day1.] = sc
+//            for event in sc.day1{
+////            scheduleDictionary[sc.day1.] = sc
+//            }
 //        }
         do{
 //            try Disk.save(scheduleDictionary, to: .caches, as: scheduleDictCache)

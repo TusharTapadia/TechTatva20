@@ -21,8 +21,9 @@ struct ScheduleDays: Codable{
 struct Schedule: Codable{
     let eventName: String
     let eventID: String
+    let category: String
     let round: String
     let time: String
     let location: String
-    let category: String
+    let day:Int
 }

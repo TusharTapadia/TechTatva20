@@ -18,38 +18,38 @@
             endingLineNumber = "142"
             landmarkName = "getCategories()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "094777A9-4FE5-441F-B78C-879E69379D98"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Revels-20/Services/Networking.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "502"
-            endingLineNumber = "502"
-            landmarkName = "joinTeam(eventId:userID:category:partyCode:successCompletion:errorCompletion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A3B73E0A-CC85-4E02-AA67-76EB4604A341"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Revels-20/Services/Networking.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
-            landmarkName = "joinTeam(eventId:userID:category:partyCode:successCompletion:errorCompletion:)"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "43B66161-2088-41EE-A5F4-3EE9DA5D2024 - 4a4fbceb897a6f9f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Revels.CategoriesTableViewController.(getCategories in _5BDB269A300210DFA2D171F6739597CE)() -&gt; ()"
+                  moduleName = "Revels"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rohitkuber/Desktop/TechTatva20/Revels-20/Categories/Controller/CategoryTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "142"
+                  endingLineNumber = "142"
+                  offsetFromSymbolStart = "136">
+               </Location>
+               <Location
+                  uuid = "43B66161-2088-41EE-A5F4-3EE9DA5D2024 - 578e1ac500bbcca7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;Revels.Category&gt;) -&gt; () in Revels.CategoriesTableViewController.(getCategories in _5BDB269A300210DFA2D171F6739597CE)() -&gt; ()"
+                  moduleName = "Revels"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rohitkuber/Desktop/TechTatva20/Revels-20/Categories/Controller/CategoryTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "100">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

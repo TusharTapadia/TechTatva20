@@ -91,7 +91,7 @@ class CategoriesTableViewController: UITableViewController, DayTableViewCellProt
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CategoryTableViewCell
-        let category = categories?[indexPath.item]
+        let category = categories?[indexPath.row]
         cell.titleLabel.text = category?.name
         cell.descriptionLabel.text = category?.description
         return cell
@@ -99,23 +99,23 @@ class CategoriesTableViewController: UITableViewController, DayTableViewCellProt
     // Open details popup view
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showSchedule(category: indexPath.row)
+        if let categoryName = categories?[indexPath.row].name{
+            print(categoryName)
+        showSchedule(category: categoryName)
         tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
-    
     let slideInTransitioningDelegate = SlideInPresentationManager(from: UIViewController(), to: UIViewController())
     
-    func showSchedule(category : Int){
+    func showSchedule(category : String){
         AudioServicesPlaySystemSound(1519)
-//        let scheduleController = ScheduleController(collectionViewLayout: UICollectionViewFlowLayout())
-//        let categoryID = categories?[category].id
-//        scheduleController.categoryID = categoryID
-//        let category = self.categoriesDictionary[categoryID!]
-//        slideInTransitioningDelegate.categoryName = category?.name ?? ""
-//        scheduleController.fromCategory = true
-//        scheduleController.modalPresentationStyle = .custom
-//        scheduleController.transitioningDelegate = slideInTransitioningDelegate
-//        present(scheduleController, animated: true, completion: nil)
+        let scheduleController = ScheduleController(collectionViewLayout: UICollectionViewFlowLayout())
+        scheduleController.categoryID = category
+        slideInTransitioningDelegate.categoryName = category
+        scheduleController.fromCategory = true
+        scheduleController.modalPresentationStyle = .custom
+        scheduleController.transitioningDelegate = slideInTransitioningDelegate
+        present(scheduleController, animated: true, completion: nil)
     }
     
     //MARK: - Data Functions
@@ -138,17 +138,16 @@ class CategoriesTableViewController: UITableViewController, DayTableViewCellProt
     }
     
     fileprivate func getCategories() {
-//        var categoriesDictionary = [Int: Category]()
-//        Networking.sharedInstance.getCategories(dataCompletion: { (data) in
-//            for category in data {
-//                if category.type == "TECHNICAL"{
-//                    categoriesDictionary[category.id] = category
-//                }
-//            }
-//            self.saveCategoriesDictionaryToCache(categoriesDictionary: categoriesDictionary)
-//    }) { (errorMessage) in
-//            print(errorMessage)
-//        }
+        var categoriesDictionary = [String: Category]()
+        Networking.sharedInstance.getCategories(dataCompletion: { (data) in
+            for category in data {
+                    categoriesDictionary[category.name] = category
+                
+            }
+            self.saveCategoriesDictionaryToCache(categoriesDictionary: categoriesDictionary)
+    }) { (errorMessage) in
+            print(errorMessage)
+        }
     }
 
     
