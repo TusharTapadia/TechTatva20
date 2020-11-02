@@ -63,7 +63,7 @@ class StateTableViewController: UITableViewController {
                                "Sikkim",
                                "Tamil Nadu","Telangana","Tripura",
                                "Uttar Pradesh","Uttarakhand",
-                               "West Bengal"]
+                               "West Bengal","Others"]
     
     var utList:[String] =    ["Andaman and Nicobar",
                               "Chandigarh",

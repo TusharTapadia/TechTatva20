@@ -418,13 +418,13 @@ class EventsViewController: UITableViewController {
                 let categoryName = eventInfo.category
                 print("User id:",userID)
                 
-//                if partyCodeValue.count != 6{
-//            FloatingMessage().floatingMessage(Message: "Party code format is wrong", Color: .red, onPresentation: {
-//                self.joinTeam.hideLoading()
-//            }) {}
-//            return
-//        }
-//                
+                if partyCodeValue.count != 6{
+            FloatingMessage().floatingMessage(Message: "Party code format is wrong", Color: .red, onPresentation: {
+                self.joinTeam.hideLoading()
+            }) {}
+            return
+        }
+
                 
         Networking.sharedInstance.joinTeam(eventId: eventID, userID: userID, category: categoryName, partyCode: partyCodeValue, successCompletion: { (message) in
                     self.joinTeam.hideLoading()
