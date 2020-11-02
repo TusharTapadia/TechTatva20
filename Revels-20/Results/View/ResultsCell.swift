@@ -89,43 +89,43 @@ class ResultsCell: UICollectionViewCell{
     }
 }
 
-class NoResultsCell: UICollectionViewCell{
-    
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        if UIViewController().isSmalliPhone(){
-            label.font = UIFont.boldSystemFont(ofSize: 20       )
-        }else{
-           label.font = UIFont.boldSystemFont(ofSize: 25)
-        }
-        
-        label.textColor = UIColor(white: 1, alpha: 0.3)
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "The results have not been uploaded yet."
-        return label
-    }()
-    
-    
-    // MARK: - Init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupLayout()
-
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    
-    // MARK: - Setup Functions
-    
-    func setupLayout(){
-        backgroundColor = .clear
-        
-        addSubview(titleLabel)
-        titleLabel.anchorWithConstants(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 100, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
-    }
-}
+//class NoResultsCell: UICollectionViewCell{
+//    
+//    lazy var titleLabel: UILabel = {
+//        let label = UILabel()
+//        if UIViewController().isSmalliPhone(){
+//            label.font = UIFont.boldSystemFont(ofSize: 20       )
+//        }else{
+//           label.font = UIFont.boldSystemFont(ofSize: 25)
+//        }
+//        
+//        label.textColor = UIColor(white: 1, alpha: 0.3)
+//        label.numberOfLines = 0
+//        label.textAlignment = .center
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.text = "The results have not been uploaded yet."
+//        return label
+//    }()
+//    
+//    
+//    // MARK: - Init
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        setupLayout()
+//
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//
+//    
+//    // MARK: - Setup Functions
+//    
+//    func setupLayout(){
+//        backgroundColor = .clear
+//        
+//        addSubview(titleLabel)
+//        titleLabel.anchorWithConstants(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 100, leftConstant: 16, bottomConstant: 0, rightConstant: 16)
+//    }
+//}

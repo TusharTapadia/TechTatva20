@@ -377,7 +377,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.mainImageView.image = UIImage(named: "del")
             case 2:
                 cell.titleLabel.text = "Social"
-                cell.subTitleLabel.text = "We got you"
+                cell.subTitleLabel.text = "We've got you covered ;)"
                 cell.subSubTitleLabel.text = ""
                 cell.mainImageView.image = UIImage(named: "blog")
                 break
