@@ -45,7 +45,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let alertController = UIAlertController(title: suffledQoutes[0], message: nil, preferredStyle: .actionSheet)
             
             let sponsorOption = UIAlertAction(title: "💛 Give Review 🌟", style: .default) { (_) in
-                guard let writeReviewURL = URL(string: "https://itunes.apple.com/app/id1500173604?action=write-review")
+                guard let writeReviewURL = URL(string: "https://apps.apple.com/in/app/techtatva/id1538314787?action=write-review")
                     else { fatalError("Expected a valid URL") }
                 UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
 //                self.showSponsors()
