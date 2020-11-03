@@ -89,7 +89,7 @@ class DeveloperViewController: UICollectionViewController, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if UIViewController().isSmalliPhone(){
-            return CGSize(width: (view.frame.width/2)-24, height: 254)
+            return CGSize(width: (view.frame.width/2)-24, height: 294)
         }
         return CGSize(width: (view.frame.width/2)-24, height: 294)
     }

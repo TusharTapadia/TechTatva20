@@ -64,12 +64,12 @@ class YoutubeTableViewCell: UITableViewCell {
         
         
         addSubview(thumbnailImageView)
-        _ = thumbnailImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 16, bottomConstant: 0, rightConstant:0,widthConstant: frame.width, heightConstant: 224)
+        _ = thumbnailImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 16, bottomConstant: 0, rightConstant:0,widthConstant: frame.width-14, heightConstant: 224)
 
         addSubview(descriptionlabel)
         _ = descriptionlabel.anchor(top: thumbnailImageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 10, leftConstant: 8, bottomConstant: 20, rightConstant: 0 ,heightConstant: 0)
         
-        _ = backgroundCard.anchor(top: thumbnailImageView.topAnchor, left: leftAnchor, bottom: descriptionlabel.bottomAnchor, right: rightAnchor, topConstant: -10, leftConstant: 2, bottomConstant: -10, rightConstant: 2, widthConstant: 0, heightConstant: 0)
+        _ = backgroundCard.anchor(top: thumbnailImageView.topAnchor, left: leftAnchor, bottom: descriptionlabel.bottomAnchor, right: rightAnchor, topConstant: -10, leftConstant: 2, bottomConstant: -10, rightConstant: 5, widthConstant: 0, heightConstant: 0)
         
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
