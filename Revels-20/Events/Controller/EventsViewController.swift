@@ -17,6 +17,7 @@ class EventsViewController: UITableViewController {
     var tagsEventController: TagsEventsViewController?
 //    var featuredEventController: FeaturedEventsConroller?
     
+    var fromTags :Bool = false
     var event: Event! {
         didSet{
             tableView.reloadData()
@@ -516,19 +517,24 @@ class EventsViewController: UITableViewController {
         switch indexPath.row{
 
         case 2:
+            if(fromTags){
             self.presentDelegateCardInfo(categoryName: event.category)
+            }
             break
         case 3:
+            if (fromTags){
             let category = categoriesDictionary[event.category]
             if let number = category?.cc?[0].phoneNo{
                 self.callNumber(number: number)
             }
-            
+            }
         case 4:
+            if (fromTags){
             let category = categoriesDictionary[event.category]
             if let number = category?.cc?[1].phoneNo{
                 self.callNumber(number: number)
             }
+        }
             
         case 6:
             self.presentDelegateCardInfo(categoryName: event.category)

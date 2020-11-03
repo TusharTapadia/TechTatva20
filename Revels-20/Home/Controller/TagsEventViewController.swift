@@ -158,16 +158,13 @@ class TagsEventsViewController: UIViewController, TagsControllerDelegate, UITabl
         eventViewController.event = event
         eventViewController.schedule = nil
         eventViewController.tagsEventController = self
+        eventViewController.fromTags = true
         present(eventViewController, animated: true, completion: nil)
 //        print(event.eventID)
 //        print(event.name)
     }
     
-//    func performPaymentFor(delegateCardID: Int){
-//        let vc = PaymentsWebViewController()
-//        vc.delegateCardID = delegateCardID
-//        self.navigationController?.pushViewController(vc, animated: true)
-//    }
+
     
 }
 
