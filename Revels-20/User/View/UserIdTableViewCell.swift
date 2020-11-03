@@ -274,7 +274,7 @@ class UserIDTableViewCell: UITableViewCell {
         
         if UIViewController().isSmalliPhone(){
 
-            titleBackgroundText.font = UIFont.systemFont(ofSize: 72, weight: .bold)
+            titleBackgroundText.font = UIFont.systemFont(ofSize: 64, weight: .bold)
             addSubview(titleBackgroundText)
             _ = titleBackgroundText.anchor(top: safeAreaLayoutGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 64, leftConstant: -12, bottomConstant: 0, rightConstant: -12, widthConstant: 0, heightConstant: 0)
             
