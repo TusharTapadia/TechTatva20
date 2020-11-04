@@ -289,9 +289,11 @@ class EventsViewController: UITableViewController {
             label.font = UIFont.boldSystemFont(ofSize: 15)
             closedReg.font = UIFont.systemFont(ofSize: 12)
             createTeam.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+            joinTeam.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         }else{
             label.font = UIFont.boldSystemFont(ofSize: 18)
             createTeam.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+            joinTeam.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         }
         createTeam.layer.cornerRadius = 10
         createTeam.addTarget(self, action: #selector(registerTeamLeader), for: .touchUpInside)

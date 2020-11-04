@@ -41,7 +41,7 @@ class UserIDTableViewCell: UITableViewCell {
     lazy var titleBackgroundText: UILabel = {
            let label = UILabel()
            label.text = "VIDEOS"
-           label.font = UIFont.systemFont(ofSize: 72, weight: .bold)
+           label.font = UIFont.systemFont(ofSize: 68, weight: .bold)
            label.textColor = UIColor(white: 0.4, alpha: 0.3)
            label.textAlignment = .center
            return label

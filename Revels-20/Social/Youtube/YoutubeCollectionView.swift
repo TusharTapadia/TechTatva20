@@ -104,7 +104,7 @@ class YoutubeCollectionView: UICollectionViewCell,UITableViewDelegate,UITableVie
         let data = youData[indexPath.item]
         cell.backgroundColor = .black
         let dataVal = data.thumbnail.split(separator: "?")
-        cell.thumbnailImageView.sd_setImage(with: URL(string: String(dataVal[0])), placeholderImage: UIImage(named: "logo.png"))
+        cell.thumbnailImageView.sd_setImage(with: URL(string: String(dataVal[0])), placeholderImage: UIImage(named: "logobg1.png"))
         cell.descriptionlabel.text = data.title
         return cell
     }
